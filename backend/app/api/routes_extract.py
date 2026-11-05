@@ -117,6 +117,37 @@ async def extract_document(
 
 
 @router.get(
+    "/documents",
+    summary="List all processed documents for the review queue",
+)
+async def list_documents(
+    limit: int = 20,
+    offset: int = 0,
+    db: AsyncSession = Depends(get_db),
+):
+    """Retrieve list of documents with processing status and confidence for UI workspace."""
+    result = await db.execute(
+        select(DocumentRecord)
+        .order_by(DocumentRecord.created_at.desc())
+        .limit(limit)
+        .offset(offset)
+    )
+    docs = result.scalars().all()
+    return [
+        {
+            "id": d.id,
+            "filename": d.filename,
+            "document_type": d.document_type,
+            "overall_confidence": d.overall_confidence,
+            "math_valid": d.math_valid,
+            "status": d.status,
+            "created_at": d.created_at.isoformat() if d.created_at else None,
+        }
+        for d in docs
+    ]
+
+
+@router.get(
     "/documents/{document_id}",
     response_model=DocumentExtractionResponse,
     summary="Retrieve extracted document by ID",

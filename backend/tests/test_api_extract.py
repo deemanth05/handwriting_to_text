@@ -76,10 +76,27 @@ async def test_extract_valid_image_end_to_end(client: AsyncClient, sample_invoic
         assert get_resp.status_code == 200
         assert get_resp.json()["document_id"] == doc_id
 
+        # Test document list endpoint
+        list_resp = await client.get("/api/v1/documents")
+        assert list_resp.status_code == 200
+        assert len(list_resp.json()) >= 1
+
         # Test document image streaming endpoint
         img_resp = await client.get(f"/api/v1/documents/{doc_id}/image")
         assert img_resp.status_code == 200
         assert len(img_resp.content) > 0
+
+        # Test human verification endpoint (HITL)
+        verify_payload = {
+            "verified_fields": {"vendor_name": "SHREE GANESH GENERAL STORES"},
+            "verified_line_items": [
+                {"description": "Atta 5kg", "quantity": 2.0, "unit_price": 240.0, "line_total": 480.0}
+            ],
+            "verified_by": "qa-reviewer",
+        }
+        v_resp = await client.post(f"/api/v1/documents/{doc_id}/verify", json=verify_payload)
+        assert v_resp.status_code == 200
+        assert v_resp.json()["status"] == "VERIFIED"
 
     finally:
         ensemble_dispatcher.extractors = orig_extractors
