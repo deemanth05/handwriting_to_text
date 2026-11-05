@@ -1,0 +1,33 @@
+{
+  "document_type": "PRESCRIPTION",
+  "clinic_or_doctor_name": "DR. S. K. SHARMA, MD (Medicine)",
+  "patient_name": "Mrs. Ananya Deshmukh",
+  "document_date": "2026-10-28",
+  "line_items": [
+    {
+      "description": "Tab Paracetamol 650mg",
+      "quantity": 10.0,
+      "dosage": "1-0-1",
+      "duration": "5 days"
+    },
+    {
+      "description": "Cap Amoxicillin 500mg",
+      "quantity": 10.0,
+      "dosage": "1-0-1",
+      "duration": "5 days"
+    },
+    {
+      "description": "Tab Pantoprazole 40mg",
+      "quantity": 7.0,
+      "dosage": "1-0-0",
+      "duration": "7 days"
+    },
+    {
+      "description": "Syrup Ascoril LS",
+      "quantity": 1.0,
+      "dosage": "10ml TDS",
+      "duration": "5 days"
+    }
+  ],
+  "grand_total": 500.0
+}
