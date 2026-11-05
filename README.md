@@ -108,7 +108,24 @@ Check code quality with Ruff:
 ruff check backend/
 ```
 
-### 4. Start the Backend API
+### 4. Start the Frontend Review Studio
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+The split-screen studio will be available at **http://localhost:5173**.
+- **Zoomable/Pannable Document Canvas:** Pan, zoom, rotate, and toggle high-contrast CLAHE filters on the left sidecar.
+- **Interactive Multi-Model Inspector:** Inspect individual predictions from Model A (Frontier VLM), Model B (Qwen-VL), and Model C (Hybrid OCR) with 1-click adoption.
+- **Deterministic Row Math Audit:** Live verification indicator highlighting row calculation discrepancies (`abs(qty * price - total) <= 0.05`) with 1-click arithmetic auto-fix.
+- **HITL Verification:** Submits golden ground truth to the continuous evaluation engine via `POST /api/v1/documents/{id}/verify`.
+- **Benchmark Leaderboard:** View live accuracy, CER, and math discrepancy rates across models.
+
+---
+
+### 5. Start the Backend API
 
 ```powershell
 uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
