@@ -64,7 +64,10 @@ flowchart TD
    - Row-level rule: `abs((qty * unit_price) - line_total) <= 0.05`
    - Document-level rule: `abs((sum(line_totals) + tax - discount) - grand_total) <= 0.50`
    - Discrepancies automatically cap field confidence to `<= 0.45` and route to `NEEDS_REVIEW`.
-6. **Immutable Raw Output Preservation:** Verbatim raw model outputs are saved in the database before reconciliation for continuous evaluation and leaderboards.
+6. **Immutable Raw Output Preservation & Continuous Evaluation (Stage 5):**
+   - Verbatim raw model outputs are saved in `model_runs` before reconciliation.
+   - The Continuous Evaluator (`evaluator.py`) calculates Character Error Rate (CER), Exact Match accuracy (%), Expected Calibration Error (ECE), and field-level ablation diffs against human-verified golden ground truth.
+   - Interactive Leaderboard displaying model ablation cards, ECE reliability curves, and field diff modals.
 
 ---
 

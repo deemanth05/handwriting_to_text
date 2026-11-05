@@ -46,3 +46,45 @@ export interface DocumentListItem {
   status: string;
   created_at: string | null;
 }
+
+export interface ModelEvaluationMetric {
+  model_name: string;
+  exact_match_accuracy: number;
+  cer: number;
+  total_fields_evaluated: number;
+  correct_fields_count: number;
+  avg_latency_ms: number;
+  math_error_intercept_rate: number;
+}
+
+export interface ECEBucket {
+  confidence_bin: string;
+  avg_confidence: number;
+  accuracy: number;
+  sample_count: number;
+}
+
+export interface BenchmarkSummaryResponse {
+  total_documents_processed: number;
+  verified_ground_truths_count: number;
+  needs_review_count: number;
+  models: ModelEvaluationMetric[];
+  ensemble_accuracy_gain: number;
+  expected_calibration_error: number;
+  calibration_curve: ECEBucket[];
+}
+
+export interface FieldDiff {
+  field_name: string;
+  ground_truth_value: any;
+  ensemble_value: any;
+  ensemble_correct: boolean;
+  model_predictions: Record<string, { value: any; correct: boolean; cer: number }>;
+}
+
+export interface DocumentDiffResponse {
+  document_id: string;
+  field_diffs: FieldDiff[];
+  line_item_count: number;
+  per_model_accuracy: Record<string, number>;
+}

@@ -1,4 +1,10 @@
-import { DocumentExtractionResponse, DocumentListItem, DocumentType } from "../types/document";
+import {
+  BenchmarkSummaryResponse,
+  DocumentDiffResponse,
+  DocumentExtractionResponse,
+  DocumentListItem,
+  DocumentType,
+} from "../types/document";
 
 const API_BASE = "/api/v1";
 
@@ -69,5 +75,21 @@ export function getDocumentImageUrl(documentId: string): string {
 
 export async function checkFreeLLMHealth(): Promise<any> {
   const res = await fetch(`${API_BASE}/health/freellmapi`);
+  return res.json();
+}
+
+export async function getBenchmarkSummary(): Promise<BenchmarkSummaryResponse> {
+  const res = await fetch(`${API_BASE}/benchmarks/summary`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch benchmark summary");
+  }
+  return res.json();
+}
+
+export async function getDocumentDiff(documentId: string): Promise<DocumentDiffResponse> {
+  const res = await fetch(`${API_BASE}/benchmarks/documents/${documentId}/diff`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch diff for document ${documentId}`);
+  }
   return res.json();
 }

@@ -1,7 +1,9 @@
 """HITL (Human-in-the-Loop) Review & Verification Routes."""
-from datetime import datetime, timezone
+
 import json
-from typing import Any, Dict, Optional
+from datetime import UTC, datetime
+from typing import Any
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
 from sqlalchemy import select
@@ -15,9 +17,14 @@ router = APIRouter(prefix="/documents", tags=["HITL Review & Verification"])
 
 class VerificationPayload(BaseModel):
     """Payload submitted by a human reviewer in the Split-Screen Review Studio."""
-    verified_fields: Dict[str, Any] = Field(..., description="Human-corrected scalar fields")
-    verified_line_items: list[Dict[str, Any]] = Field(default_factory=list, description="Human-corrected line items")
-    verified_by: Optional[str] = Field(default="human-reviewer", description="Identifier of the reviewer")
+
+    verified_fields: dict[str, Any] = Field(..., description="Human-corrected scalar fields")
+    verified_line_items: list[dict[str, Any]] = Field(
+        default_factory=list, description="Human-corrected line items"
+    )
+    verified_by: str | None = Field(
+        default="human-reviewer", description="Identifier of the reviewer"
+    )
 
 
 @router.post(
@@ -33,9 +40,7 @@ async def verify_document(
     """Saves human edits as golden ground truth in ground_truth_records.
     Transitions document status to 'VERIFIED'.
     """
-    doc_res = await db.execute(
-        select(DocumentRecord).where(DocumentRecord.id == document_id)
-    )
+    doc_res = await db.execute(select(DocumentRecord).where(DocumentRecord.id == document_id))
     doc = doc_res.scalars().first()
     if not doc:
         raise HTTPException(
@@ -54,7 +59,7 @@ async def verify_document(
         "line_items": payload.verified_line_items,
     }
     gt_json = json.dumps(ground_truth_data)
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
 
     if gt_record:
         gt_record.ground_truth_json = gt_json

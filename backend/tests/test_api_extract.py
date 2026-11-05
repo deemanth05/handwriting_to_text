@@ -90,7 +90,12 @@ async def test_extract_valid_image_end_to_end(client: AsyncClient, sample_invoic
         verify_payload = {
             "verified_fields": {"vendor_name": "SHREE GANESH GENERAL STORES"},
             "verified_line_items": [
-                {"description": "Atta 5kg", "quantity": 2.0, "unit_price": 240.0, "line_total": 480.0}
+                {
+                    "description": "Atta 5kg",
+                    "quantity": 2.0,
+                    "unit_price": 240.0,
+                    "line_total": 480.0,
+                }
             ],
             "verified_by": "qa-reviewer",
         }
