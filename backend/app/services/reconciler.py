@@ -357,17 +357,11 @@ class ConsensusReconciler:
             if row_math_valid:
                 rec_total.confidence = 0.95
                 rec_total.needs_review = False
+                needs_review = False
             else:
                 rec_total.confidence = min(rec_total.confidence, 0.45)
                 rec_total.needs_review = True
-
-            needs_review = (
-                not row_math_valid
-                or rec_desc.needs_review
-                or rec_qty.needs_review
-                or rec_price.needs_review
-                or rec_total.needs_review
-            )
+                needs_review = True
 
             reconciled_items.append(
                 LineItem(
@@ -627,13 +621,15 @@ class ConsensusReconciler:
                     )
                     reconciled_fields["subtotal"].needs_review = True
 
-        # Overall Confidence
-        all_confidences = [f.confidence for f in reconciled_fields.values()]
+        # Overall Confidence: average over detected fields and table items
+        all_confidences = [f.confidence for f in reconciled_fields.values() if f.value is not None]
         for item in reconciled_line_items:
-            all_confidences.append(item.description.confidence)
+            if item.description.value:
+                all_confidences.append(item.description.confidence)
             all_confidences.append(item.line_total.confidence)
         for l_item in reconciled_ledger_items:
-            all_confidences.append(l_item.particulars.confidence)
+            if l_item.particulars.value:
+                all_confidences.append(l_item.particulars.confidence)
             all_confidences.append(l_item.running_balance.confidence)
 
         if all_confidences:

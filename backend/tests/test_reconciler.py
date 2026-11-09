@@ -1,6 +1,6 @@
 """Tests for Consensus Reconciler, Hungarian Alignment, and Confidence Scoring."""
 
-from backend.app.schemas.document import DocumentType
+from backend.app.schemas.document import DocumentExtractionResponse, DocumentType
 from backend.app.services.models.base import RawModelOutput
 from backend.app.services.reconciler import reconciler
 
@@ -351,4 +351,44 @@ def test_single_model_confidence_and_processed_status():
     # Valid math yields PROCESSED status
     assert res.math_validation.is_valid is True
     assert res.status == "PROCESSED"
+
+
+def test_invoice_with_none_fields_retains_processed_status():
+    """Verify invoice with missing optional fields (None) does not crash confidence or flip to NEEDS_REVIEW."""
+    runs = [
+        RawModelOutput(
+            model_name="rapidocr_local",
+            model_identifier="rapidocr-onnx",
+            raw_text="",
+            parsed_json={
+                "vendor_name": "Quorum Club LLP",
+                "invoice_date": None,
+                "invoice_number": None,
+                "subtotal": None,
+                "tax_amount": None,
+                "discount_amount": None,
+                "grand_total": None,
+                "line_items": [
+                    {
+                        "description": "Service Charge",
+                        "quantity": 1.0,
+                        "unit_price": 595.0,
+                        "line_total": 595.0,
+                    }
+                ],
+            },
+        )
+    ]
+    res = reconciler.reconcile(
+        document_id="doc-none-fields",
+        document_type=DocumentType.INVOICE,
+        successful_runs=runs,
+    )
+    assert res.overall_confidence >= 0.85
+    assert res.status == "PROCESSED"
+
+    # Simulate FastAPI response serialization
+    serialized = DocumentExtractionResponse.model_validate(res)
+    assert serialized.status == "PROCESSED"
+
 

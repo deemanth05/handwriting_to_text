@@ -23,7 +23,8 @@ function Kill-PortProcesses([int]$port) {
         if ($conns) {
             $pids = $conns.OwningProcess | Where-Object { $_ -gt 0 } | Select-Object -Unique
             foreach ($p in $pids) {
-                Write-Host "  -> Terminating process PID $p on port $port..." -ForegroundColor Yellow
+                Write-Host "  -> Terminating process tree for PID $p on port $port..." -ForegroundColor Yellow
+                cmd.exe /c "taskkill /PID $p /T /F" 2>$null
                 Stop-Process -Id $p -Force -ErrorAction SilentlyContinue
             }
         }
@@ -35,7 +36,8 @@ function Kill-PortProcesses([int]$port) {
             if ($tokens.Count -ge 5) {
                 $pidVal = $tokens[-1]
                 if ($pidVal -match '^\d+$' -and [int]$pidVal -gt 0) {
-                    Write-Host "  -> Terminating PID $pidVal on port $port..." -ForegroundColor Yellow
+                    Write-Host "  -> Terminating process tree for PID $pidVal on port $port..." -ForegroundColor Yellow
+                    cmd.exe /c "taskkill /PID $pidVal /T /F" 2>$null
                     Stop-Process -Id [int]$pidVal -Force -ErrorAction SilentlyContinue
                 }
             }
@@ -45,6 +47,14 @@ function Kill-PortProcesses([int]$port) {
 
 Kill-PortProcesses 8000
 Kill-PortProcesses 5173
+
+# Terminate any orphaned python multiprocessing worker processes
+Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object {
+    $_.CommandLine -like "*multiprocessing.spawn*" -and ($_.CommandLine -like "*enterprise_writting_to_text*" -or $_.CommandLine -like "*PythonSoftwareFoundation*")
+} | ForEach-Object {
+    Write-Host "  -> Terminating orphaned multiprocessing child PID $($_.ProcessId)..." -ForegroundColor Yellow
+    cmd.exe /c "taskkill /PID $($_.ProcessId) /F" 2>$null
+}
 
 # Give OS 1 second to release sockets
 Start-Sleep -Seconds 1

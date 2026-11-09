@@ -94,3 +94,24 @@ def test_rapidocr_invoice_3_number_permutation_math():
     assert items[0]["quantity"] == 3.0
     assert items[0]["unit_price"] == 150.0
     assert items[0]["line_total"] == 450.0
+
+
+def test_rapidocr_invoice_3_number_fallback():
+    """Verify 3-number rows preserve numbers[-3] as quantity when math doesn't match directly."""
+    extractor = RapidOCRLocalExtractor()
+    # Row with Qty (5), Rate (18.00), Total (65.00) where 8 is confused with 3
+    rows = [
+        [
+            {"text": "Premium Notebooks", "x_min": 50, "x_max": 200, "y": 100, "score": 0.95},
+            {"text": "5", "x_min": 250, "x_max": 270, "y": 100, "score": 0.95},
+            {"text": "18.00", "x_min": 300, "x_max": 350, "y": 100, "score": 0.95},
+            {"text": "65.00", "x_min": 400, "x_max": 460, "y": 100, "score": 0.95},
+        ]
+    ]
+    parsed = extractor._parse_invoice(rows, ["Header line", "Item line"])
+    items = parsed.get("line_items", [])
+    assert len(items) == 1
+    assert items[0]["quantity"] == 5.0
+    assert items[0]["unit_price"] == 18.0
+    assert items[0]["line_total"] == 65.0
+

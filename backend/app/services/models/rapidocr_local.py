@@ -317,7 +317,11 @@ class RapidOCRLocalExtractor(BaseVisionExtractor):
                             break
 
                 if not assigned:
-                    if len(numbers) >= 2:
+                    if len(numbers) >= 3:
+                        qty = numbers[-3]
+                        unit_p = numbers[-2]
+                        tot = numbers[-1]
+                    elif len(numbers) == 2:
                         unit_p = numbers[-2]
                         tot = numbers[-1]
                         qty = round(tot / unit_p, 2) if unit_p > 0 else 1.0

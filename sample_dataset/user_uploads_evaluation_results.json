@@ -1,0 +1,6480 @@
+[
+  {
+    "id": "DOC-01",
+    "name": "Ad4tech Material LLC (Printed Invoice)",
+    "file": "media_1794244985703_3268abed.jpg",
+    "status_code": 200,
+    "duration_ms": 3820.819400003529,
+    "models": [
+      "rapidocr_local"
+    ],
+    "items_count": 6,
+    "math_valid": true,
+    "overall_conf": 0.64,
+    "vendor_extracted": "INVOICE",
+    "total_extracted": null,
+    "line_items": [
+      {
+        "row_id": 1,
+        "description": {
+          "value": "Alexander road Logo",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Alexander road Logo"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 576832.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 576832.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 576832.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 576832.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 2,
+        "description": {
+          "value": "Desktopfurniture",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Desktopfurniture"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 232.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 232.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 232.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 232.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 3,
+        "description": {
+          "value": "2Plumbing and electrical services",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "2Plumbing and electrical services"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 2.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 2.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 514.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 514.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 1028.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1028.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 4,
+        "description": {
+          "value": "3Watertankrepair works",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "3Watertankrepair works"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 2.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 2.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 152.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 152.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 304.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 304.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 5,
+        "description": {
+          "value": "John Doe Pay Cheque to Total",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "John Doe Pay Cheque to Total"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 1564.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1564.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 1564.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1564.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 6,
+        "description": {
+          "value": "Paid (Jun 22, 2021)",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Paid (Jun 22, 2021)"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 0.17,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 0.17
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 1332.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1332.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 232.0,
+          "confidence": 0.45,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 232.0
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "row_math_valid": false,
+        "needs_review": true
+      }
+    ],
+    "raw_response": {
+      "document_id": "155de13c-e836-414d-a507-5b3f34d673d1",
+      "document_type": "INVOICE",
+      "overall_confidence": 0.64,
+      "status": "NEEDS_REVIEW",
+      "math_validation": {
+        "is_valid": true,
+        "discrepancy_amount": 0.0,
+        "error_details": []
+      },
+      "fields": {
+        "discount_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "grand_total": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_date": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_number": {
+          "value": "Ad4techMaterialLLC",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Ad4techMaterialLLC"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "subtotal": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "tax_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "vendor_name": {
+          "value": "INVOICE",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "INVOICE"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        }
+      },
+      "line_items": [
+        {
+          "row_id": 1,
+          "description": {
+            "value": "Alexander road Logo",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Alexander road Logo"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 576832.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 576832.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 576832.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 576832.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 2,
+          "description": {
+            "value": "Desktopfurniture",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Desktopfurniture"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 232.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 232.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 232.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 232.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 3,
+          "description": {
+            "value": "2Plumbing and electrical services",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "2Plumbing and electrical services"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 2.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 2.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 514.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 514.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 1028.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1028.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 4,
+          "description": {
+            "value": "3Watertankrepair works",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "3Watertankrepair works"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 2.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 2.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 152.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 152.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 304.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 304.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 5,
+          "description": {
+            "value": "John Doe Pay Cheque to Total",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "John Doe Pay Cheque to Total"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 1564.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1564.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 1564.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1564.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 6,
+          "description": {
+            "value": "Paid (Jun 22, 2021)",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Paid (Jun 22, 2021)"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 0.17,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 0.17
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 1332.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1332.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 232.0,
+            "confidence": 0.45,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 232.0
+            },
+            "needs_review": true,
+            "bounding_box": null
+          },
+          "row_math_valid": false,
+          "needs_review": true
+        }
+      ],
+      "ledger_items": [],
+      "processing_time_ms": 3687.65,
+      "models_participated": [
+        "rapidocr_local"
+      ],
+      "error_summary": null
+    }
+  },
+  {
+    "id": "DOC-02",
+    "name": "East Repair Inc. (Printed Invoice)",
+    "file": "media_1794244994171_8c301ab5.jpg",
+    "status_code": 200,
+    "duration_ms": 4138.387099999818,
+    "models": [
+      "rapidocr_local"
+    ],
+    "items_count": 5,
+    "math_valid": true,
+    "overall_conf": 0.69,
+    "vendor_extracted": "invoice",
+    "total_extracted": null,
+    "line_items": [
+      {
+        "row_id": 1,
+        "description": {
+          "value": "Frontand rearbrakecables",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Frontand rearbrakecables"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 100.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 100.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 100.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 100.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 2,
+        "description": {
+          "value": "Newsetof pedalarms",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Newsetof pedalarms"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 2.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 2.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 15.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 15.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 30.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 30.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 3,
+        "description": {
+          "value": "Labor 3hrs",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Labor 3hrs"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 3.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 3.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 5.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 5.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 15.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 15.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 4,
+        "description": {
+          "value": "Sales Tax 6.25%",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Sales Tax 6.25%"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 9.06,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 9.06
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 9.06,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 9.06
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 5,
+        "description": {
+          "value": "TOTAL",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "TOTAL"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 154.06,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 154.06
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 154.06,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 154.06
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      }
+    ],
+    "raw_response": {
+      "document_id": "200e1d0b-9db4-4977-9717-83313a929060",
+      "document_type": "INVOICE",
+      "overall_confidence": 0.69,
+      "status": "NEEDS_REVIEW",
+      "math_validation": {
+        "is_valid": true,
+        "discrepancy_amount": 0.0,
+        "error_details": []
+      },
+      "fields": {
+        "discount_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "grand_total": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_date": {
+          "value": "2019-02-11",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "11/02/2019"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "invoice_number": {
+          "value": "LOGO",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "LOGO"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "subtotal": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "tax_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "vendor_name": {
+          "value": "invoice",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "invoice"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        }
+      },
+      "line_items": [
+        {
+          "row_id": 1,
+          "description": {
+            "value": "Frontand rearbrakecables",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Frontand rearbrakecables"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 100.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 100.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 100.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 100.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 2,
+          "description": {
+            "value": "Newsetof pedalarms",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Newsetof pedalarms"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 2.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 2.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 15.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 15.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 30.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 30.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 3,
+          "description": {
+            "value": "Labor 3hrs",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Labor 3hrs"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 3.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 3.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 5.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 5.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 15.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 15.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 4,
+          "description": {
+            "value": "Sales Tax 6.25%",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Sales Tax 6.25%"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 9.06,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 9.06
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 9.06,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 9.06
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 5,
+          "description": {
+            "value": "TOTAL",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "TOTAL"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 154.06,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 154.06
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 154.06,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 154.06
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        }
+      ],
+      "ledger_items": [],
+      "processing_time_ms": 4047.25,
+      "models_participated": [
+        "rapidocr_local"
+      ],
+      "error_summary": null
+    }
+  },
+  {
+    "id": "DOC-03",
+    "name": "Invoice Bill Format (Handwritten Notes/Template)",
+    "file": "media_1794245006288_6e6ac99b.jpg",
+    "status_code": 200,
+    "duration_ms": 4391.415399994003,
+    "models": [
+      "rapidocr_local"
+    ],
+    "items_count": 0,
+    "math_valid": true,
+    "overall_conf": 0.25,
+    "vendor_extracted": "Dte:10/05/2026",
+    "total_extracted": null,
+    "line_items": [],
+    "raw_response": {
+      "document_id": "e17b6f36-7289-424d-8f8c-c1c9c3c6c724",
+      "document_type": "INVOICE",
+      "overall_confidence": 0.25,
+      "status": "NEEDS_REVIEW",
+      "math_validation": {
+        "is_valid": true,
+        "discrepancy_amount": 0.0,
+        "error_details": []
+      },
+      "fields": {
+        "discount_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "grand_total": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_date": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_number": {
+          "value": "BILL",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "BILL"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "subtotal": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "tax_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "vendor_name": {
+          "value": "Dte:10/05/2026",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Dte:10/05/2026"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        }
+      },
+      "line_items": [],
+      "ledger_items": [],
+      "processing_time_ms": 4323.66,
+      "models_participated": [
+        "rapidocr_local"
+      ],
+      "error_summary": null
+    }
+  },
+  {
+    "id": "DOC-04",
+    "name": "ABC Corporation (Printed Digital Invoice)",
+    "file": "media_1794245016460_61e23b9f.jpg",
+    "status_code": 200,
+    "duration_ms": 4867.459200002486,
+    "models": [
+      "rapidocr_local"
+    ],
+    "items_count": 3,
+    "math_valid": true,
+    "overall_conf": 0.56,
+    "vendor_extracted": "Invoice",
+    "total_extracted": null,
+    "line_items": [
+      {
+        "row_id": 1,
+        "description": {
+          "value": "Ofice Chair Ergonomicofficechairwithadjustableheightandlumbar",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Ofice Chair Ergonomicofficechairwithadjustableheightandlumbar"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 150.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 150.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 10.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 10.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 1500.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1500.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 2,
+        "description": {
+          "value": "Desk Lamp LEDdesklampwithadjustablebrightness",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Desk Lamp LEDdesklampwithadjustablebrightness"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 500.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 500.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 500.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 500.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 3,
+        "description": {
+          "value": "Total Amount Due",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Total Amount Due"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 2000.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 2000.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 2000.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 2000.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      }
+    ],
+    "raw_response": {
+      "document_id": "004eb753-cef0-416b-a373-b04edf074698",
+      "document_type": "INVOICE",
+      "overall_confidence": 0.56,
+      "status": "NEEDS_REVIEW",
+      "math_validation": {
+        "is_valid": true,
+        "discrepancy_amount": 0.0,
+        "error_details": []
+      },
+      "fields": {
+        "discount_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "grand_total": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_date": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_number": {
+          "value": "InvoiceNumber",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "InvoiceNumber"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "subtotal": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "tax_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "vendor_name": {
+          "value": "Invoice",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Invoice"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        }
+      },
+      "line_items": [
+        {
+          "row_id": 1,
+          "description": {
+            "value": "Ofice Chair Ergonomicofficechairwithadjustableheightandlumbar",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Ofice Chair Ergonomicofficechairwithadjustableheightandlumbar"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 150.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 150.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 10.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 10.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 1500.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1500.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 2,
+          "description": {
+            "value": "Desk Lamp LEDdesklampwithadjustablebrightness",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Desk Lamp LEDdesklampwithadjustablebrightness"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 500.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 500.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 500.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 500.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 3,
+          "description": {
+            "value": "Total Amount Due",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Total Amount Due"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 2000.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 2000.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 2000.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 2000.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        }
+      ],
+      "ledger_items": [],
+      "processing_time_ms": 4787.88,
+      "models_participated": [
+        "rapidocr_local"
+      ],
+      "error_summary": null
+    }
+  },
+  {
+    "id": "DOC-05",
+    "name": "ABC Seller / XYZ Buyer (Tax Invoice)",
+    "file": "media_1794245032214_2b50d6bf.jpg",
+    "status_code": 200,
+    "duration_ms": 4121.318599994993,
+    "models": [
+      "rapidocr_local"
+    ],
+    "items_count": 10,
+    "math_valid": true,
+    "overall_conf": 0.74,
+    "vendor_extracted": "Your Logo",
+    "total_extracted": null,
+    "line_items": [
+      {
+        "row_id": 1,
+        "description": {
+          "value": "Services,Products&GoodsDomestic",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Services,Products&GoodsDomestic"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 1500.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1500.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 1500.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1500.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 2,
+        "description": {
+          "value": "Services,ProductsGoodsDomestic",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Services,ProductsGoodsDomestic"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 1300.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1300.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 1300.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1300.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 3,
+        "description": {
+          "value": "Services,Products&Goods|Domestic",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Services,Products&Goods|Domestic"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 700.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 700.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 700.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 700.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 4,
+        "description": {
+          "value": "Services,Products &Goods|Export",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Services,Products &Goods|Export"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 8000.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 8000.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 8000.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 8000.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 5,
+        "description": {
+          "value": "ViceGoods;Liquor,Tobacco",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "ViceGoods;Liquor,Tobacco"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 5000.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 5000.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 5000.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 5000.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 6,
+        "description": {
+          "value": "LuxuryGoods;Gold, Jewellery",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "LuxuryGoods;Gold, Jewellery"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 30000.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 30000.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 30000.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 30000.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 7,
+        "description": {
+          "value": "GST(5%)",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "GST(5%)"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 75.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 75.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 75.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 75.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 8,
+        "description": {
+          "value": "GST(12%)",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "GST(12%)"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 156.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 156.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 156.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 156.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 9,
+        "description": {
+          "value": "GST(18%)",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "GST(18%)"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 126.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 126.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 126.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 126.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 10,
+        "description": {
+          "value": "GST(28%)",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "GST(28%)"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 1400.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1400.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 1400.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1400.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      }
+    ],
+    "raw_response": {
+      "document_id": "177b4ad8-4418-4753-ac94-e040ac9ba277",
+      "document_type": "INVOICE",
+      "overall_confidence": 0.74,
+      "status": "NEEDS_REVIEW",
+      "math_validation": {
+        "is_valid": true,
+        "discrepancy_amount": 0.0,
+        "error_details": []
+      },
+      "fields": {
+        "discount_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "grand_total": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_date": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_number": {
+          "value": "No",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "No"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "subtotal": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "tax_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "vendor_name": {
+          "value": "Your Logo",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Your Logo"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        }
+      },
+      "line_items": [
+        {
+          "row_id": 1,
+          "description": {
+            "value": "Services,Products&GoodsDomestic",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Services,Products&GoodsDomestic"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 1500.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1500.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 1500.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1500.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 2,
+          "description": {
+            "value": "Services,ProductsGoodsDomestic",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Services,ProductsGoodsDomestic"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 1300.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1300.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 1300.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1300.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 3,
+          "description": {
+            "value": "Services,Products&Goods|Domestic",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Services,Products&Goods|Domestic"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 700.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 700.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 700.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 700.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 4,
+          "description": {
+            "value": "Services,Products &Goods|Export",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Services,Products &Goods|Export"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 8000.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 8000.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 8000.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 8000.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 5,
+          "description": {
+            "value": "ViceGoods;Liquor,Tobacco",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "ViceGoods;Liquor,Tobacco"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 5000.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 5000.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 5000.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 5000.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 6,
+          "description": {
+            "value": "LuxuryGoods;Gold, Jewellery",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "LuxuryGoods;Gold, Jewellery"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 30000.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 30000.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 30000.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 30000.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 7,
+          "description": {
+            "value": "GST(5%)",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "GST(5%)"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 75.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 75.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 75.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 75.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 8,
+          "description": {
+            "value": "GST(12%)",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "GST(12%)"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 156.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 156.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 156.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 156.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 9,
+          "description": {
+            "value": "GST(18%)",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "GST(18%)"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 126.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 126.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 126.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 126.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 10,
+          "description": {
+            "value": "GST(28%)",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "GST(28%)"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 1400.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1400.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 1400.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1400.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        }
+      ],
+      "ledger_items": [],
+      "processing_time_ms": 4050.59,
+      "models_participated": [
+        "rapidocr_local"
+      ],
+      "error_summary": null
+    }
+  },
+  {
+    "id": "DOC-06",
+    "name": "Hillside Joinery Ltd (Handwritten Invoice)",
+    "file": "media_1794245084506_026bb723.jpg",
+    "status_code": 200,
+    "duration_ms": 3842.797300007078,
+    "models": [
+      "rapidocr_local"
+    ],
+    "items_count": 5,
+    "math_valid": true,
+    "overall_conf": 0.69,
+    "vendor_extracted": "HILLSIDE JOINERY LTD",
+    "total_extracted": null,
+    "line_items": [
+      {
+        "row_id": 1,
+        "description": {
+          "value": "Hang 2 interal doors",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Hang 2 interal doors"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 180.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 180.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 180.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 180.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 2,
+        "description": {
+          "value": "Architrave + fiting",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Architrave + fiting"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 95.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 95.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 95.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 95.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 3,
+        "description": {
+          "value": "Materials",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Materials"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 64.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 64.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 64.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 64.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 4,
+        "description": {
+          "value": "VAT20%",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "VAT20%"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 67.8,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 67.8
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 67.8,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 67.8
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 5,
+        "description": {
+          "value": "Bank Details: SortCode:60-12-34",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Bank Details: SortCode:60-12-34"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 890.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 890.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 890.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 890.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      }
+    ],
+    "raw_response": {
+      "document_id": "5bba5f03-6056-45a8-b8e2-88ec4bf50782",
+      "document_type": "INVOICE",
+      "overall_confidence": 0.69,
+      "status": "NEEDS_REVIEW",
+      "math_validation": {
+        "is_valid": true,
+        "discrepancy_amount": 0.0,
+        "error_details": []
+      },
+      "fields": {
+        "discount_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "grand_total": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_date": {
+          "value": "2026-03-14",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "14/03/26"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "invoice_number": {
+          "value": "Quality",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Quality"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "subtotal": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "tax_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "vendor_name": {
+          "value": "HILLSIDE JOINERY LTD",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "HILLSIDE JOINERY LTD"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        }
+      },
+      "line_items": [
+        {
+          "row_id": 1,
+          "description": {
+            "value": "Hang 2 interal doors",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Hang 2 interal doors"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 180.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 180.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 180.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 180.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 2,
+          "description": {
+            "value": "Architrave + fiting",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Architrave + fiting"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 95.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 95.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 95.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 95.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 3,
+          "description": {
+            "value": "Materials",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Materials"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 64.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 64.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 64.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 64.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 4,
+          "description": {
+            "value": "VAT20%",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "VAT20%"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 67.8,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 67.8
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 67.8,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 67.8
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 5,
+          "description": {
+            "value": "Bank Details: SortCode:60-12-34",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Bank Details: SortCode:60-12-34"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 890.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 890.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 890.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 890.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        }
+      ],
+      "ledger_items": [],
+      "processing_time_ms": 3764.18,
+      "models_participated": [
+        "rapidocr_local"
+      ],
+      "error_summary": null
+    }
+  },
+  {
+    "id": "DOC-07",
+    "name": "Bharat Associates (Handwritten Tax Invoice)",
+    "file": "media_1794245100323_ba13dad0.jpg",
+    "status_code": 200,
+    "duration_ms": 4336.339499990572,
+    "models": [
+      "rapidocr_local"
+    ],
+    "items_count": 4,
+    "math_valid": true,
+    "overall_conf": 0.61,
+    "vendor_extracted": "TAX INVOICE",
+    "total_extracted": null,
+    "line_items": [
+      {
+        "row_id": 1,
+        "description": {
+          "value": "Name:Edralgel.serhhim Invoice No,",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Name:Edralgel.serhhim Invoice No,"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 4.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 4.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 4.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 4.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 2,
+        "description": {
+          "value": "1. STAMP PAPER VALUE",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "1. STAMP PAPER VALUE"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 108612.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 108612.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 108612.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 108612.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 3,
+        "description": {
+          "value": "Notery clergus",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Notery clergus"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 2180.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 2180.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 2180.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 2180.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 4,
+        "description": {
+          "value": "SERVICE CHARCES",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "SERVICE CHARCES"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 1982693576971.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1982693576971.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 1982693576971.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1982693576971.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      }
+    ],
+    "raw_response": {
+      "document_id": "d0761b82-70e7-4249-818c-0ea0bfae2251",
+      "document_type": "INVOICE",
+      "overall_confidence": 0.61,
+      "status": "NEEDS_REVIEW",
+      "math_validation": {
+        "is_valid": true,
+        "discrepancy_amount": 0.0,
+        "error_details": []
+      },
+      "fields": {
+        "discount_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "grand_total": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_date": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_number": {
+          "value": "9871872582",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "9871872582"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "subtotal": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "tax_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "vendor_name": {
+          "value": "TAX INVOICE",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "TAX INVOICE"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        }
+      },
+      "line_items": [
+        {
+          "row_id": 1,
+          "description": {
+            "value": "Name:Edralgel.serhhim Invoice No,",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Name:Edralgel.serhhim Invoice No,"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 4.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 4.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 4.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 4.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 2,
+          "description": {
+            "value": "1. STAMP PAPER VALUE",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "1. STAMP PAPER VALUE"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 108612.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 108612.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 108612.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 108612.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 3,
+          "description": {
+            "value": "Notery clergus",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Notery clergus"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 2180.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 2180.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 2180.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 2180.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 4,
+          "description": {
+            "value": "SERVICE CHARCES",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "SERVICE CHARCES"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 1982693576971.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1982693576971.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 1982693576971.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1982693576971.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        }
+      ],
+      "ledger_items": [],
+      "processing_time_ms": 4267.41,
+      "models_participated": [
+        "rapidocr_local"
+      ],
+      "error_summary": null
+    }
+  },
+  {
+    "id": "DOC-08",
+    "name": "The Coffee House (Receipt with Handwritten Note)",
+    "file": "media_1794245106975_db5d45a0.jpg",
+    "status_code": 200,
+    "duration_ms": 3772.249899993767,
+    "models": [
+      "rapidocr_local"
+    ],
+    "items_count": 10,
+    "math_valid": true,
+    "overall_conf": 0.74,
+    "vendor_extracted": "THE COFFEE HOUSE",
+    "total_extracted": null,
+    "line_items": [
+      {
+        "row_id": 1,
+        "description": {
+          "value": "London W1A 1AA",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "London W1A 1AA"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 2071234567.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 2071234567.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 2071234567.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 2071234567.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 2,
+        "description": {
+          "value": "Order #:",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Order #:"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 23456.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 23456.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 23456.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 23456.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 3,
+        "description": {
+          "value": "Table: Time:",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Table: Time:"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 13.47,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 13.47
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 13.47,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 13.47
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 4,
+        "description": {
+          "value": "Flat White",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Flat White"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 2.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 2.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 3.35,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 3.35
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 6.7,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 6.7
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 5,
+        "description": {
+          "value": "Cappuccino",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Cappuccino"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 3.6,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 3.6
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 3.6,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 3.6
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 6,
+        "description": {
+          "value": "Avocado Toast",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Avocado Toast"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 7.2,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 7.2
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 7.2,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 7.2
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 7,
+        "description": {
+          "value": "Chicken Salad",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Chicken Salad"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 2.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 2.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 8.2,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 8.2
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 16.4,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 16.4
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 8,
+        "description": {
+          "value": "Still Water",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Still Water"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 3.5,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 3.5
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 3.5,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 3.5
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 9,
+        "description": {
+          "value": "Fresh Juice",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Fresh Juice"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 2.35,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 2.35
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 2.35,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 2.35
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 10,
+        "description": {
+          "value": "TOTAL",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "TOTAL"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 42.17,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 42.17
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 42.17,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 42.17
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      }
+    ],
+    "raw_response": {
+      "document_id": "cb2ac081-462b-4830-bebf-65db6c450244",
+      "document_type": "INVOICE",
+      "overall_confidence": 0.74,
+      "status": "NEEDS_REVIEW",
+      "math_validation": {
+        "is_valid": true,
+        "discrepancy_amount": 0.0,
+        "error_details": []
+      },
+      "fields": {
+        "discount_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "grand_total": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_date": {
+          "value": "2024-05-21",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "21/05/2024"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "invoice_number": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "subtotal": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "tax_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "vendor_name": {
+          "value": "THE COFFEE HOUSE",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "THE COFFEE HOUSE"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        }
+      },
+      "line_items": [
+        {
+          "row_id": 1,
+          "description": {
+            "value": "London W1A 1AA",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "London W1A 1AA"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 2071234567.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 2071234567.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 2071234567.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 2071234567.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 2,
+          "description": {
+            "value": "Order #:",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Order #:"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 23456.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 23456.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 23456.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 23456.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 3,
+          "description": {
+            "value": "Table: Time:",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Table: Time:"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 13.47,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 13.47
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 13.47,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 13.47
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 4,
+          "description": {
+            "value": "Flat White",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Flat White"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 2.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 2.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 3.35,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 3.35
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 6.7,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 6.7
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 5,
+          "description": {
+            "value": "Cappuccino",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Cappuccino"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 3.6,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 3.6
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 3.6,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 3.6
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 6,
+          "description": {
+            "value": "Avocado Toast",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Avocado Toast"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 7.2,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 7.2
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 7.2,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 7.2
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 7,
+          "description": {
+            "value": "Chicken Salad",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Chicken Salad"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 2.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 2.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 8.2,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 8.2
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 16.4,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 16.4
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 8,
+          "description": {
+            "value": "Still Water",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Still Water"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 3.5,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 3.5
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 3.5,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 3.5
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 9,
+          "description": {
+            "value": "Fresh Juice",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Fresh Juice"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 2.35,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 2.35
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 2.35,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 2.35
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 10,
+          "description": {
+            "value": "TOTAL",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "TOTAL"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 42.17,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 42.17
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 42.17,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 42.17
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        }
+      ],
+      "ledger_items": [],
+      "processing_time_ms": 3672.32,
+      "models_participated": [
+        "rapidocr_local"
+      ],
+      "error_summary": null
+    }
+  },
+  {
+    "id": "DOC-09",
+    "name": "New Lite Lumber (Handwritten Construction Invoice)",
+    "file": "media_1794245123052_7b424da9.jpg",
+    "status_code": 200,
+    "duration_ms": 4159.124500001781,
+    "models": [
+      "rapidocr_local"
+    ],
+    "items_count": 14,
+    "math_valid": true,
+    "overall_conf": 0.75,
+    "vendor_extracted": "INEW",
+    "total_extracted": null,
+    "line_items": [
+      {
+        "row_id": 1,
+        "description": {
+          "value": "LITE No",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "LITE No"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 11473.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 11473.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 11473.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 11473.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 2,
+        "description": {
+          "value": "ARTICLES Price Unit Amount",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "ARTICLES Price Unit Amount"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 50.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 50.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 50.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 50.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 3,
+        "description": {
+          "value": "gas. ddast.Tantwhde 6:00-",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "gas. ddast.Tantwhde 6:00-"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 2.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 2.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 300.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 300.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 600.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 600.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 4,
+        "description": {
+          "value": "Sandung &ealer 600- 630-",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Sandung &ealer 600- 630-"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 630.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 630.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 630.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 630.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 5,
+        "description": {
+          "value": "ClaarlossAacg lacg.Chumner",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "ClaarlossAacg lacg.Chumner"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 100.19,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 100.19
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 485.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 485.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 48590.0,
+          "confidence": 0.45,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 48590.0
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "row_math_valid": false,
+        "needs_review": true
+      },
+      {
+        "row_id": 6,
+        "description": {
+          "value": "daadla Cacen",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "daadla Cacen"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1000.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1000.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 20.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 20.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 20000.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 20000.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 7,
+        "description": {
+          "value": "PCS Pantbrush 2 lacgawhide 250-",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "PCS Pantbrush 2 lacgawhide 250-"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 250.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 250.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 250.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 250.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 8,
+        "description": {
+          "value": "Kdo CollomWaste 50-",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Kdo CollomWaste 50-"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.33,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.33
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 75.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 75.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 100.0,
+          "confidence": 0.45,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 100.0
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "row_math_valid": false,
+        "needs_review": true
+      },
+      {
+        "row_id": 9,
+        "description": {
+          "value": "Yds3m.S.Puparx1 Total Sales (VAT Inclusive)",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Yds3m.S.Puparx1 Total Sales (VAT Inclusive)"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 7500.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 7500.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 7500.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 7500.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 10,
+        "description": {
+          "value": "Less.VAT",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Less.VAT"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 2.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 2.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 215.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 215.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 430.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 430.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 11,
+        "description": {
+          "value": "PswPSx150",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "PswPSx150"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 75.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 75.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 75.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 75.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 12,
+        "description": {
+          "value": "ZeroRated Sales Amount Due",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "ZeroRated Sales Amount Due"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 5.26,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 5.26
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 5.26,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 5.26
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 13,
+        "description": {
+          "value": "VAT Amount Add: VAT",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "VAT Amount Add: VAT"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 63161.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 63161.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 63161.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 63161.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 14,
+        "description": {
+          "value": "TOTALAMOUNT DUE",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "TOTALAMOUNT DUE"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 8950.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 8950.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 8950.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 8950.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      }
+    ],
+    "raw_response": {
+      "document_id": "49a18aaa-445e-45c5-94f3-c9666dbdc394",
+      "document_type": "INVOICE",
+      "overall_confidence": 0.75,
+      "status": "NEEDS_REVIEW",
+      "math_validation": {
+        "is_valid": true,
+        "discrepancy_amount": 0.0,
+        "error_details": []
+      },
+      "fields": {
+        "discount_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "grand_total": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_date": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_number": {
+          "value": "Date",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Date"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "subtotal": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "tax_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "vendor_name": {
+          "value": "INEW",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "INEW"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        }
+      },
+      "line_items": [
+        {
+          "row_id": 1,
+          "description": {
+            "value": "LITE No",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "LITE No"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 11473.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 11473.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 11473.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 11473.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 2,
+          "description": {
+            "value": "ARTICLES Price Unit Amount",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "ARTICLES Price Unit Amount"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 50.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 50.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 50.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 50.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 3,
+          "description": {
+            "value": "gas. ddast.Tantwhde 6:00-",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "gas. ddast.Tantwhde 6:00-"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 2.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 2.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 300.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 300.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 600.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 600.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 4,
+          "description": {
+            "value": "Sandung &ealer 600- 630-",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Sandung &ealer 600- 630-"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 630.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 630.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 630.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 630.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 5,
+          "description": {
+            "value": "ClaarlossAacg lacg.Chumner",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "ClaarlossAacg lacg.Chumner"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 100.19,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 100.19
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 485.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 485.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 48590.0,
+            "confidence": 0.45,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 48590.0
+            },
+            "needs_review": true,
+            "bounding_box": null
+          },
+          "row_math_valid": false,
+          "needs_review": true
+        },
+        {
+          "row_id": 6,
+          "description": {
+            "value": "daadla Cacen",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "daadla Cacen"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1000.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1000.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 20.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 20.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 20000.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 20000.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 7,
+          "description": {
+            "value": "PCS Pantbrush 2 lacgawhide 250-",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "PCS Pantbrush 2 lacgawhide 250-"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 250.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 250.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 250.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 250.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 8,
+          "description": {
+            "value": "Kdo CollomWaste 50-",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Kdo CollomWaste 50-"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.33,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.33
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 75.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 75.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 100.0,
+            "confidence": 0.45,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 100.0
+            },
+            "needs_review": true,
+            "bounding_box": null
+          },
+          "row_math_valid": false,
+          "needs_review": true
+        },
+        {
+          "row_id": 9,
+          "description": {
+            "value": "Yds3m.S.Puparx1 Total Sales (VAT Inclusive)",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Yds3m.S.Puparx1 Total Sales (VAT Inclusive)"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 7500.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 7500.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 7500.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 7500.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 10,
+          "description": {
+            "value": "Less.VAT",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "Less.VAT"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 2.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 2.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 215.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 215.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 430.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 430.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 11,
+          "description": {
+            "value": "PswPSx150",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "PswPSx150"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 75.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 75.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 75.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 75.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 12,
+          "description": {
+            "value": "ZeroRated Sales Amount Due",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "ZeroRated Sales Amount Due"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 5.26,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 5.26
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 5.26,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 5.26
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 13,
+          "description": {
+            "value": "VAT Amount Add: VAT",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "VAT Amount Add: VAT"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 63161.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 63161.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 63161.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 63161.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 14,
+          "description": {
+            "value": "TOTALAMOUNT DUE",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "TOTALAMOUNT DUE"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 8950.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 8950.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 8950.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 8950.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        }
+      ],
+      "ledger_items": [],
+      "processing_time_ms": 4070.45,
+      "models_participated": [
+        "rapidocr_local"
+      ],
+      "error_summary": null
+    }
+  },
+  {
+    "id": "DOC-10",
+    "name": "Nath Traders (Handwritten Retail Invoice)",
+    "file": "media_1794245132036_0c0d0fe5.jpg",
+    "status_code": 200,
+    "duration_ms": 4449.852200006717,
+    "models": [
+      "rapidocr_local"
+    ],
+    "items_count": 3,
+    "math_valid": true,
+    "overall_conf": 0.56,
+    "vendor_extracted": "38",
+    "total_extracted": null,
+    "line_items": [
+      {
+        "row_id": 1,
+        "description": {
+          "value": "MNRNAEMAOINRG",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "MNRNAEMAOINRG"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 38.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 38.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 38.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 38.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 2,
+        "description": {
+          "value": "2880.BAZAR SIRKIWALAN,DELHI-110006 Emailnathtraders@gmalcom",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "2880.BAZAR SIRKIWALAN,DELHI-110006 Emailnathtraders@gmalcom"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 4179024.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 4179024.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 4179024.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 4179024.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      },
+      {
+        "row_id": 3,
+        "description": {
+          "value": "CHLAREROM Ruhey",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "CHLAREROM Ruhey"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "quantity": {
+          "value": 1.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 1.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "unit_price": {
+          "value": 12.0,
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 12.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "line_total": {
+          "value": 12.0,
+          "confidence": 0.95,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": 12.0
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "row_math_valid": true,
+        "needs_review": false
+      }
+    ],
+    "raw_response": {
+      "document_id": "76758c3c-015f-48ed-a827-120e70c2ba95",
+      "document_type": "INVOICE",
+      "overall_confidence": 0.56,
+      "status": "NEEDS_REVIEW",
+      "math_validation": {
+        "is_valid": true,
+        "discrepancy_amount": 0.0,
+        "error_details": []
+      },
+      "fields": {
+        "discount_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "grand_total": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_date": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "invoice_number": {
+          "value": "Dated",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "Dated"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        },
+        "subtotal": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "tax_amount": {
+          "value": null,
+          "confidence": 0.0,
+          "agreement": "0/1",
+          "candidates": {
+            "rapidocr_local": null
+          },
+          "needs_review": true,
+          "bounding_box": null
+        },
+        "vendor_name": {
+          "value": "38",
+          "confidence": 0.88,
+          "agreement": "1/1",
+          "candidates": {
+            "rapidocr_local": "38"
+          },
+          "needs_review": false,
+          "bounding_box": null
+        }
+      },
+      "line_items": [
+        {
+          "row_id": 1,
+          "description": {
+            "value": "MNRNAEMAOINRG",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "MNRNAEMAOINRG"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 38.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 38.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 38.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 38.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 2,
+          "description": {
+            "value": "2880.BAZAR SIRKIWALAN,DELHI-110006 Emailnathtraders@gmalcom",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "2880.BAZAR SIRKIWALAN,DELHI-110006 Emailnathtraders@gmalcom"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 4179024.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 4179024.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 4179024.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 4179024.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        },
+        {
+          "row_id": 3,
+          "description": {
+            "value": "CHLAREROM Ruhey",
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": "CHLAREROM Ruhey"
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "quantity": {
+            "value": 1.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 1.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "unit_price": {
+            "value": 12.0,
+            "confidence": 0.88,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 12.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "line_total": {
+            "value": 12.0,
+            "confidence": 0.95,
+            "agreement": "1/1",
+            "candidates": {
+              "rapidocr_local": 12.0
+            },
+            "needs_review": false,
+            "bounding_box": null
+          },
+          "row_math_valid": true,
+          "needs_review": false
+        }
+      ],
+      "ledger_items": [],
+      "processing_time_ms": 4360.32,
+      "models_participated": [
+        "rapidocr_local"
+      ],
+      "error_summary": null
+    }
+  }
+]

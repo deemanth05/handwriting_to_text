@@ -106,13 +106,18 @@ class DocumentExtractionResponse(BaseModel):
             self.status = "NEEDS_REVIEW"
             return self
 
+        # When overall math is valid, mark as PROCESSED (straight-through processing)
+        if self.math_validation.is_valid and (self.line_items or self.ledger_items):
+            self.status = "PROCESSED"
+            return self
+
         if self.overall_confidence < 0.85:
             self.status = "NEEDS_REVIEW"
             return self
 
-        # Check individual fields
+        # Check individual fields that are present
         for field in self.fields.values():
-            if field.needs_review or field.confidence < 0.75:
+            if field.value is not None and (field.needs_review or field.confidence < 0.75):
                 self.status = "NEEDS_REVIEW"
                 return self
 
