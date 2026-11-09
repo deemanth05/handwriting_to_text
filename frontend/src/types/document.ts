@@ -35,6 +35,7 @@ export interface DocumentExtractionResponse {
   line_items: LineItem[];
   processing_time_ms: number;
   models_participated: string[];
+  error_summary?: string | null;
 }
 
 export interface DocumentListItem {

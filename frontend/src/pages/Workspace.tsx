@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AlertCircle, CheckCircle2, Save, Sparkles } from "lucide-react";
+import { AlertCircle, AlertTriangle, CheckCircle2, ExternalLink, Save, Sparkles } from "lucide-react";
 import { DocumentExtractionResponse, DocumentType, LineItem } from "../types/document";
 import { ImageCanvas } from "../components/ImageCanvas";
 import { FieldInspector } from "../components/FieldInspector";
@@ -39,7 +39,11 @@ export const Workspace: React.FC<WorkspaceProps> = ({
       const res = await extractDocument(file, docType);
       setCurrentDoc(res);
       setImageUrl(getDocumentImageUrl(res.document_id));
-      showNotification("success", `Document extracted successfully (${res.models_participated.length} models)`);
+      if (res.models_participated && res.models_participated.length > 0) {
+        showNotification("success", `Document extracted successfully (${res.models_participated.length} models)`);
+      } else {
+        showNotification("error", "Router Warning: 0 vision models responded. Upstream rate limit or missing provider key.");
+      }
       onRefreshList();
     } catch (e: any) {
       showNotification("error", e.message || "Extraction failed");
@@ -192,6 +196,38 @@ export const Workspace: React.FC<WorkspaceProps> = ({
               <span className="font-mono text-[11px] bg-rose-500/20 px-2 py-0.5 rounded border border-rose-500/30 text-rose-300">
                 Diff: Rs. {currentDoc.math_validation.discrepancy_amount.toFixed(2)}
               </span>
+            </div>
+          )}
+
+          {/* Upstream Provider Exhaustion / Rate Limit Warning */}
+          {currentDoc.models_participated.length === 0 && (
+            <div className="p-4 rounded-xl bg-amber-950/40 border border-amber-500/50 text-amber-200 text-xs space-y-2.5">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2 font-bold text-amber-300">
+                  <AlertTriangle className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                  <span>Upstream Router Alert: No Vision Models Responded</span>
+                </div>
+                <a
+                  href="http://localhost:3001"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center space-x-1.5 px-3 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-medium transition-colors"
+                >
+                  <span>Open FreeLLMAPI Dashboard</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+              <p className="text-amber-200/90 leading-relaxed">
+                The models did not fail on this handwriting—the request was blocked upstream at the local FreeLLMAPI router before reaching vision models (HTTP 429 rate limit or expired provider key).
+              </p>
+              {currentDoc.error_summary && (
+                <div className="font-mono text-[11px] bg-dark-900/80 p-2.5 rounded border border-amber-500/30 text-amber-300 break-all">
+                  Upstream Error: {currentDoc.error_summary}
+                </div>
+              )}
+              <div className="text-[11px] text-slate-300">
+                💡 <strong>How to activate vision:</strong> Open the FreeLLMAPI dashboard at <code className="text-emerald-400">http://localhost:3001</code>, navigate to <strong>Providers</strong>, and enter a free Google AI Studio (Gemini) or OpenRouter API key.
+              </div>
             </div>
           )}
 

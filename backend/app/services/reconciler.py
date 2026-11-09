@@ -237,11 +237,17 @@ class ConsensusReconciler:
         document_id: str,
         document_type: DocumentType,
         successful_runs: list[RawModelOutput],
+        failed_runs: list[RawModelOutput] | None = None,
         confidence_penalty: float = 0.0,
         processing_time_ms: float = 0.0,
     ) -> DocumentExtractionResponse:
         """Combine all model runs into canonical DocumentExtractionResponse."""
         if not successful_runs:
+            err_msg: str | None = None
+            if failed_runs:
+                unique_errs = [r.error for r in failed_runs if r.error]
+                if unique_errs:
+                    err_msg = "; ".join(unique_errs[:2])
             return DocumentExtractionResponse(
                 document_id=document_id,
                 document_type=document_type,
@@ -252,6 +258,7 @@ class ConsensusReconciler:
                 line_items=[],
                 processing_time_ms=processing_time_ms,
                 models_participated=[],
+                error_summary=err_msg,
             )
 
         models_participated = [r.model_name for r in successful_runs]

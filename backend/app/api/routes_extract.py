@@ -73,6 +73,7 @@ async def extract_document(
         document_id=doc_id,
         document_type=doc_type,
         successful_runs=dispatch_result.successful_runs,
+        failed_runs=dispatch_result.failed_runs,
         confidence_penalty=dispatch_result.confidence_penalty,
         processing_time_ms=dispatch_result.total_duration_ms,
     )

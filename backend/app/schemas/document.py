@@ -75,6 +75,7 @@ class DocumentExtractionResponse(BaseModel):
     line_items: list[LineItem] = Field(default_factory=list)
     processing_time_ms: float = 0.0
     models_participated: list[str] = Field(default_factory=list)
+    error_summary: str | None = None
 
     @model_validator(mode="after")
     def compute_review_status(self) -> "DocumentExtractionResponse":
