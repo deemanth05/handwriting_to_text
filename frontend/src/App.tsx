@@ -35,7 +35,7 @@ export function App() {
   useEffect(() => {
     refreshHealth();
     refreshDocuments();
-    const interval = setInterval(refreshHealth, 15000);
+    const interval = setInterval(refreshHealth, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -59,6 +59,7 @@ export function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         routerStatus={routerStatus}
+        onRefreshHealth={refreshHealth}
         documentStatus={currentDoc?.status}
         overallConfidence={currentDoc?.overall_confidence}
       />

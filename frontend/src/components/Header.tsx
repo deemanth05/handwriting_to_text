@@ -5,6 +5,7 @@ interface HeaderProps {
   activeTab: "workspace" | "leaderboard";
   setActiveTab: (tab: "workspace" | "leaderboard") => void;
   routerStatus: "ONLINE" | "OFFLINE" | "LOADING";
+  onRefreshHealth?: () => void;
   documentStatus?: string;
   overallConfidence?: number;
 }
@@ -13,6 +14,7 @@ export const Header: React.FC<HeaderProps> = ({
   activeTab,
   setActiveTab,
   routerStatus,
+  onRefreshHealth,
   documentStatus,
   overallConfidence,
 }) => {
@@ -86,7 +88,12 @@ export const Header: React.FC<HeaderProps> = ({
         )}
 
         {/* FreeLLMAPI Router Health */}
-        <div className="flex items-center space-x-2 px-3 py-1.5 rounded-lg glass-card border border-slate-700/60">
+        <button
+          type="button"
+          onClick={onRefreshHealth}
+          title="Click to re-check FreeLLMAPI router status"
+          className="flex items-center space-x-2 px-3 py-1.5 rounded-lg glass-card border border-slate-700/60 hover:border-slate-500 transition-colors cursor-pointer"
+        >
           <Activity
             className={`w-3.5 h-3.5 ${
               routerStatus === "ONLINE"
@@ -108,7 +115,7 @@ export const Header: React.FC<HeaderProps> = ({
           >
             {routerStatus}
           </span>
-        </div>
+        </button>
       </div>
     </header>
   );
