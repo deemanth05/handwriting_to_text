@@ -73,3 +73,24 @@ def test_rapidocr_flexible_header_columns():
     assert items[0]["particulars"] == "Opening Balance"
     assert items[0]["cash_in_credit"] == 200.0
     assert items[0]["running_balance"] == 200.0
+
+
+def test_rapidocr_invoice_3_number_permutation_math():
+    """Verify 3-number rows correctly assign quantity, unit price, and total using permutation check."""
+    extractor = RapidOCRLocalExtractor()
+    # Row with S.No (1), Qty (3), Rate (150.00), Total (450.00)
+    rows = [
+        [
+            {"text": "Refined Sunflower Oil 1L", "x_min": 50, "x_max": 200, "y": 100, "score": 0.95},
+            {"text": "1", "x_min": 220, "x_max": 230, "y": 100, "score": 0.95},
+            {"text": "3", "x_min": 250, "x_max": 270, "y": 100, "score": 0.95},
+            {"text": "150.00", "x_min": 300, "x_max": 350, "y": 100, "score": 0.95},
+            {"text": "450.00", "x_min": 400, "x_max": 460, "y": 100, "score": 0.95},
+        ]
+    ]
+    parsed = extractor._parse_invoice(rows, ["Header line", "Item line"])
+    items = parsed.get("line_items", [])
+    assert len(items) == 1
+    assert items[0]["quantity"] == 3.0
+    assert items[0]["unit_price"] == 150.0
+    assert items[0]["line_total"] == 450.0

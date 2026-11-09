@@ -42,7 +42,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
       setImageUrl(getDocumentImageUrl(res.document_id));
       if (res.models_participated && res.models_participated.length > 0) {
         showNotification("success", `Document extracted successfully (${res.models_participated.length} models)`);
-      } else {
+      } else if (res.error_summary) {
         showNotification("error", "Router Warning: 0 vision models responded. Upstream rate limit or missing provider key.");
       }
       onRefreshList();
@@ -219,7 +219,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
           )}
 
           {/* Upstream Provider Exhaustion / Rate Limit Warning */}
-          {currentDoc.models_participated.length === 0 && (
+          {currentDoc.models_participated.length === 0 && Boolean(currentDoc.error_summary) && (
             <div className="p-4 rounded-xl bg-amber-950/40 border border-amber-500/50 text-amber-200 text-xs space-y-2.5">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2 font-bold text-amber-300">
@@ -250,6 +250,19 @@ export const Workspace: React.FC<WorkspaceProps> = ({
             </div>
           )}
 
+          {/* Local High-Speed Engine Resilient Status Badge */}
+          {currentDoc.models_participated.includes("rapidocr_local") && (
+            <div className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-200 text-xs">
+              <div className="flex items-center space-x-2 font-medium">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                <span>✓ Extracted via Local High-Speed Engine (Offline Resilient)</span>
+              </div>
+              <span className="text-[11px] text-emerald-400/80 font-mono">
+                Latency: {currentDoc.processing_time_ms.toFixed(0)}ms
+              </span>
+            </div>
+          )}
+
           {/* Split-Screen Grid: Left Canvas / Right Inspector */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-[680px]">
             {/* Left Column: Image Canvas Sidecar (5 cols) */}
@@ -262,13 +275,18 @@ export const Workspace: React.FC<WorkspaceProps> = ({
               {/* Studio Header Bar */}
               <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
                 <div className="space-y-0.5">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 flex-wrap gap-y-1">
                     <span className="font-bold text-sm text-white capitalize">
                       {currentDoc.document_type.replace("_", " ")}
                     </span>
                     <span className="text-[11px] font-mono text-slate-400">
                       ID: {currentDoc.document_id.slice(0, 8)}...
                     </span>
+                    {currentDoc.models_participated.includes("rapidocr_local") && (
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                        ✓ Extracted via Local High-Speed Engine (Offline Resilient)
+                      </span>
+                    )}
                   </div>
                   <div className="text-[11px] text-slate-400 flex items-center space-x-2">
                     <span>Ensemble Consensus:</span>

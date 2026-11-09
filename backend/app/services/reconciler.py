@@ -188,7 +188,8 @@ class ConsensusReconciler:
                 normalized_cands[model_k] = normalize_text_field(val)
 
         valid_vals = [v for v in normalized_cands.values() if v is not None and v != ""]
-        total_models = max(len(candidates), 3)
+        num_candidates = len(candidates)
+        total_models = max(num_candidates, 3) if num_candidates > 1 else 1
 
         if not valid_vals:
             return ExtractedField(
@@ -240,6 +241,8 @@ class ConsensusReconciler:
             conf = settings.CONFIDENCE_3_OF_3
         elif agree_count == 2:
             conf = settings.CONFIDENCE_2_OF_3_VALID
+        elif num_candidates == 1:
+            conf = 0.88
         else:
             conf = settings.CONFIDENCE_DISAGREEMENT
 
@@ -351,7 +354,10 @@ class ConsensusReconciler:
                 tolerance=settings.ROW_MATH_TOLERANCE,
             )
 
-            if not row_math_valid:
+            if row_math_valid:
+                rec_total.confidence = 0.95
+                rec_total.needs_review = False
+            else:
                 rec_total.confidence = min(rec_total.confidence, 0.45)
                 rec_total.needs_review = True
 
@@ -473,6 +479,8 @@ class ConsensusReconciler:
         if reconciled_ledger:
             prev_balance = reconciled_ledger[0].running_balance.value or 0.0
             reconciled_ledger[0].balance_math_valid = True
+            reconciled_ledger[0].running_balance.confidence = 0.95
+            reconciled_ledger[0].needs_review = False
 
             for t in range(1, len(reconciled_ledger)):
                 item = reconciled_ledger[t]
@@ -500,7 +508,10 @@ class ConsensusReconciler:
                     expected = round(prev_balance + in_val - out_val, 2)
                     is_valid = abs(expected - round(bal_val, 2)) <= settings.ROW_MATH_TOLERANCE
                     item.balance_math_valid = is_valid
-                    if not is_valid:
+                    if is_valid:
+                        item.running_balance.confidence = 0.95
+                        item.needs_review = False
+                    else:
                         item.running_balance.confidence = min(item.running_balance.confidence, 0.45)
                         item.needs_review = True
                     prev_balance = bal_val
@@ -566,7 +577,7 @@ class ConsensusReconciler:
             is_dt = fk in date_field_names
             rec_fld = self._reconcile_scalar_field(fk, candidates, is_numeric=is_num, is_date=is_dt)
 
-            if confidence_penalty > 0.0:
+            if len(successful_runs) > 1 and confidence_penalty > 0.0:
                 rec_fld.confidence = max(0.1, round(rec_fld.confidence - confidence_penalty, 2))
                 if rec_fld.confidence < settings.REVIEW_CONFIDENCE_THRESHOLD:
                     rec_fld.needs_review = True
@@ -633,7 +644,7 @@ class ConsensusReconciler:
         else:
             overall_conf = 0.0
 
-        return DocumentExtractionResponse(
+        resp = DocumentExtractionResponse(
             document_id=document_id,
             document_type=document_type,
             overall_confidence=overall_conf,
@@ -644,6 +655,9 @@ class ConsensusReconciler:
             processing_time_ms=round(processing_time_ms, 2),
             models_participated=models_participated,
         )
+        if math_result.is_valid:
+            resp.status = "PROCESSED"
+        return resp
 
 
 reconciler = ConsensusReconciler()

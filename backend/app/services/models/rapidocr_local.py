@@ -4,6 +4,7 @@ Runs onnxruntime on CPU without PyTorch. Extracts bounding boxes and text lines
 with zero network latency (<250ms), providing 100% offline fallback resilience.
 """
 
+from itertools import combinations, permutations
 import json
 import re
 import time
@@ -278,14 +279,52 @@ class RapidOCRLocalExtractor(BaseVisionExtractor):
                     continue
 
                 numbers = [val for val, _ in num_boxes]
-                if len(numbers) >= 2:
-                    unit_p = numbers[-2]
-                    tot = numbers[-1]
-                    qty = round(tot / unit_p, 2) if unit_p > 0 else 1.0
-                else:
-                    tot = numbers[-1]
-                    unit_p = tot
-                    qty = 1.0
+                assigned = False
+                if len(numbers) >= 3:
+                    # Test combinations of 3 numbers for (q, p, t) where abs(q * p - t) <= 0.05
+                    candidate_triplets = []
+                    if len(numbers) == 3:
+                        candidate_triplets.append(numbers)
+                    else:
+                        candidate_triplets.append(numbers[-3:])
+                        for comb in combinations(numbers, 3):
+                            comb_list = list(comb)
+                            if comb_list != numbers[-3:]:
+                                candidate_triplets.append(comb_list)
+
+                    for triplet in candidate_triplets:
+                        valid_perms = []
+                        for q_cand, p_cand, t_cand in permutations(triplet, 3):
+                            if q_cand > 0 and p_cand > 0 and abs(q_cand * p_cand - t_cand) <= 0.05:
+                                valid_perms.append((q_cand, p_cand, t_cand))
+
+                        if valid_perms:
+                            best = None
+                            for q_cand, p_cand, t_cand in valid_perms:
+                                if t_cand == triplet[-1] and q_cand == triplet[0] and p_cand == triplet[1]:
+                                    best = (q_cand, p_cand, t_cand)
+                                    break
+                            if not best:
+                                for q_cand, p_cand, t_cand in valid_perms:
+                                    if t_cand == triplet[-1]:
+                                        best = (q_cand, p_cand, t_cand)
+                                        break
+                            if not best:
+                                best = valid_perms[0]
+
+                            qty, unit_p, tot = best
+                            assigned = True
+                            break
+
+                if not assigned:
+                    if len(numbers) >= 2:
+                        unit_p = numbers[-2]
+                        tot = numbers[-1]
+                        qty = round(tot / unit_p, 2) if unit_p > 0 else 1.0
+                    else:
+                        tot = numbers[-1]
+                        unit_p = tot
+                        qty = 1.0
 
                 line_items.append({
                     "description": desc,

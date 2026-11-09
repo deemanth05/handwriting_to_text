@@ -120,7 +120,7 @@ class EnsembleDispatcher:
         failed: list[RawModelOutput] = []
 
         for res in results:
-            if res.status == "SUCCESS" and res.parsed_json:
+            if res.status == "SUCCESS" and res.parsed_json is not None:
                 successful.append(res)
             else:
                 failed.append(res)
@@ -131,7 +131,7 @@ class EnsembleDispatcher:
             already_run = any(r.model_name == self.local_fallback.name for r in successful + failed)
             if not already_run:
                 fallback_res = await self._safe_extract(self.local_fallback, image_bytes, doc_type)
-                if fallback_res.status == "SUCCESS" and fallback_res.parsed_json:
+                if fallback_res.status == "SUCCESS" and fallback_res.parsed_json is not None:
                     successful.append(fallback_res)
                 else:
                     failed.append(fallback_res)

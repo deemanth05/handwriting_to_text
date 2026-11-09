@@ -306,3 +306,49 @@ def test_cash_book_period_scalar_field():
     assert res.fields["period"].value == "Month: FEB 2025"
     assert res.fields["period"].confidence > 0.0
 
+
+def test_single_model_confidence_and_processed_status():
+    """Verify single-model run receives 0.88 base confidence and PROCESSED status when math is valid."""
+    runs = [
+        RawModelOutput(
+            model_name="rapidocr_local",
+            model_identifier="rapidocr-onnx",
+            raw_text="",
+            parsed_json={
+                "vendor_name": "Shree Ganesh General Stores",
+                "subtotal": 300.0,
+                "tax_amount": 0.0,
+                "grand_total": 300.0,
+                "line_items": [
+                    {
+                        "description": "Sunflower Oil",
+                        "quantity": 2.0,
+                        "unit_price": 150.0,
+                        "line_total": 300.0,
+                    }
+                ],
+            },
+        )
+    ]
+    res = reconciler.reconcile(
+        document_id="doc-single",
+        document_type=DocumentType.INVOICE,
+        successful_runs=runs,
+        confidence_penalty=0.30,  # simulate 2 failed models in ensemble
+    )
+
+    # Scalar field gets 0.88 calibrated confidence, not penalized down to 0.10
+    vendor = res.fields["vendor_name"]
+    assert vendor.confidence == 0.88
+    assert vendor.needs_review is False
+
+    # Line item with valid math gets 0.95 confidence
+    item = res.line_items[0]
+    assert item.line_total.confidence == 0.95
+    assert item.row_math_valid is True
+    assert item.needs_review is False
+
+    # Valid math yields PROCESSED status
+    assert res.math_validation.is_valid is True
+    assert res.status == "PROCESSED"
+
