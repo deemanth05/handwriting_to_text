@@ -28,7 +28,7 @@ async def freellmapi_health_check():
         "User-Agent": "PaperExtractionEngine/1.0",
     }
     try:
-        async with httpx.AsyncClient(timeout=3.0) as client:
+        async with httpx.AsyncClient(timeout=1.0) as client:
             resp = await client.get(models_url, headers=headers)
             if resp.status_code == 200:
                 data = resp.json()
