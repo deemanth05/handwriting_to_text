@@ -1,10 +1,12 @@
-"""Image Pre-Processing Service using OpenCV and Pillow.
+"""Image Pre-Processing Service using OpenCV, NumPy and Pillow.
 
 Performs:
 1. Security validation (magic bytes, size check, decompression bomb protection)
-2. Auto-orientation and perspective deskewing
-3. Shadow removal and illumination normalization (CLAHE on LAB color space)
-4. Adaptive Gaussian thresholding buffer for faint ink / stamp extraction
+2. 4-point quadrilateral perspective dewarp to rectify mobile phone camera angle
+3. Hough baseline rotation deskewing as secondary fine-tilt correction
+4. Rolling-ball background division for glare and dark phone shadow removal
+5. CLAHE illumination normalization on LAB color space
+6. Christian Wolf adaptive binarization to preserve faint ballpoint ink loops
 """
 
 import io
@@ -72,14 +74,95 @@ class ImagePreprocessor:
 
         return kind.mime
 
+    def perspective_dewarp(self, cv_bgr: np.ndarray) -> tuple[np.ndarray, bool]:
+        """Detect document quadrilateral boundary and rectify mobile camera perspective tilt."""
+        gray = cv2.cvtColor(cv_bgr, cv2.COLOR_BGR2GRAY)
+        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+        edges = cv2.Canny(blurred, 50, 150)
+
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+        dilated = cv2.dilate(edges, kernel, iterations=2)
+
+        contours, _ = cv2.findContours(dilated, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+        if not contours:
+            return cv_bgr, False
+
+        h, w = cv_bgr.shape[:2]
+        img_area = float(h * w)
+        min_area = img_area * 0.20
+        max_area = img_area * 0.98
+
+        best_quad = None
+        max_found_area = 0.0
+
+        sorted_contours = sorted(contours, key=cv2.contourArea, reverse=True)[:10]
+        for c in sorted_contours:
+            peri = cv2.arcLength(c, True)
+            approx = cv2.approxPolyDP(c, 0.02 * peri, True)
+            if len(approx) == 4 and cv2.isContourConvex(approx):
+                area = float(cv2.contourArea(approx))
+                if min_area <= area <= max_area and area > max_found_area:
+                    max_found_area = area
+                    best_quad = approx.reshape(4, 2)
+
+        if best_quad is None:
+            return cv_bgr, False
+
+        # Order points robustly: top-left, top-right, bottom-right, bottom-left
+        pts = best_quad.astype(np.float32)
+        cx, cy = np.mean(pts, axis=0)
+        angles = np.arctan2(pts[:, 1] - cy, pts[:, 0] - cx)
+        sort_idx = np.argsort(angles)
+        pts_sorted = pts[sort_idx]
+
+        # Anchor top-left at minimum (x + y)
+        sums = pts_sorted[:, 0] + pts_sorted[:, 1]
+        tl_idx = int(np.argmin(sums))
+        rect = np.roll(pts_sorted, -tl_idx, axis=0)
+
+        (tl, tr, br, bl) = rect
+
+        # If points are already at the image frame borders, the image is already cropped
+        border_pts = 0
+        for pt in [tl, tr, br, bl]:
+            if (pt[0] < 0.05 * w or pt[0] > 0.95 * w) and (pt[1] < 0.05 * h or pt[1] > 0.95 * h):
+                border_pts += 1
+        if border_pts >= 3:
+            return cv_bgr, False
+
+        width_a = np.linalg.norm(br - bl)
+        width_b = np.linalg.norm(tr - tl)
+        max_w = max(int(width_a), int(width_b))
+
+        height_a = np.linalg.norm(tr - br)
+        height_b = np.linalg.norm(tl - bl)
+        max_h = max(int(height_a), int(height_b))
+
+        if max_w < 100 or max_h < 100:
+            return cv_bgr, False
+
+        dst = np.array(
+            [
+                [0, 0],
+                [max_w - 1, 0],
+                [max_w - 1, max_h - 1],
+                [0, max_h - 1],
+            ],
+            dtype=np.float32,
+        )
+
+        matrix = cv2.getPerspectiveTransform(rect, dst)
+        warped = cv2.warpPerspective(
+            cv_bgr, matrix, (max_w, max_h), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE
+        )
+        return warped, True
+
     def deskew(self, cv_bgr: np.ndarray) -> tuple[np.ndarray, float]:
         """Detect and correct slight rotation tilts (-45° to +45°)."""
         gray = cv2.cvtColor(cv_bgr, cv2.COLOR_BGR2GRAY)
-        # Invert colors: text will be white on black background
         blurred = cv2.GaussianBlur(gray, (5, 5), 0)
         edges = cv2.Canny(blurred, 50, 200, apertureSize=3)
 
-        # Use Hough transform to detect dominant text baseline angles
         lines = cv2.HoughLinesP(edges, 1, np.pi / 180, 100, minLineLength=100, maxLineGap=20)
         angle = 0.0
 
@@ -92,14 +175,12 @@ class ImagePreprocessor:
                     delta_y = float(y2 - y1)
                     delta_x = float(x2 - x1)
                     theta = math.degrees(math.atan2(delta_y, delta_x))
-                    # Only consider near-horizontal lines representing text lines
                     if -45.0 <= theta <= 45.0:
                         angles.append(theta)
 
             if angles:
                 angle = float(np.median(angles))
 
-        # Rotate if necessary
         if abs(angle) > 0.5:
             (h, w) = cv_bgr.shape[:2]
             center = (w // 2, h // 2)
@@ -111,8 +192,27 @@ class ImagePreprocessor:
 
         return cv_bgr, 0.0
 
+    def remove_shadows_rolling_ball(self, cv_bgr: np.ndarray, kernel_size: int = 35) -> np.ndarray:
+        """Morphological background division to eliminate mobile phone cast shadows and glare."""
+        ksize = kernel_size if kernel_size % 2 == 1 else kernel_size + 1
+        ksize = max(3, ksize)
+        lab = cv2.cvtColor(cv_bgr, cv2.COLOR_BGR2LAB)
+        l_chan, a_chan, b_chan = cv2.split(lab)
+
+        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (ksize, ksize))
+        bg = cv2.morphologyEx(l_chan, cv2.MORPH_DILATE, kernel)
+        bg = cv2.GaussianBlur(bg, (ksize, ksize), 0)
+
+        # Division normalization
+        norm_l = np.clip(
+            (l_chan.astype(np.float32) / (bg.astype(np.float32) + 1e-5)) * 255.0, 0, 255
+        ).astype(np.uint8)
+
+        merged = cv2.merge((norm_l, a_chan, b_chan))
+        return cv2.cvtColor(merged, cv2.COLOR_LAB2BGR)
+
     def apply_clahe(self, cv_bgr: np.ndarray) -> np.ndarray:
-        """Apply CLAHE on LAB color space to equalize illumination and remove shadows."""
+        """Apply CLAHE on LAB color space to equalize illumination and contrast."""
         lab = cv2.cvtColor(cv_bgr, cv2.COLOR_BGR2LAB)
         l_chan, a_chan, b_chan = cv2.split(lab)
 
@@ -123,31 +223,58 @@ class ImagePreprocessor:
         enhanced_bgr = cv2.cvtColor(merged_lab, cv2.COLOR_LAB2BGR)
         return enhanced_bgr
 
-    def generate_threshold(self, cv_bgr: np.ndarray) -> np.ndarray:
-        """Adaptive Gaussian thresholding for faint ink and stamp marks."""
-        gray = cv2.cvtColor(cv_bgr, cv2.COLOR_BGR2GRAY)
-        thresh = cv2.adaptiveThreshold(
-            gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21, 10
+    def wolf_binarization(
+        self, gray: np.ndarray, window_size: int = 25, k: float = 0.35
+    ) -> np.ndarray:
+        """Christian Wolf adaptive binarization to preserve faint ballpoint ink on yellowed paper."""
+        mean = cv2.boxFilter(
+            gray.astype(np.float32), -1, (window_size, window_size), normalize=True
         )
-        return thresh
+        sq_mean = cv2.boxFilter(
+            (gray.astype(np.float32) ** 2), -1, (window_size, window_size), normalize=True
+        )
+        var = np.maximum(0.0, sq_mean - mean**2)
+        std = np.sqrt(var)
+
+        min_val = float(np.min(gray))
+        max_std = float(np.max(std))
+        if max_std <= 0:
+            max_std = 1.0
+
+        # T = mean - k * (1 - std/max_std) * (mean - min_val)
+        threshold = mean - k * (1.0 - (std / max_std)) * (mean - min_val)
+        binarized = np.where(gray.astype(np.float32) >= threshold, 255, 0).astype(np.uint8)
+        return binarized
+
+    def generate_threshold(self, cv_bgr: np.ndarray) -> np.ndarray:
+        """Generate binary threshold image buffer using Wolf adaptive binarization."""
+        gray = cv2.cvtColor(cv_bgr, cv2.COLOR_BGR2GRAY)
+        return self.wolf_binarization(gray)
 
     def process(self, raw_bytes: bytes) -> PreprocessedBundle:
-        """Run the complete preprocessing pipeline."""
+        """Run the complete 5-stage image enhancement pipeline."""
         self.validate_security(raw_bytes)
 
-        # Decode image using OpenCV
         nparr = np.frombuffer(raw_bytes, np.uint8)
         cv_bgr = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
         if cv_bgr is None:
             raise ImageSecurityError("Failed to decode image buffer.")
 
-        # 1. Deskew
-        deskewed_bgr, angle = self.deskew(cv_bgr)
+        # 1. 4-point quadrilateral perspective dewarp
+        warped_bgr, was_warped = self.perspective_dewarp(cv_bgr)
+        if was_warped:
+            oriented_bgr = warped_bgr
+            angle = 0.0
+        else:
+            oriented_bgr, angle = self.deskew(cv_bgr)
 
-        # 2. Illumination correction via CLAHE
-        enhanced_bgr = self.apply_clahe(deskewed_bgr)
+        # 2. Rolling-ball morphological background division for shadow removal
+        shadow_removed_bgr = self.remove_shadows_rolling_ball(oriented_bgr)
 
-        # 3. Adaptive threshold buffer
+        # 3. CLAHE illumination normalization
+        enhanced_bgr = self.apply_clahe(shadow_removed_bgr)
+
+        # 4. Wolf adaptive binarization threshold buffer
         thresh = self.generate_threshold(enhanced_bgr)
 
         # Encode back to JPEG/PNG bytes

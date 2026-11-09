@@ -11,14 +11,15 @@ from dataclasses import dataclass, field
 from backend.app.config import settings
 from backend.app.schemas.document import DocumentType
 from backend.app.services.models.base import BaseVisionExtractor, RawModelOutput
+from backend.app.services.models.direct_gemini import DirectGeminiExtractor
 from backend.app.services.models.freellm_extractor import FreeLLMVisionExtractor
-from backend.app.services.models.hybrid_ocr import HybridOCRExtractor
 from backend.app.services.models.mock_extractor import MockVisionExtractor
+from backend.app.services.models.rapidocr_local import RapidOCRLocalExtractor
 
 
 @dataclass
 class EnsembleDispatchResult:
-    """Consolidated outcome of the 3-model parallel execution."""
+    """Consolidated outcome of the multi-model parallel execution."""
 
     successful_runs: list[RawModelOutput] = field(default_factory=list)
     failed_runs: list[RawModelOutput] = field(default_factory=list)
@@ -28,32 +29,49 @@ class EnsembleDispatchResult:
 
 
 class EnsembleDispatcher:
-    """Dispatches multiple vision extractors in parallel."""
+    """Dispatches multiple vision extractors in parallel with automatic circuit breakers."""
 
     def __init__(self, extractors: list[BaseVisionExtractor] | None = None):
+        self._custom_extractors = extractors is not None
         if extractors:
             self.extractors = extractors
         elif settings.USE_MOCK_FALLBACK:
             self.extractors = [
                 MockVisionExtractor(name="gemini_vlm", model_id="mock_model_a"),
                 MockVisionExtractor(name="qwen_vl", model_id="mock_model_b"),
-                MockVisionExtractor(name="hybrid_ocr", model_id="mock_model_c"),
+                MockVisionExtractor(name="rapidocr_local", model_id="mock_model_c"),
             ]
         else:
-            self.extractors = [
-                FreeLLMVisionExtractor(
+            model_a: BaseVisionExtractor
+            if settings.GEMINI_API_KEY:
+                model_a = DirectGeminiExtractor(
+                    name="gemini_vlm",
+                    model_id=settings.GEMINI_MODEL,
+                    api_key=settings.GEMINI_API_KEY,
+                )
+            else:
+                model_a = FreeLLMVisionExtractor(
                     name="gemini_vlm",
                     model_id=settings.FREELLM_MODEL_A,
-                ),
-                FreeLLMVisionExtractor(
-                    name="qwen_vl",
-                    model_id=settings.FREELLM_MODEL_B,
-                ),
-                HybridOCRExtractor(
-                    name="hybrid_ocr",
-                    model_id=settings.FREELLM_MODEL_C_STRUCT,
-                ),
-            ]
+                )
+
+            model_b = FreeLLMVisionExtractor(
+                name="qwen_vl",
+                model_id=settings.FREELLM_MODEL_B,
+            )
+
+            # Model C: Local RapidOCR running on CPU with zero network latency (<200ms)
+            model_c = RapidOCRLocalExtractor(
+                name="rapidocr_local",
+                model_id="rapidocr-onnx",
+            )
+
+            self.extractors = [model_a, model_b, model_c]
+
+        self.local_fallback = RapidOCRLocalExtractor(
+            name="rapidocr_local",
+            model_id="rapidocr-onnx",
+        )
 
     async def _safe_extract(
         self,
@@ -107,6 +125,17 @@ class EnsembleDispatcher:
             else:
                 failed.append(res)
 
+        # Circuit Breaker: If all vision models failed (rate limit, timeout, offline),
+        # automatically invoke the local RapidOCR engine to guarantee >= 1 successful output.
+        if not successful:
+            already_run = any(r.model_name == self.local_fallback.name for r in successful + failed)
+            if not already_run:
+                fallback_res = await self._safe_extract(self.local_fallback, image_bytes, doc_type)
+                if fallback_res.status == "SUCCESS" and fallback_res.parsed_json:
+                    successful.append(fallback_res)
+                else:
+                    failed.append(fallback_res)
+
         # Graceful degradation logic:
         # If 1 of 3 failed: penalty = -0.10
         # If 2 of 3 failed: penalty = -0.30
@@ -119,7 +148,7 @@ class EnsembleDispatcher:
         elif len(failed) == 2:
             penalty = 0.30
             degraded = True
-        elif len(failed) == 3:
+        elif len(failed) >= 3:
             penalty = 0.80
             degraded = True
 

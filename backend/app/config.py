@@ -37,6 +37,12 @@ class Settings(BaseSettings):
     FREELLM_MODEL_C_STRUCT: str = "auto"
     FREELLM_TIMEOUT_SECONDS: float = 15.0
 
+    # Direct Cloud Vision Providers (Zero-Downtime bypass for local proxy)
+    GEMINI_API_KEY: str = ""
+    GEMINI_MODEL: str = "gemini-2.5-flash"
+    DEEPINFRA_API_KEY: str = ""
+    OPENROUTER_API_KEY: str = ""
+
     # Fallback / Mock provider option for offline tests or when FreeLLMAPI is offline
     USE_MOCK_FALLBACK: bool = False
 

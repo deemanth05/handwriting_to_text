@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { AlertCircle, AlertTriangle, CheckCircle2, ExternalLink, Save, Sparkles } from "lucide-react";
-import { DocumentExtractionResponse, DocumentType, LineItem } from "../types/document";
+import { DocumentExtractionResponse, DocumentType, LedgerTransactionItem, LineItem } from "../types/document";
 import { ImageCanvas } from "../components/ImageCanvas";
 import { FieldInspector } from "../components/FieldInspector";
 import { LineItemsTable } from "../components/LineItemsTable";
+import { LedgerTable } from "../components/LedgerTable";
 import { DemoGallery } from "../components/DemoGallery";
 import { extractDocument, verifyDocument, getDocumentImageUrl } from "../services/api";
 
@@ -52,11 +53,12 @@ export const Workspace: React.FC<WorkspaceProps> = ({
     }
   };
 
-  const handleSelectSample = async (sampleType: "invoice" | "khata" | "prescription") => {
+  const handleSelectSample = async (sampleType: "invoice" | "khata" | "prescription" | "cash_book") => {
     setIsLoading(true);
     try {
       const sampleNames: Record<string, { filename: string; type: DocumentType }> = {
         invoice: { filename: "sample_invoice.png", type: "INVOICE" },
+        cash_book: { filename: "sample_petty_cash.webp", type: "CASH_BOOK" },
         khata: { filename: "sample_khata.png", type: "KHATA_LEDGER" },
         prescription: { filename: "sample_prescription.png", type: "PRESCRIPTION" },
       };
@@ -124,6 +126,14 @@ export const Workspace: React.FC<WorkspaceProps> = ({
     });
   };
 
+  const handleLedgerItemsChange = (items: LedgerTransactionItem[]) => {
+    if (!currentDoc) return;
+    setCurrentDoc({
+      ...currentDoc,
+      ledger_items: items,
+    });
+  };
+
   const handleSaveGroundTruth = async () => {
     if (!currentDoc) return;
     try {
@@ -132,14 +142,23 @@ export const Workspace: React.FC<WorkspaceProps> = ({
         verifiedFields[k] = f.value;
       });
 
-      const verifiedItems = currentDoc.line_items.map((it) => ({
+      const verifiedItems = (currentDoc.line_items || []).map((it) => ({
         description: it.description.value,
         quantity: it.quantity.value,
         unit_price: it.unit_price.value,
         line_total: it.line_total.value,
       }));
 
-      await verifyDocument(currentDoc.document_id, verifiedFields, verifiedItems);
+      const verifiedLedgerItems = (currentDoc.ledger_items || []).map((it) => ({
+        entry_date: it.entry_date.value,
+        particulars: it.particulars.value,
+        voucher_no: it.voucher_no,
+        cash_out_debit: it.cash_out_debit.value,
+        cash_in_credit: it.cash_in_credit.value,
+        running_balance: it.running_balance.value,
+      }));
+
+      await verifyDocument(currentDoc.document_id, verifiedFields, verifiedItems, verifiedLedgerItems);
       setCurrentDoc({
         ...currentDoc,
         status: "VERIFIED",
@@ -274,8 +293,20 @@ export const Workspace: React.FC<WorkspaceProps> = ({
               {/* Scalar Field Inspector */}
               <FieldInspector fields={currentDoc.fields} onFieldChange={handleFieldChange} />
 
-              {/* Line Items Table */}
-              <LineItemsTable items={currentDoc.line_items} onItemsChange={handleLineItemsChange} />
+              {/* Polymorphic Table Rendering: LedgerTable for Cash Books / Khatas vs LineItemsTable for Invoices */}
+              {(currentDoc.document_type === "CASH_BOOK" ||
+                currentDoc.document_type === "KHATA_LEDGER" ||
+                (currentDoc.ledger_items && currentDoc.ledger_items.length > 0)) ? (
+                <LedgerTable
+                  items={currentDoc.ledger_items || []}
+                  onItemsChange={handleLedgerItemsChange}
+                />
+              ) : (
+                <LineItemsTable
+                  items={currentDoc.line_items || []}
+                  onItemsChange={handleLineItemsChange}
+                />
+              )}
             </div>
           </div>
         </div>

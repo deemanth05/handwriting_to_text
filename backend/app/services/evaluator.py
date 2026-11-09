@@ -208,7 +208,7 @@ class ContinuousEvaluator:
         return DocumentDiffResponse(
             document_id=document_id,
             field_diffs=diffs,
-            line_item_count=len(ground_truth.get("line_items", [])),
+            line_item_count=len(ground_truth.get("line_items", [])) or len(ground_truth.get("ledger_items", [])),
             per_model_accuracy=per_model_acc,
         )
 

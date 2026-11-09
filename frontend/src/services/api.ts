@@ -48,7 +48,8 @@ export async function listDocuments(): Promise<DocumentListItem[]> {
 export async function verifyDocument(
   documentId: string,
   verifiedFields: Record<string, any>,
-  verifiedLineItems: any[],
+  verifiedLineItems: any[] = [],
+  verifiedLedgerItems: any[] = [],
   verifiedBy: string = "human-reviewer"
 ): Promise<{ status: string; message: string }> {
   const res = await fetch(`${API_BASE}/documents/${documentId}/verify`, {
@@ -57,6 +58,7 @@ export async function verifyDocument(
     body: JSON.stringify({
       verified_fields: verifiedFields,
       verified_line_items: verifiedLineItems,
+      verified_ledger_items: verifiedLedgerItems,
       verified_by: verifiedBy,
     }),
   });

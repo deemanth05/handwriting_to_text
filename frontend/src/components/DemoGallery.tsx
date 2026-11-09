@@ -4,7 +4,7 @@ import { DocumentType } from "../types/document";
 
 interface DemoGalleryProps {
   onUpload: (file: File, docType: DocumentType) => void;
-  onSelectSample: (sampleType: "invoice" | "khata" | "prescription") => void;
+  onSelectSample: (sampleType: "invoice" | "khata" | "prescription" | "cash_book") => void;
   isLoading: boolean;
 }
 
@@ -40,7 +40,7 @@ export const DemoGallery: React.FC<DemoGalleryProps> = ({
           </span>
           <span className="text-[10px] text-emerald-400 font-mono">Instant Ensemble Extraction</span>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {/* Demo 1: Stamped Invoice */}
           <button
             type="button"
@@ -61,7 +61,27 @@ export const DemoGallery: React.FC<DemoGalleryProps> = ({
             </div>
           </button>
 
-          {/* Demo 2: Regional Khata */}
+          {/* Demo 2: Petty Cash Book */}
+          <button
+            type="button"
+            disabled={isLoading}
+            onClick={() => onSelectSample("cash_book")}
+            className="flex items-start space-x-3 p-3 rounded-xl glass-card border border-slate-800 hover:border-purple-500/50 hover:bg-slate-800/60 transition-all text-left group"
+          >
+            <div className="p-2 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 group-hover:scale-110 transition-transform">
+              <BookOpen className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="text-xs font-semibold text-slate-200 group-hover:text-purple-300">
+                Petty Cash Book
+              </div>
+              <div className="text-[11px] text-slate-400">
+                Feb 2025 • Sequential running balance
+              </div>
+            </div>
+          </button>
+
+          {/* Demo 3: Regional Khata */}
           <button
             type="button"
             disabled={isLoading}
@@ -81,7 +101,7 @@ export const DemoGallery: React.FC<DemoGalleryProps> = ({
             </div>
           </button>
 
-          {/* Demo 3: Prescription */}
+          {/* Demo 4: Prescription */}
           <button
             type="button"
             disabled={isLoading}
@@ -138,6 +158,7 @@ export const DemoGallery: React.FC<DemoGalleryProps> = ({
               className="bg-dark-850 text-xs font-medium text-slate-200 px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-emerald-500 transition-all"
             >
               <option value="INVOICE">Invoice</option>
+              <option value="CASH_BOOK">Petty Cash Book</option>
               <option value="KHATA_LEDGER">Khata Ledger</option>
               <option value="PRESCRIPTION">Prescription</option>
               <option value="GENERAL">General</option>

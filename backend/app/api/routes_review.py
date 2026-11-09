@@ -22,6 +22,9 @@ class VerificationPayload(BaseModel):
     verified_line_items: list[dict[str, Any]] = Field(
         default_factory=list, description="Human-corrected line items"
     )
+    verified_ledger_items: list[dict[str, Any]] = Field(
+        default_factory=list, description="Human-corrected ledger items"
+    )
     verified_by: str | None = Field(
         default="human-reviewer", description="Identifier of the reviewer"
     )
@@ -57,6 +60,7 @@ async def verify_document(
     ground_truth_data = {
         "fields": payload.verified_fields,
         "line_items": payload.verified_line_items,
+        "ledger_items": payload.verified_ledger_items,
     }
     gt_json = json.dumps(ground_truth_data)
     now = datetime.now(UTC)

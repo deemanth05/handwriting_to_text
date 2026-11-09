@@ -50,3 +50,79 @@ def test_deskew_rotation():
 
     bundle = preprocessor.process(raw_rotated)
     assert bundle.width > 0
+
+
+def test_shadow_removal():
+    import numpy as np
+
+    # Synthetic image with white paper (240) and a severe cast shadow gradient (falling to 60)
+    h, w = 200, 300
+    img = np.full((h, w, 3), 240, dtype=np.uint8)
+    for x in range(w):
+        shadow_factor = 1.0 - (0.6 * (x / w))  # gradient shadow across width
+        img[:, x] = np.clip(img[:, x] * shadow_factor, 0, 255).astype(np.uint8)
+
+    # Pre-shadow variance
+    pre_std = float(np.std(img[:, :, 0]))
+    normalized = preprocessor.remove_shadows_rolling_ball(img, kernel_size=35)
+    post_std = float(np.std(normalized[:, :, 0]))
+
+    # Background division must dramatically reduce shadow illumination variation
+    assert post_std < pre_std * 0.5
+
+
+def test_wolf_binarization():
+    import numpy as np
+
+    # Synthetic image with faint strokes (gray level 160 on 220 paper)
+    gray = np.full((150, 150), 220, dtype=np.uint8)
+    gray[70:80, 20:130] = 150  # faint ballpoint stroke
+
+    thresh = preprocessor.wolf_binarization(gray, window_size=25, k=0.35)
+    assert thresh.shape == gray.shape
+    unique_vals = set(np.unique(thresh))
+    assert unique_vals.issubset({0, 255})
+    # Foreground stroke must be detected as black (0)
+    assert np.mean(thresh[70:80, 20:130] == 0) > 0.80
+
+
+def test_perspective_dewarp():
+    import cv2
+    import numpy as np
+
+    # Create a white synthetic canvas with a large dark skewed quadrilateral on a contrasting border
+    canvas = np.zeros((600, 800, 3), dtype=np.uint8)
+    # Define a trapezoid simulating a phone camera angle
+    pts = np.array([[120, 100], [680, 120], [740, 500], [80, 480]], dtype=np.int32)
+    cv2.fillPoly(canvas, [pts], (240, 240, 240))
+    cv2.polylines(canvas, [pts], isClosed=True, color=(20, 20, 20), thickness=4)
+
+    dewarped, was_warped = preprocessor.perspective_dewarp(canvas)
+    assert was_warped is True
+    assert dewarped.shape[0] > 0
+    assert dewarped.shape[1] > 0
+
+
+def test_shadow_removal_even_kernel():
+    import numpy as np
+
+    img = np.full((100, 100, 3), 200, dtype=np.uint8)
+    # Even kernel_size (30) must not crash OpenCV GaussianBlur
+    res = preprocessor.remove_shadows_rolling_ball(img, kernel_size=30)
+    assert res.shape == img.shape
+
+
+def test_perspective_dewarp_diamond_quad():
+    import cv2
+    import numpy as np
+
+    canvas = np.zeros((600, 600, 3), dtype=np.uint8)
+    pts = np.array([[300, 80], [520, 300], [300, 520], [80, 300]], dtype=np.int32)
+    cv2.fillPoly(canvas, [pts], (240, 240, 240))
+    cv2.polylines(canvas, [pts], isClosed=True, color=(20, 20, 20), thickness=4)
+
+    dewarped, was_warped = preprocessor.perspective_dewarp(canvas)
+    assert was_warped is True
+    assert dewarped.shape[0] > 0
+    assert dewarped.shape[1] > 0
+

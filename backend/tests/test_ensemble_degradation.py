@@ -54,3 +54,18 @@ async def test_ensemble_model_timeout():
     assert len(res.failed_runs) == 1
     assert res.failed_runs[0].status == "TIMEOUT"
     assert res.degraded_mode is True
+
+
+@pytest.mark.asyncio
+async def test_ensemble_circuit_breaker_failover(sample_invoice_bytes: bytes):
+    extractors = [
+        MockVisionExtractor("m1", "id1", should_fail=True),
+        MockVisionExtractor("m2", "id2", should_fail=True),
+    ]
+    dispatcher = EnsembleDispatcher(extractors=extractors)
+    res = await dispatcher.dispatch(sample_invoice_bytes, DocumentType.INVOICE)
+
+    # Circuit breaker triggers local_fallback
+    assert len(res.successful_runs) >= 1
+    assert res.successful_runs[0].model_name == "rapidocr_local"
+    assert res.degraded_mode is True

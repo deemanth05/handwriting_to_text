@@ -1,4 +1,4 @@
-export type DocumentType = "INVOICE" | "PRESCRIPTION" | "KHATA_LEDGER" | "GENERAL";
+export type DocumentType = "INVOICE" | "PRESCRIPTION" | "KHATA_LEDGER" | "CASH_BOOK" | "GENERAL";
 
 export interface ExtractedField<T = any> {
   value: T | null;
@@ -19,6 +19,18 @@ export interface LineItem {
   needs_review: boolean;
 }
 
+export interface LedgerTransactionItem {
+  row_id: number;
+  entry_date: ExtractedField<string>;
+  particulars: ExtractedField<string>;
+  voucher_no?: string | null;
+  cash_out_debit: ExtractedField<number>;
+  cash_in_credit: ExtractedField<number>;
+  running_balance: ExtractedField<number>;
+  balance_math_valid: boolean;
+  needs_review: boolean;
+}
+
 export interface MathValidationResult {
   is_valid: boolean;
   discrepancy_amount: number;
@@ -33,6 +45,7 @@ export interface DocumentExtractionResponse {
   math_validation: MathValidationResult;
   fields: Record<string, ExtractedField<any>>;
   line_items: LineItem[];
+  ledger_items: LedgerTransactionItem[];
   processing_time_ms: number;
   models_participated: string[];
   error_summary?: string | null;

@@ -95,6 +95,30 @@ Target JSON Schema:
 """
 )
 
+CASH_BOOK_PROMPT = (
+    SYSTEM_INSTRUCTION_BASE
+    + """
+Target JSON Schema:
+{
+  "book_title": "string or null (e.g. Petty Cash Book)",
+  "period": "string or null (e.g. Month: Feb 2025)",
+  "page_no": "string or null",
+  "opening_balance": float or null,
+  "closing_balance": float or null,
+  "ledger_items": [
+    {
+      "entry_date": "string or null (e.g. 05/02 or YYYY-MM-DD)",
+      "particulars": "string (transaction details/description)",
+      "voucher_no": "string or null",
+      "cash_out_debit": float,
+      "cash_in_credit": float,
+      "running_balance": float
+    }
+  ]
+}
+"""
+)
+
 TIE_BREAKER_JUDGE_PROMPT = """You are an expert handwriting forensics judge.
 Multiple vision extractors analyzed this document crop/image and produced conflicting candidate values for the field: "{field_name}".
 
@@ -117,6 +141,9 @@ def get_prompt_for_doctype(doc_type: DocumentType) -> str:
     """Return appropriate extraction prompt based on document type."""
     if doc_type == DocumentType.PRESCRIPTION:
         return PRESCRIPTION_PROMPT
+    elif doc_type == DocumentType.CASH_BOOK:
+        return CASH_BOOK_PROMPT
     elif doc_type == DocumentType.KHATA_LEDGER:
         return KHATA_LEDGER_PROMPT
     return INVOICE_PROMPT
+

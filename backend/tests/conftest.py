@@ -62,3 +62,9 @@ async def client(db_session: AsyncSession) -> AsyncGenerator[AsyncClient, None]:
 def sample_invoice_bytes() -> bytes:
     sample_path = Path(__file__).resolve().parents[2] / "sample_dataset" / "sample_invoice.png"
     return sample_path.read_bytes()
+
+
+@pytest.fixture
+def sample_cash_book_bytes() -> bytes:
+    sample_path = Path(__file__).resolve().parents[2] / "sample_dataset" / "sample_petty_cash.webp"
+    return sample_path.read_bytes()

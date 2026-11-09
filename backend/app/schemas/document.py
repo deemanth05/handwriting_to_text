@@ -18,6 +18,7 @@ class DocumentType(StrEnum):
     INVOICE = "INVOICE"
     PRESCRIPTION = "PRESCRIPTION"
     KHATA_LEDGER = "KHATA_LEDGER"
+    CASH_BOOK = "CASH_BOOK"
     GENERAL = "GENERAL"
 
 
@@ -55,6 +56,26 @@ class LineItem(BaseModel):
     needs_review: bool = False
 
 
+class LedgerTransactionItem(BaseModel):
+    """Standardized extracted cash book or khata ledger transaction entry."""
+
+    row_id: int
+    entry_date: ExtractedField[str] = Field(default_factory=lambda: ExtractedField[str](value=""))
+    particulars: ExtractedField[str] = Field(default_factory=lambda: ExtractedField[str](value=""))
+    voucher_no: ExtractedField[str] | None = None
+    cash_out_debit: ExtractedField[float] = Field(
+        default_factory=lambda: ExtractedField[float](value=0.0)
+    )
+    cash_in_credit: ExtractedField[float] = Field(
+        default_factory=lambda: ExtractedField[float](value=0.0)
+    )
+    running_balance: ExtractedField[float] = Field(
+        default_factory=lambda: ExtractedField[float](value=0.0)
+    )
+    balance_math_valid: bool = True
+    needs_review: bool = False
+
+
 class MathValidationResult(BaseModel):
     """Deterministic arithmetic validation output."""
 
@@ -73,6 +94,7 @@ class DocumentExtractionResponse(BaseModel):
     math_validation: MathValidationResult = Field(default_factory=MathValidationResult)
     fields: dict[str, ExtractedField[Any]] = Field(default_factory=dict)
     line_items: list[LineItem] = Field(default_factory=list)
+    ledger_items: list[LedgerTransactionItem] = Field(default_factory=list)
     processing_time_ms: float = 0.0
     models_participated: list[str] = Field(default_factory=list)
     error_summary: str | None = None
@@ -97,6 +119,12 @@ class DocumentExtractionResponse(BaseModel):
         # Check line items
         for item in self.line_items:
             if item.needs_review or not item.row_math_valid:
+                self.status = "NEEDS_REVIEW"
+                return self
+
+        # Check ledger items
+        for l_item in self.ledger_items:
+            if l_item.needs_review or not l_item.balance_math_valid:
                 self.status = "NEEDS_REVIEW"
                 return self
 
@@ -166,3 +194,60 @@ def verify_document_math(
         discrepancy_amount=max_discrepancy,
         error_details=errors,
     )
+
+
+def verify_ledger_math(
+    items: list[LedgerTransactionItem],
+    tolerance: float = 0.05,
+) -> MathValidationResult:
+    """Verify running balance arithmetic: Balance[t] = Balance[t-1] + In[t] - Out[t]."""
+    errors: list[str] = []
+    max_disc: float = 0.0
+
+    if not items:
+        return MathValidationResult(is_valid=True, discrepancy_amount=0.0, error_details=[])
+
+    # Check if first row has opening credit / balance
+    init_bal = items[0].running_balance.value
+    init_in = items[0].cash_in_credit.value or 0.0
+    init_out = items[0].cash_out_debit.value or 0.0
+    if (init_bal is None or init_bal == 0.0) and (init_in > 0.0 or init_out > 0.0):
+        prev_balance = round(init_in - init_out, 2)
+        items[0].running_balance.value = prev_balance
+    else:
+        prev_balance = init_bal or 0.0
+
+    items[0].balance_math_valid = True
+
+    for i in range(1, len(items)):
+        item = items[i]
+        out_val = item.cash_out_debit.value or 0.0
+        in_val = item.cash_in_credit.value or 0.0
+        bal_val = item.running_balance.value
+
+        if bal_val is None:
+            continue
+
+        expected_bal = round(prev_balance + in_val - out_val, 2)
+        actual_bal = round(bal_val, 2)
+        diff = round(abs(expected_bal - actual_bal), 2)
+
+        if diff > tolerance:
+            item.balance_math_valid = False
+            item.needs_review = True
+            desc = item.particulars.value or f"Row {item.row_id}"
+            errors.append(
+                f"Row {item.row_id} ({desc}): Expected balance {expected_bal:.2f} (prev {prev_balance:.2f} + in {in_val:.2f} - out {out_val:.2f}), got {actual_bal:.2f} (diff {diff:.2f})"
+            )
+            max_disc = max(max_disc, diff)
+        else:
+            item.balance_math_valid = True
+
+        prev_balance = actual_bal
+
+    return MathValidationResult(
+        is_valid=(len(errors) == 0),
+        discrepancy_amount=max_disc,
+        error_details=errors,
+    )
+
