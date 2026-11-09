@@ -1,0 +1,488 @@
+[
+  {
+    "file_name": "example-1.jpg",
+    "size_kb": 236.4,
+    "doc_type": "INVOICE",
+    "latency_ms": 5363.4,
+    "overall_confidence": 0.12,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 1,
+    "ledger_items_count": 0,
+    "row_math_passes": 1,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "example-2.jpg",
+    "size_kb": 114.8,
+    "doc_type": "INVOICE",
+    "latency_ms": 4846.7,
+    "overall_confidence": 0.15,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 3,
+    "ledger_items_count": 0,
+    "row_math_passes": 3,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "example-3.jpg",
+    "size_kb": 258.0,
+    "doc_type": "INVOICE",
+    "latency_ms": 4327.1,
+    "overall_confidence": 0.17,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 9,
+    "ledger_items_count": 0,
+    "row_math_passes": 9,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "example-4.jpg",
+    "size_kb": 181.5,
+    "doc_type": "INVOICE",
+    "latency_ms": 5859.3,
+    "overall_confidence": 0.18,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 11,
+    "ledger_items_count": 0,
+    "row_math_passes": 11,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "example-5.jpg",
+    "size_kb": 253.5,
+    "doc_type": "INVOICE",
+    "latency_ms": 4750.5,
+    "overall_confidence": 0.16,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 5,
+    "ledger_items_count": 0,
+    "row_math_passes": 5,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "invoice_demo.jpg",
+    "size_kb": 150.6,
+    "doc_type": "INVOICE",
+    "latency_ms": 3927.7,
+    "overall_confidence": 0.17,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 7,
+    "ledger_items_count": 0,
+    "row_math_passes": 7,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "sample.jpg",
+    "size_kb": 1104.9,
+    "doc_type": "INVOICE",
+    "latency_ms": 4482.1,
+    "overall_confidence": 0.15,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 4,
+    "ledger_items_count": 0,
+    "row_math_passes": 4,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "pytesseract_test.png",
+    "size_kb": 11.2,
+    "doc_type": "INVOICE",
+    "latency_ms": 3924.2,
+    "overall_confidence": 0.1,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 0,
+    "ledger_items_count": 0,
+    "row_math_passes": 0,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "01_invoice_ad4tech_material.jpg",
+    "size_kb": 70.6,
+    "doc_type": "INVOICE",
+    "latency_ms": 3908.4,
+    "overall_confidence": 0.16,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 6,
+    "ledger_items_count": 0,
+    "row_math_passes": 5,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "02_invoice_east_repair.jpg",
+    "size_kb": 65.1,
+    "doc_type": "INVOICE",
+    "latency_ms": 4049.3,
+    "overall_confidence": 0.16,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 5,
+    "ledger_items_count": 0,
+    "row_math_passes": 5,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "03_handwritten_notes_bill_format.jpg",
+    "size_kb": 38.0,
+    "doc_type": "INVOICE",
+    "latency_ms": 4191.1,
+    "overall_confidence": 0.1,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 0,
+    "ledger_items_count": 0,
+    "row_math_passes": 0,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "04_invoice_abc_corp.jpg",
+    "size_kb": 117.2,
+    "doc_type": "INVOICE",
+    "latency_ms": 4763.6,
+    "overall_confidence": 0.15,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 3,
+    "ledger_items_count": 0,
+    "row_math_passes": 3,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "05_invoice_gst_multi_tier.jpg",
+    "size_kb": 57.9,
+    "doc_type": "INVOICE",
+    "latency_ms": 4028.6,
+    "overall_confidence": 0.17,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 10,
+    "ledger_items_count": 0,
+    "row_math_passes": 10,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "01_hillside_joinery_invoice.jpg",
+    "size_kb": 57.1,
+    "doc_type": "INVOICE",
+    "latency_ms": 3797.4,
+    "overall_confidence": 0.16,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 5,
+    "ledger_items_count": 0,
+    "row_math_passes": 5,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "02_bharat_associates_tax_invoice.jpg",
+    "size_kb": 142.1,
+    "doc_type": "INVOICE",
+    "latency_ms": 4314.4,
+    "overall_confidence": 0.15,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 4,
+    "ledger_items_count": 0,
+    "row_math_passes": 4,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "03_coffee_house_receipt_annotated.jpg",
+    "size_kb": 108.4,
+    "doc_type": "INVOICE",
+    "latency_ms": 3653.1,
+    "overall_confidence": 0.17,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 10,
+    "ledger_items_count": 0,
+    "row_math_passes": 10,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "04_new_lite_hardware_sales_invoice.jpg",
+    "size_kb": 124.5,
+    "doc_type": "INVOICE",
+    "latency_ms": 4136.1,
+    "overall_confidence": 0.18,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 14,
+    "ledger_items_count": 0,
+    "row_math_passes": 12,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  },
+  {
+    "file_name": "05_nath_traders_gst_bill.jpg",
+    "size_kb": 106.4,
+    "doc_type": "INVOICE",
+    "latency_ms": 4280.9,
+    "overall_confidence": 0.15,
+    "status": "NEEDS_REVIEW",
+    "math_valid": true,
+    "discrepancy": 0.0,
+    "fields_detected": [
+      "discount_amount",
+      "grand_total",
+      "invoice_date",
+      "invoice_number",
+      "subtotal",
+      "tax_amount",
+      "vendor_name"
+    ],
+    "fields_count": 7,
+    "line_items_count": 3,
+    "ledger_items_count": 0,
+    "row_math_passes": 3,
+    "models_participated": [
+      "rapidocr_local"
+    ],
+    "error_summary": null
+  }
+]
