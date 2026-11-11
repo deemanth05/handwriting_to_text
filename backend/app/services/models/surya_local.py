@@ -51,6 +51,8 @@ class SuryaLocalExtractor(BaseVisionExtractor):
     _det_processor = None
     _rec_model = None
     _rec_processor = None
+    _det_predictor = None
+    _rec_predictor = None
 
     def __init__(
         self,
@@ -435,18 +437,32 @@ class SuryaLocalExtractor(BaseVisionExtractor):
             )
 
         try:
-            from surya.ocr import run_ocr
-            det_processor, det_model, rec_model, rec_processor = self._get_models()
+            try:
+                from surya.recognition import RecognitionPredictor
+                from surya.detection import DetectionPredictor
 
-            # Run Surya OCR
-            predictions = run_ocr(
-                [pil_image],
-                [self.langs],
-                det_model,
-                det_processor,
-                rec_model,
-                rec_processor,
-            )
+                if self.__class__._rec_predictor is None or self.__class__._det_predictor is None:
+                    self.__class__._det_predictor = DetectionPredictor()
+                    self.__class__._rec_predictor = RecognitionPredictor()
+
+                predictions = self.__class__._rec_predictor(
+                    [pil_image],
+                    [self.langs],
+                    self.__class__._det_predictor,
+                )
+            except (ImportError, AttributeError):
+                from surya.ocr import run_ocr
+                det_processor, det_model, rec_model, rec_processor = self._get_models()
+
+                # Run Surya OCR
+                predictions = run_ocr(
+                    [pil_image],
+                    [self.langs],
+                    det_model,
+                    det_processor,
+                    rec_model,
+                    rec_processor,
+                )
 
             text_lines = predictions[0].text_lines if predictions else []
             raw_lines = [line.text.strip() for line in text_lines if getattr(line, "text", "").strip()]
