@@ -34,7 +34,7 @@ async def extract_document(
     db: AsyncSession = Depends(get_db),
 ):
     """Processes document through the 5-stage consensus engine:
-    1. Preprocessing (deskew, CLAHE shadow removal, thresholding)
+    1. Preprocessing (deskew, CLAHE shadow removal)
     2. Concurrent multi-model dispatching (Model A, Model B, Model C)
     3. Consensus reconciliation (Hungarian algorithm + RapidFuzz)
     4. Deterministic math validation

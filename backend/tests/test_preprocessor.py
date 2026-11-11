@@ -1,6 +1,7 @@
 """Tests for OpenCV/PIL Preprocessing and Security Validation."""
 
 import io
+from pathlib import Path
 
 import pytest
 from PIL import Image
@@ -29,10 +30,22 @@ def test_process_valid_image(sample_invoice_bytes: bytes):
     bundle = preprocessor.process(sample_invoice_bytes)
     assert bundle.original_bytes == sample_invoice_bytes
     assert len(bundle.enhanced_rgb_bytes) > 0
-    assert len(bundle.threshold_bytes) > 0
     assert bundle.width > 0
     assert bundle.height > 0
     assert isinstance(bundle.deskew_angle, float)
+
+
+def test_process_and_export_images(sample_invoice_bytes: bytes, tmp_path: Path):
+    """Verify processing pipeline and export enhanced RGB image."""
+    bundle = preprocessor.process(sample_invoice_bytes)
+
+    # Save to pytest tmp directory
+    enhanced_path = tmp_path / "enhanced_rgb.jpg"
+    enhanced_path.write_bytes(bundle.enhanced_rgb_bytes)
+
+    assert enhanced_path.exists() and enhanced_path.stat().st_size > 0
+    assert bundle.width > 0
+    assert bundle.height > 0
 
 
 def test_deskew_rotation():
@@ -69,21 +82,6 @@ def test_shadow_removal():
 
     # Background division must dramatically reduce shadow illumination variation
     assert post_std < pre_std * 0.5
-
-
-def test_wolf_binarization():
-    import numpy as np
-
-    # Synthetic image with faint strokes (gray level 160 on 220 paper)
-    gray = np.full((150, 150), 220, dtype=np.uint8)
-    gray[70:80, 20:130] = 150  # faint ballpoint stroke
-
-    thresh = preprocessor.wolf_binarization(gray, window_size=25, k=0.35)
-    assert thresh.shape == gray.shape
-    unique_vals = set(np.unique(thresh))
-    assert unique_vals.issubset({0, 255})
-    # Foreground stroke must be detected as black (0)
-    assert np.mean(thresh[70:80, 20:130] == 0) > 0.80
 
 
 def test_perspective_dewarp():

@@ -6,7 +6,6 @@ Performs:
 3. Hough baseline rotation deskewing as secondary fine-tilt correction
 4. Rolling-ball background division for glare and dark phone shadow removal
 5. CLAHE illumination normalization on LAB color space
-6. Christian Wolf adaptive binarization to preserve faint ballpoint ink loops
 """
 
 import io
@@ -36,7 +35,6 @@ class PreprocessedBundle:
 
     original_bytes: bytes
     enhanced_rgb_bytes: bytes
-    threshold_bytes: bytes
     deskew_angle: float
     width: int
     height: int
@@ -223,36 +221,8 @@ class ImagePreprocessor:
         enhanced_bgr = cv2.cvtColor(merged_lab, cv2.COLOR_LAB2BGR)
         return enhanced_bgr
 
-    def wolf_binarization(
-        self, gray: np.ndarray, window_size: int = 25, k: float = 0.35
-    ) -> np.ndarray:
-        """Christian Wolf adaptive binarization to preserve faint ballpoint ink on yellowed paper."""
-        mean = cv2.boxFilter(
-            gray.astype(np.float32), -1, (window_size, window_size), normalize=True
-        )
-        sq_mean = cv2.boxFilter(
-            (gray.astype(np.float32) ** 2), -1, (window_size, window_size), normalize=True
-        )
-        var = np.maximum(0.0, sq_mean - mean**2)
-        std = np.sqrt(var)
-
-        min_val = float(np.min(gray))
-        max_std = float(np.max(std))
-        if max_std <= 0:
-            max_std = 1.0
-
-        # T = mean - k * (1 - std/max_std) * (mean - min_val)
-        threshold = mean - k * (1.0 - (std / max_std)) * (mean - min_val)
-        binarized = np.where(gray.astype(np.float32) >= threshold, 255, 0).astype(np.uint8)
-        return binarized
-
-    def generate_threshold(self, cv_bgr: np.ndarray) -> np.ndarray:
-        """Generate binary threshold image buffer using Wolf adaptive binarization."""
-        gray = cv2.cvtColor(cv_bgr, cv2.COLOR_BGR2GRAY)
-        return self.wolf_binarization(gray)
-
     def process(self, raw_bytes: bytes) -> PreprocessedBundle:
-        """Run the complete 5-stage image enhancement pipeline."""
+        """Run the complete 4-stage image enhancement pipeline."""
         self.validate_security(raw_bytes)
 
         nparr = np.frombuffer(raw_bytes, np.uint8)
@@ -274,19 +244,14 @@ class ImagePreprocessor:
         # 3. CLAHE illumination normalization
         enhanced_bgr = self.apply_clahe(shadow_removed_bgr)
 
-        # 4. Wolf adaptive binarization threshold buffer
-        thresh = self.generate_threshold(enhanced_bgr)
-
-        # Encode back to JPEG/PNG bytes
+        # Encode back to JPEG bytes
         _, enhanced_buf = cv2.imencode(".jpg", enhanced_bgr, [int(cv2.IMWRITE_JPEG_QUALITY), 95])
-        _, thresh_buf = cv2.imencode(".png", thresh)
 
         (h, w) = enhanced_bgr.shape[:2]
 
         return PreprocessedBundle(
             original_bytes=raw_bytes,
             enhanced_rgb_bytes=enhanced_buf.tobytes(),
-            threshold_bytes=thresh_buf.tobytes(),
             deskew_angle=angle,
             width=w,
             height=h,
