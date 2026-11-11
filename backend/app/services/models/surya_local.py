@@ -445,11 +445,9 @@ class SuryaLocalExtractor(BaseVisionExtractor):
                     self.__class__._det_predictor = DetectionPredictor()
                     self.__class__._rec_predictor = RecognitionPredictor()
 
-                predictions = self.__class__._rec_predictor(
-                    [pil_image],
-                    [self.langs],
-                    self.__class__._det_predictor,
-                )
+                rec_pred = self.__class__._rec_predictor
+                det_pred = self.__class__._det_predictor
+                predictions = rec_pred([pil_image], [self.langs], det_predictor=det_pred)
             except (ImportError, AttributeError):
                 from surya.ocr import run_ocr
                 det_processor, det_model, rec_model, rec_processor = self._get_models()
