@@ -37,6 +37,10 @@ class Settings(BaseSettings):
     FREELLM_MODEL_C_STRUCT: str = "auto"
     FREELLM_TIMEOUT_SECONDS: float = 15.0
 
+    # Local OCR Engines
+    ENABLE_SURYA_LOCAL: bool = True
+    SURYA_LANGS: list[str] = ["en", "hi"]
+
     # Fallback / Mock provider option for offline tests or when FreeLLMAPI is offline
     USE_MOCK_FALLBACK: bool = False
 

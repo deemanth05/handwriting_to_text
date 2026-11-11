@@ -251,11 +251,13 @@ export const Workspace: React.FC<WorkspaceProps> = ({
           )}
 
           {/* Local High-Speed Engine Resilient Status Badge */}
-          {currentDoc.models_participated.includes("rapidocr_local") && (
+          {currentDoc.models_participated.some((m) => m === "rapidocr_local" || m === "surya_local") && (
             <div className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-200 text-xs">
               <div className="flex items-center space-x-2 font-medium">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                <span>✓ Extracted via Local High-Speed Engine (Offline Resilient)</span>
+                <span>
+                  ✓ Extracted via Local Engine ({currentDoc.models_participated.filter((m) => m === "rapidocr_local" || m === "surya_local").map((m) => m === "surya_local" ? "Surya OCR" : "RapidOCR").join(" + ")} - Offline Resilient)
+                </span>
               </div>
               <span className="text-[11px] text-emerald-400/80 font-mono">
                 Latency: {currentDoc.processing_time_ms.toFixed(0)}ms
@@ -282,9 +284,9 @@ export const Workspace: React.FC<WorkspaceProps> = ({
                     <span className="text-[11px] font-mono text-slate-400">
                       ID: {currentDoc.document_id.slice(0, 8)}...
                     </span>
-                    {currentDoc.models_participated.includes("rapidocr_local") && (
+                    {currentDoc.models_participated.some((m) => m === "rapidocr_local" || m === "surya_local") && (
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                        ✓ Extracted via Local High-Speed Engine (Offline Resilient)
+                        ✓ {currentDoc.models_participated.filter((m) => m === "rapidocr_local" || m === "surya_local").map((m) => m === "surya_local" ? "Surya OCR" : "RapidOCR").join(" + ")} (Local)
                       </span>
                     )}
                   </div>

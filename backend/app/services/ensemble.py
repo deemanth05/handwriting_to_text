@@ -14,6 +14,7 @@ from backend.app.services.models.base import BaseVisionExtractor, RawModelOutput
 from backend.app.services.models.freellm_extractor import FreeLLMVisionExtractor
 from backend.app.services.models.mock_extractor import MockVisionExtractor
 from backend.app.services.models.rapidocr_local import RapidOCRLocalExtractor
+from backend.app.services.models.surya_local import SuryaLocalExtractor
 
 
 @dataclass
@@ -57,11 +58,26 @@ class EnsembleDispatcher:
                 model_id="rapidocr-onnx",
             )
 
-            self.extractors = [model_a, model_b, model_c]
+            extractors = [model_a, model_b, model_c]
+            if getattr(settings, "ENABLE_SURYA_LOCAL", True):
+                extractors.append(
+                    SuryaLocalExtractor(
+                        name="surya_local",
+                        model_id="surya-ocr",
+                        langs=getattr(settings, "SURYA_LANGS", ["en", "hi"]),
+                    )
+                )
+
+            self.extractors = extractors
 
         self.local_fallback = RapidOCRLocalExtractor(
             name="rapidocr_local",
             model_id="rapidocr-onnx",
+        )
+        self.surya_fallback = SuryaLocalExtractor(
+            name="surya_local",
+            model_id="surya-ocr",
+            langs=getattr(settings, "SURYA_LANGS", ["en", "hi"]),
         )
 
     async def _safe_extract(
@@ -117,15 +133,17 @@ class EnsembleDispatcher:
                 failed.append(res)
 
         # Circuit Breaker: If all vision models failed (rate limit, timeout, offline),
-        # automatically invoke the local RapidOCR engine to guarantee >= 1 successful output.
+        # automatically invoke local engines (RapidOCR / Surya) to guarantee >= 1 successful output.
         if not successful:
-            already_run = any(r.model_name == self.local_fallback.name for r in successful + failed)
-            if not already_run:
-                fallback_res = await self._safe_extract(self.local_fallback, image_bytes, doc_type)
-                if fallback_res.status == "SUCCESS" and fallback_res.parsed_json is not None:
-                    successful.append(fallback_res)
-                else:
-                    failed.append(fallback_res)
+            for fallback_engine in [self.local_fallback, self.surya_fallback]:
+                already_run = any(r.model_name == fallback_engine.name for r in successful + failed)
+                if not already_run:
+                    fallback_res = await self._safe_extract(fallback_engine, image_bytes, doc_type)
+                    if fallback_res.status == "SUCCESS" and fallback_res.parsed_json is not None:
+                        successful.append(fallback_res)
+                        break
+                    else:
+                        failed.append(fallback_res)
 
         # Graceful degradation logic:
         # If 1 of 3 failed: penalty = -0.10
