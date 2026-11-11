@@ -11,7 +11,6 @@ from dataclasses import dataclass, field
 from backend.app.config import settings
 from backend.app.schemas.document import DocumentType
 from backend.app.services.models.base import BaseVisionExtractor, RawModelOutput
-from backend.app.services.models.direct_gemini import DirectGeminiExtractor
 from backend.app.services.models.freellm_extractor import FreeLLMVisionExtractor
 from backend.app.services.models.mock_extractor import MockVisionExtractor
 from backend.app.services.models.rapidocr_local import RapidOCRLocalExtractor
@@ -42,18 +41,10 @@ class EnsembleDispatcher:
                 MockVisionExtractor(name="rapidocr_local", model_id="mock_model_c"),
             ]
         else:
-            model_a: BaseVisionExtractor
-            if settings.GEMINI_API_KEY:
-                model_a = DirectGeminiExtractor(
-                    name="gemini_vlm",
-                    model_id=settings.GEMINI_MODEL,
-                    api_key=settings.GEMINI_API_KEY,
-                )
-            else:
-                model_a = FreeLLMVisionExtractor(
-                    name="gemini_vlm",
-                    model_id=settings.FREELLM_MODEL_A,
-                )
+            model_a = FreeLLMVisionExtractor(
+                name="gemini_vlm",
+                model_id=settings.FREELLM_MODEL_A,
+            )
 
             model_b = FreeLLMVisionExtractor(
                 name="qwen_vl",
