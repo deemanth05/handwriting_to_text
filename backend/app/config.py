@@ -57,6 +57,12 @@ class Settings(BaseSettings):
     ENABLE_SURYA_LOCAL: bool = True
     SURYA_LANGS: list[str] = ["en", "hi"]
 
+    # Layout & Table Structure Recognition Settings
+    ENABLE_SURYA_TABLE_REC: bool = False
+    LAYOUT_GUTTER_MIN_WIDTH_PX: float = 12.0
+    LAYOUT_ROW_MERGE_TOLERANCE_PX: float = 16.0
+    LAYOUT_SUMMARY_SPLIT_RATIO: float = 0.55
+
     # Fallback / Mock provider option for offline tests or when FreeLLMAPI is offline
     USE_MOCK_FALLBACK: bool = False
 

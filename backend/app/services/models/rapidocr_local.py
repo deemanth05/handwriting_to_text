@@ -2,10 +2,15 @@
 
 Runs onnxruntime on CPU without PyTorch. Extracts bounding boxes and text lines
 with zero network latency (<250ms), providing 100% offline fallback resilience.
+Leverages DocumentMacroZoner, AdaptiveColumnDetector, and BilateralBlockSplitter
+for robust enterprise layout recognition.
 """
+
+from __future__ import annotations
 
 from itertools import combinations, permutations
 import json
+import logging
 import re
 import time
 from typing import Any
@@ -15,29 +20,15 @@ import numpy as np
 from rapidocr_onnxruntime import RapidOCR
 
 from backend.app.schemas.document import DocumentType
+from backend.app.services.layout.bilateral_splitter import (
+    BilateralBlockSplitter,
+    parse_numeric,
+)
+from backend.app.services.layout.gutter_detector import AdaptiveColumnDetector
+from backend.app.services.layout.zoner import DocumentMacroZoner, DocumentZones
 from backend.app.services.models.base import BaseVisionExtractor, RawModelOutput
 
-
-def parse_numeric(text: str) -> float:
-    """Parse string to float, normalizing punctuation quirks like 23:60 -> 23.60, commas in 1,200.00."""
-    if not text:
-        return 0.0
-    cleaned = text.strip()
-    # Strip currency indicators
-    cleaned = re.sub(r"[₹$]|rs\.?|inr", "", cleaned, flags=re.IGNORECASE).strip()
-    # Replace colon or semicolon between digits with dot (e.g., 23:60 -> 23.60)
-    cleaned = re.sub(r"(?<=\d)[:;](?=\d)", ".", cleaned)
-    # If commas are used as thousand separators (e.g. 1,200.00 or 1,200)
-    if re.search(r"\d+,\d{3}", cleaned):
-        cleaned = cleaned.replace(",", "")
-    else:
-        # If comma is used as decimal separator (e.g. 23,60)
-        cleaned = re.sub(r"(?<=\d),(?=\d{1,2}$)", ".", cleaned)
-    cleaned = re.sub(r"[^\d.]", "", cleaned)
-    try:
-        return round(float(cleaned), 2)
-    except (ValueError, TypeError):
-        return 0.0
+logger = logging.getLogger(__name__)
 
 
 class RapidOCRLocalExtractor(BaseVisionExtractor):
@@ -51,148 +42,78 @@ class RapidOCRLocalExtractor(BaseVisionExtractor):
         super().__init__(name=name, model_id=model_id)
         # Initialize the ONNX model once
         self._engine = RapidOCR()
+        self.zoner = DocumentMacroZoner()
+        self.column_detector = AdaptiveColumnDetector()
+        self.splitter = BilateralBlockSplitter()
 
     def _cluster_rows(self, ocr_results: list[Any], y_threshold: float = 25.0) -> list[list[dict[str, Any]]]:
         """Cluster OCR bounding boxes into horizontal rows sorted top-to-bottom and left-to-right."""
-        items: list[dict[str, Any]] = []
-        for box, text, score in ocr_results:
-            ys = [p[1] for p in box]
-            xs = [p[0] for p in box]
-            items.append({
-                "text": text.strip(),
-                "score": float(score) if isinstance(score, (int, float, str)) else 0.8,
-                "y": sum(ys) / 4.0,
-                "x_min": min(xs),
-                "x_max": max(xs),
-                "box": box,
-            })
+        return self.zoner.cluster_rows(self.zoner.standardize_boxes(ocr_results), y_threshold=y_threshold)
 
-        items.sort(key=lambda it: it["y"])
-        rows: list[list[dict[str, Any]]] = []
-        for it in items:
-            if not rows or abs(it["y"] - rows[-1][0]["y"]) > y_threshold:
-                rows.append([it])
-            else:
-                rows[-1].append(it)
-
-        for r in rows:
-            r.sort(key=lambda it: it["x_min"])
-
-        return rows
-
-    def _parse_cash_book(self, rows: list[list[dict[str, Any]]], raw_lines: list[str]) -> dict[str, Any]:
+    def _parse_cash_book(
+        self,
+        rows: list[list[dict[str, Any]]],
+        raw_lines: list[str],
+        zones: DocumentZones | None = None,
+        doc_width: float | None = None,
+    ) -> dict[str, Any]:
         """Parse rows into Cash Book ledger schema."""
         book_title = "Petty Cash Book"
         period = None
         page_no = None
 
-        # Look for title, period, page in the top rows
-        for r in rows[:4]:
-            text = " ".join(b["text"] for b in r)
-            if "petty cash" in text.lower():
+        header_search_boxes = zones.header_boxes if zones and zones.header_boxes else [b for r in rows[:4] for b in r]
+        for b in header_search_boxes:
+            txt = b.get("text", "")
+            if "petty cash" in txt.lower():
                 book_title = "Petty Cash Book"
-            month_match = re.search(r"Month[:\s]*([A-Za-z0-9\s]+)", text, re.IGNORECASE)
+            month_match = re.search(r"Month[:\s]*([A-Za-z0-9\s]+)", txt, re.IGNORECASE)
             if month_match:
                 period = f"Month: {month_match.group(1).strip()}"
-            page_match = re.search(r"Page\s*No[.:\s]*(\d+)", text, re.IGNORECASE)
+            page_match = re.search(r"Page\s*No[.:\s]*(\d+)", txt, re.IGNORECASE)
             if page_match:
                 page_no = page_match.group(1).strip()
 
-        # Compute document width bounds dynamically
-        max_x = 1000.0
-        all_xs = [b["x_max"] for r in rows for b in r]
-        if all_xs:
-            max_x = max(all_xs)
+        # If period or page_no still not found, check raw_lines
+        if not period or not page_no:
+            for l in raw_lines[:5]:
+                month_match = re.search(r"Month[:\s]*([A-Za-z0-9\s]+)", l, re.IGNORECASE)
+                if month_match and not period:
+                    period = f"Month: {month_match.group(1).strip()}"
+                page_match = re.search(r"Page\s*No[.:\s]*(\d+)", l, re.IGNORECASE)
+                if page_match and not page_no:
+                    page_no = page_match.group(1).strip()
 
-        # Find header row
-        header_idx = -1
-        col_positions: dict[str, float] = {}
-        for i, r in enumerate(rows):
-            row_text = " ".join(b["text"].lower() for b in r)
-            has_desc = any(k in row_text for k in ["detail", "particular", "desc", "narration", "item"])
-            has_amt = any(k in row_text for k in ["bal", "out", "in", "debit", "credit", "amount", "paid", "received", "dr", "cr"])
-            if (has_desc and has_amt) or ("date" in row_text and has_amt):
-                header_idx = i
-                for b in r:
-                    txt = b["text"].lower()
-                    if "date" in txt or "dinank" in txt or "dt" in txt:
-                        col_positions["date"] = b["x_min"]
-                    elif "detail" in txt or "particular" in txt or "desc" in txt:
-                        col_positions["details"] = b["x_min"]
-                    elif "out" in txt or "debit" in txt or "dr" in txt or "paid" in txt or "payment" in txt:
-                        col_positions["out"] = b["x_min"]
-                    elif "in" in txt or "credit" in txt or "cr" in txt or "receipt" in txt or "received" in txt:
-                        col_positions["in"] = b["x_min"]
-                    elif "balance" in txt or "bal" in txt or "baki" in txt:
-                        col_positions["balance"] = b["x_min"]
-                break
+        # Table rows and header row determination
+        if zones and zones.table_rows:
+            table_rows = zones.table_rows
+            table_header_row = zones.table_header_row
+        else:
+            # Reconstruct zones using DocumentMacroZoner if zones was not passed
+            boxes = [b for r in rows for b in r]
+            constructed_zones = self.zoner.zone(boxes, doc_type=DocumentType.CASH_BOOK, doc_width=doc_width)
+            table_rows = constructed_zones.table_rows if constructed_zones.table_rows else rows
+            table_header_row = constructed_zones.table_header_row
 
-        d_x = col_positions.get("details", max_x * 0.23)
-        o_x = col_positions.get("out", max_x * 0.55)
-        i_x = col_positions.get("in", max_x * 0.71)
-        b_x = col_positions.get("balance", max_x * 0.86)
-        date_x = col_positions.get("date", max_x * 0.08)
+        columns = self.column_detector.detect_columns(
+            table_rows=table_rows,
+            table_header_row=table_header_row,
+            doc_width=doc_width,
+            doc_type=DocumentType.CASH_BOOK,
+        )
 
-        split_date_desc = (date_x + d_x) / 2
-        split_desc_out = (d_x + o_x) / 2
-        split_out_in = (o_x + i_x) / 2
-        split_in_bal = (i_x + b_x) / 2
+        ledger_items = self.column_detector.parse_cash_book_items(table_rows, columns)
 
-        data_rows = rows[header_idx + 1 :] if header_idx != -1 else rows
-
-        ledger_items: list[dict[str, Any]] = []
         opening_balance: float | None = None
         closing_balance: float | None = None
 
-        for r in data_rows:
-            row_str = " ".join(b["text"].lower() for b in r)
-            if any(k in row_str for k in ["page no", "petty cash", "month:"]):
-                continue
-            if ("detail" in row_str or "particular" in row_str) and ("out" in row_str or "debit" in row_str or "balance" in row_str or "in" in row_str or "credit" in row_str):
-                continue
+        for item in ledger_items:
+            part = item["particulars"].lower()
+            if "opening" in part and opening_balance is None:
+                opening_balance = item["running_balance"] or item["cash_in_credit"]
 
-            date_val: str | None = None
-            particulars_parts: list[str] = []
-            out_val: float = 0.0
-            in_val: float = 0.0
-            bal_val: float = 0.0
-
-            for b in r:
-                txt = b["text"]
-                x = b["x_min"]
-
-                # Date regex (e.g. 05/02, Q1/02, OL/02, 01-02-2025)
-                date_match = re.search(r"([0-9QOL]{1,2}[/-]\d{1,2}(?:[/-]\d{2,4})?)", txt)
-                if date_match and x < split_date_desc + 40:
-                    d = date_match.group(1).replace("Q", "0").replace("O", "0").replace("L", "1")
-                    date_val = d
-                elif x >= split_in_bal:
-                    bal_val = parse_numeric(txt)
-                elif split_out_in <= x < split_in_bal:
-                    in_val = parse_numeric(txt)
-                elif split_desc_out <= x < split_out_in:
-                    out_val = parse_numeric(txt)
-                elif split_date_desc <= x < split_desc_out:
-                    particulars_parts.append(txt)
-
-            particulars = " ".join(particulars_parts).strip()
-
-            # If particular or amounts exist, add ledger item
-            if particulars or bal_val > 0 or out_val > 0 or in_val > 0:
-                if "opening" in particulars.lower() and opening_balance is None:
-                    opening_balance = bal_val or in_val
-
-                if bal_val > 0:
-                    closing_balance = bal_val
-
-                ledger_items.append({
-                    "entry_date": date_val,
-                    "particulars": particulars,
-                    "voucher_no": None,
-                    "cash_out_debit": out_val,
-                    "cash_in_credit": in_val,
-                    "running_balance": bal_val,
-                })
+            if item["running_balance"] > 0:
+                closing_balance = item["running_balance"]
 
         return {
             "book_title": book_title,
@@ -203,8 +124,14 @@ class RapidOCRLocalExtractor(BaseVisionExtractor):
             "ledger_items": ledger_items,
         }
 
-    def _parse_invoice(self, rows: list[list[dict[str, Any]]], raw_lines: list[str]) -> dict[str, Any]:
-        """Parse rows into canonical invoice schema."""
+    def _parse_invoice(
+        self,
+        rows: list[list[dict[str, Any]]],
+        raw_lines: list[str],
+        zones: DocumentZones | None = None,
+        doc_width: float | None = None,
+    ) -> dict[str, Any]:
+        """Parse rows into canonical invoice schema using macro-zones and adaptive gutters."""
         vendor_name = None
         invoice_date = None
         invoice_number = None
@@ -215,8 +142,15 @@ class RapidOCRLocalExtractor(BaseVisionExtractor):
 
         full_text = "\n".join(raw_lines)
 
-        # Look for vendor name in first 2 non-empty lines
-        if raw_lines:
+        # Look for vendor name in header zone or first lines
+        if zones and zones.header_boxes:
+            for b in zones.header_boxes:
+                t = b["text"].strip()
+                if len(t) > 3 and not any(k in t.lower() for k in ["gstin", "invoice", "date", "bill no", "phone"]):
+                    vendor_name = t
+                    break
+
+        if not vendor_name and raw_lines:
             vendor_name = raw_lines[0]
 
         # Extract dates
@@ -225,117 +159,53 @@ class RapidOCRLocalExtractor(BaseVisionExtractor):
             invoice_date = date_m.group(1).strip()
 
         # Extract invoice number
-        inv_m = re.search(r"(?:Invoice\s*#?|Bill\s*No)[:\s]*([A-Za-z0-9_-]+)", full_text, re.IGNORECASE)
+        inv_m = re.search(r"(?:Invoice\s*(?:No\.?|#)?|Bill\s*No\.?)[:\s]*([A-Za-z0-9_-]+)", full_text, re.IGNORECASE)
         if inv_m:
             invoice_number = inv_m.group(1).strip()
 
-        # Summary amounts
-        sub_m = re.search(r"(?:Subtotal|Total\s*Amt)[:\s]*Rs\.?\s*([\d.]+)", full_text, re.IGNORECASE)
-        if sub_m:
-            subtotal = parse_numeric(sub_m.group(1))
+        # Table rows and header row determination
+        if not zones:
+            boxes = [b for r in rows for b in r]
+            zones = self.zoner.zone(boxes, doc_type=DocumentType.INVOICE, doc_width=doc_width)
 
-        tax_m = re.search(r"(?:Tax|GST)[:\s]*Rs\.?\s*([\d.]+)", full_text, re.IGNORECASE)
-        if tax_m:
-            tax_amount = parse_numeric(tax_m.group(1))
+        table_rows = zones.table_rows if zones.table_rows else rows
+        table_header_row = zones.table_header_row
+        columns = self.column_detector.detect_columns(
+            table_rows=table_rows,
+            table_header_row=table_header_row,
+            doc_width=doc_width,
+            doc_type=DocumentType.INVOICE,
+        )
+        line_items = self.column_detector.parse_invoice_items(table_rows, columns)
 
-        disc_m = re.search(r"(?:Discount)[:\s]*Rs\.?\s*([\d.]+)", full_text, re.IGNORECASE)
-        if disc_m:
-            discount_amount = parse_numeric(disc_m.group(1))
+        # Extract totals from bilateral summary
+        if zones.bilateral_summary:
+            bs = zones.bilateral_summary
+            subtotal = bs.subtotal
+            discount_amount = bs.discount
+            tax_amount = bs.tax_amount
+            grand_total = bs.grand_total
 
-        grand_m = re.search(r"(?:Grand\s*Total|Net\s*Total|Total)[:\s]*Rs\.?\s*([\d.]+)", full_text, re.IGNORECASE)
-        if grand_m:
-            grand_total = parse_numeric(grand_m.group(1))
+        # Regex fallback for missing summary amounts
+        if subtotal is None:
+            sub_m = re.search(r"(?:Subtotal|Total\s*Amt)[:\s]*Rs\.?\s*([\d.]+)", full_text, re.IGNORECASE)
+            if sub_m:
+                subtotal = parse_numeric(sub_m.group(1))
 
-        # Extract line items
-        line_items: list[dict[str, Any]] = []
-        for r in rows:
-            line_str = " ".join(b["text"] for b in r)
-            # Skip header or summary rows
-            if any(k in line_str.lower() for k in ["subtotal", "grand total", "discount", "tax (", "gstin", "invoice #", "paid&"]):
-                continue
+        if tax_amount is None:
+            tax_m = re.search(r"(?:Tax|GST)[:\s]*Rs\.?\s*([\d.]+)", full_text, re.IGNORECASE)
+            if tax_m:
+                tax_amount = parse_numeric(tax_m.group(1))
 
-            # Separate number boxes from text boxes
-            num_boxes: list[tuple[float, dict[str, Any]]] = []
-            text_boxes: list[dict[str, Any]] = []
-            for b in r:
-                t = b["text"].strip()
-                t_clean = re.sub(r"[₹$]|rs\.?|inr", "", t, flags=re.IGNORECASE).strip()
-                if re.match(r"^\d+(?:[.,:]\d+)?$", t_clean) or re.match(r"^\d{1,3}(?:,\d{3})*(?:\.\d+)?$", t_clean):
-                    val = parse_numeric(t)
-                    if val > 0:
-                        num_boxes.append((val, b))
-                    else:
-                        text_boxes.append(b)
-                else:
-                    text_boxes.append(b)
+        if discount_amount is None:
+            disc_m = re.search(r"(?:Discount)[:\s]*Rs\.?\s*([\d.]+)", full_text, re.IGNORECASE)
+            if disc_m:
+                discount_amount = parse_numeric(disc_m.group(1))
 
-            if text_boxes and num_boxes:
-                min_num_x = min(nb["x_min"] for _, nb in num_boxes)
-                desc_parts = [tb["text"] for tb in text_boxes if tb["x_min"] < min_num_x]
-                if not desc_parts:
-                    desc_parts = [tb["text"] for tb in text_boxes]
-                desc = " ".join(desc_parts).strip()
-                if desc.lower() in ["ite m description", "rate", "qty", "total (rs)", "rakkam", "vigaran", "description", "item"]:
-                    continue
-
-                numbers = [val for val, _ in num_boxes]
-                assigned = False
-                if len(numbers) >= 3:
-                    # Test combinations of 3 numbers for (q, p, t) where abs(q * p - t) <= 0.05
-                    candidate_triplets = []
-                    if len(numbers) == 3:
-                        candidate_triplets.append(numbers)
-                    else:
-                        candidate_triplets.append(numbers[-3:])
-                        for comb in combinations(numbers, 3):
-                            comb_list = list(comb)
-                            if comb_list != numbers[-3:]:
-                                candidate_triplets.append(comb_list)
-
-                    for triplet in candidate_triplets:
-                        valid_perms = []
-                        for q_cand, p_cand, t_cand in permutations(triplet, 3):
-                            if q_cand > 0 and p_cand > 0 and abs(q_cand * p_cand - t_cand) <= 0.05:
-                                valid_perms.append((q_cand, p_cand, t_cand))
-
-                        if valid_perms:
-                            best = None
-                            for q_cand, p_cand, t_cand in valid_perms:
-                                if t_cand == triplet[-1] and q_cand == triplet[0] and p_cand == triplet[1]:
-                                    best = (q_cand, p_cand, t_cand)
-                                    break
-                            if not best:
-                                for q_cand, p_cand, t_cand in valid_perms:
-                                    if t_cand == triplet[-1]:
-                                        best = (q_cand, p_cand, t_cand)
-                                        break
-                            if not best:
-                                best = valid_perms[0]
-
-                            qty, unit_p, tot = best
-                            assigned = True
-                            break
-
-                if not assigned:
-                    if len(numbers) >= 3:
-                        qty = numbers[-3]
-                        unit_p = numbers[-2]
-                        tot = numbers[-1]
-                    elif len(numbers) == 2:
-                        unit_p = numbers[-2]
-                        tot = numbers[-1]
-                        qty = round(tot / unit_p, 2) if unit_p > 0 else 1.0
-                    else:
-                        tot = numbers[-1]
-                        unit_p = tot
-                        qty = 1.0
-
-                line_items.append({
-                    "description": desc,
-                    "quantity": qty,
-                    "unit_price": unit_p,
-                    "line_total": tot,
-                })
+        if grand_total is None:
+            grand_m = re.search(r"(?:Grand\s*Total|Net\s*Total|Total)[:\s]*Rs\.?\s*([\d.]+)", full_text, re.IGNORECASE)
+            if grand_m:
+                grand_total = parse_numeric(grand_m.group(1))
 
         return {
             "vendor_name": vendor_name,
@@ -348,7 +218,13 @@ class RapidOCRLocalExtractor(BaseVisionExtractor):
             "grand_total": grand_total,
         }
 
-    def _parse_khata(self, rows: list[list[dict[str, Any]]], raw_lines: list[str]) -> dict[str, Any]:
+    def _parse_khata(
+        self,
+        rows: list[list[dict[str, Any]]],
+        raw_lines: list[str],
+        zones: DocumentZones | None = None,
+        doc_width: float | None = None,
+    ) -> dict[str, Any]:
         """Parse rows into Khata ledger schema."""
         full_text = "\n".join(raw_lines)
         customer_name = None
@@ -362,8 +238,7 @@ class RapidOCRLocalExtractor(BaseVisionExtractor):
         if date_m:
             doc_date = date_m.group(1).strip()
 
-        # Parse invoice-like items for khata
-        inv_data = self._parse_invoice(rows, raw_lines)
+        inv_data = self._parse_invoice(rows, raw_lines, zones=zones, doc_width=doc_width)
 
         jama_m = re.search(r"(?:Jama|Paid)[:\s]*Rs\.?\s*([\d.]+)", full_text, re.IGNORECASE)
         jama_credit = parse_numeric(jama_m.group(1)) if jama_m else None
@@ -382,7 +257,12 @@ class RapidOCRLocalExtractor(BaseVisionExtractor):
             "grand_total": closing_bal or inv_data["grand_total"],
         }
 
-    def _parse_prescription(self, rows: list[list[dict[str, Any]]], raw_lines: list[str]) -> dict[str, Any]:
+    def _parse_prescription(
+        self,
+        rows: list[list[dict[str, Any]]],
+        raw_lines: list[str],
+        zones: DocumentZones | None = None,
+    ) -> dict[str, Any]:
         """Parse rows into Prescription schema."""
         full_text = "\n".join(raw_lines)
         clinic_doctor = raw_lines[0] if raw_lines else None
@@ -432,6 +312,7 @@ class RapidOCRLocalExtractor(BaseVisionExtractor):
             if img is None:
                 raise ValueError("Failed to decode image buffer with OpenCV.")
 
+            h, w = img.shape[:2]
             ocr_results, _ = self._engine(img)
             latency_ms = (time.perf_counter() - start_time) * 1000
 
@@ -448,16 +329,17 @@ class RapidOCRLocalExtractor(BaseVisionExtractor):
             raw_lines = [r[1].strip() for r in ocr_results]
             raw_text = "\n".join(raw_lines)
 
-            rows = self._cluster_rows(ocr_results)
+            # Hierarchical macro-zoning
+            zones = self.zoner.zone(ocr_results, doc_type=doc_type, doc_width=w, doc_height=h)
 
             if doc_type == DocumentType.CASH_BOOK:
-                parsed = self._parse_cash_book(rows, raw_lines)
+                parsed = self._parse_cash_book(zones.table_rows, raw_lines, zones=zones, doc_width=w)
             elif doc_type == DocumentType.KHATA_LEDGER:
-                parsed = self._parse_khata(rows, raw_lines)
+                parsed = self._parse_khata(zones.table_rows, raw_lines, zones=zones, doc_width=w)
             elif doc_type == DocumentType.PRESCRIPTION:
-                parsed = self._parse_prescription(rows, raw_lines)
+                parsed = self._parse_prescription(zones.table_rows, raw_lines, zones=zones)
             else:
-                parsed = self._parse_invoice(rows, raw_lines)
+                parsed = self._parse_invoice(zones.table_rows, raw_lines, zones=zones, doc_width=w)
 
             return RawModelOutput(
                 model_name=self.name,

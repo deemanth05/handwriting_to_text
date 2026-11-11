@@ -32,15 +32,31 @@ This document tracks the core production limitations being addressed sequentiall
   - Real-time status pill matrix showing Ollama, LM Studio, FreeLLMAPI, Surya, and RapidOCR connectivity.
 - [x] **Test Coverage**: 73 passing unit and integration tests (`pytest`).
 
+### Phase 3: Dynamic Layout & Table Structure Recognition (Problem 2)
+- [x] **Document Macro-Zoning (`backend/app/services/layout/zoner.py`)**:
+  - Separates Header, Table Grid, Summary, and Footer zones using spatial anchors.
+  - Eliminates vertical region contamination (bottom terms and totals never leak into table line items).
+  - Handles standalone `Total:` trigger rows and headerless invoices gracefully.
+- [x] **Adaptive Column Gutter Detection (`backend/app/services/layout/gutter_detector.py`)**:
+  - 1D horizontal projection and whitespace valley analysis for dynamic column discovery across 3-to-7+ column layouts.
+  - Extended column typing (`INDEX`, `DESCRIPTION`, `QUANTITY`, `RATE`, `TOTAL`, `UNIT`, `VOUCHER`, `HSN`, `DEBIT`, `CREDIT`, `BALANCE`).
+  - Alpha-ratio filtering on numeric columns to prevent product descriptions (e.g. `3-Pin Multi Plug`) from stealing quantity/rate slots.
+  - Missing-rate mathematical derivation ($Rate = Total / Qty$).
+- [x] **Bilateral Summary Disambiguation (`backend/app/services/layout/bilateral_splitter.py`)**:
+  - Horizontally splits summary zone along midline gutter.
+  - Left zone parses narrative fields (`terms_and_conditions`, `amount_in_words`, `notes`).
+  - Right zone parses accounting numbers (`subtotal`, `cgst`, `sgst`, `igst`, `discount`, `round_off`, `grand_total`).
+  - Generalized symmetric digit confusion repair with rate consistency verification.
+  - Words-to-number parser supporting rupee/paisa syntax and fractional amounts.
+- [x] **Surya Deep-Learning Table Integration (`backend/app/services/layout/surya_table_adapter.py`)**:
+  - Polygon-to-bbox cell mapping with zero coordinate leakage.
+- [x] **Test Coverage & Verification**:
+  - 100 / 100 pytest test suite passing.
+  - Verified on real documents: `real_handwritten_invoice.jpg` (extracts exactly 7 true items, 0 summary items), `sample_petty_cash.webp` (12 ledger entries), `sample_invoice.png` (4 items).
+
 ---
 
 ## 📋 Remaining Tasks (TODO)
-
-### [TODO] Problem 2: Dynamic Layout & Table Structure Recognition
-- [ ] Replace static coordinate heuristics (`(desc_x + out_x) / 2`) in local OCR extractors.
-- [ ] Integrate Surya Table Recognition / Layout Transformer (`surya.layout`, `surya.tables`) to detect true column boundaries (S.No, Description, HSN/SAC, Qty, Rate, Amount, Debit, Credit, Balance).
-- [ ] Implement adaptive DBSCAN spatial clustering fallback for borderless tables and varied column counts.
-- [ ] Add unit tests for multi-column invoices and 6-column cash ledgers.
 
 ### [TODO] Problem 3: Enterprise Accounting Interop (Tally Prime XML & GST Export)
 - [ ] Build `backend/app/services/exporters/tally_exporter.py` generating Tally Prime XML import vouchers (`<VOUCHER VCHTYPE="Purchase">` and `<VOUCHER VCHTYPE="Payment">`).
