@@ -37,6 +37,22 @@ class Settings(BaseSettings):
     FREELLM_MODEL_C_STRUCT: str = "auto"
     FREELLM_TIMEOUT_SECONDS: float = 15.0
 
+    # Local Ollama Settings (Air-gapped / Local Multimodal VLM)
+    ENABLE_OLLAMA: bool = True
+    OLLAMA_BASE_URL: str = "http://127.0.0.1:11434"
+    OLLAMA_MODEL: str = "gemma3:12b"
+    OLLAMA_TIMEOUT_SECONDS: float = 30.0
+
+    # Local LM Studio Settings (OpenAI-compatible local server)
+    ENABLE_LMSTUDIO: bool = True
+    LMSTUDIO_BASE_URL: str = "http://127.0.0.1:1234/v1"
+    LMSTUDIO_MODEL: str = "local-model"
+    LMSTUDIO_TIMEOUT_SECONDS: float = 30.0
+
+    # Enterprise Circuit Breaker Settings
+    CIRCUIT_BREAKER_FAILURE_THRESHOLD: int = 2
+    CIRCUIT_BREAKER_RECOVERY_SECONDS: float = 30.0
+
     # Local OCR Engines
     ENABLE_SURYA_LOCAL: bool = True
     SURYA_LANGS: list[str] = ["en", "hi"]

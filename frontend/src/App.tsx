@@ -3,14 +3,20 @@ import { Header } from "./components/Header";
 import { Workspace } from "./pages/Workspace";
 import { Leaderboard } from "./pages/Leaderboard";
 import { DocumentExtractionResponse, DocumentListItem } from "./types/document";
-import { checkFreeLLMHealth, getDocument, getDocumentImageUrl, listDocuments } from "./services/api";
+import {
+  checkRuntimesHealth,
+  RuntimeProbeReport,
+  getDocument,
+  getDocumentImageUrl,
+  listDocuments,
+} from "./services/api";
 
 export function App() {
   const [activeTab, setActiveTab] = useState<"workspace" | "leaderboard">("workspace");
   const [currentDoc, setCurrentDoc] = useState<DocumentExtractionResponse | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [routerStatus, setRouterStatus] = useState<"ONLINE" | "OFFLINE" | "LOADING">("LOADING");
+  const [runtimesReport, setRuntimesReport] = useState<RuntimeProbeReport | null>(null);
   const [documents, setDocuments] = useState<DocumentListItem[]>([]);
 
   // Health and document list initial load
@@ -25,10 +31,10 @@ export function App() {
 
   const refreshHealth = async () => {
     try {
-      const res = await checkFreeLLMHealth();
-      setRouterStatus(res.router_status === "ONLINE" ? "ONLINE" : "OFFLINE");
+      const report = await checkRuntimesHealth();
+      setRuntimesReport(report);
     } catch {
-      setRouterStatus("OFFLINE");
+      setRuntimesReport(null);
     }
   };
 
@@ -58,7 +64,7 @@ export function App() {
       <Header
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        routerStatus={routerStatus}
+        runtimesReport={runtimesReport}
         onRefreshHealth={refreshHealth}
         documentStatus={currentDoc?.status}
         overallConfidence={currentDoc?.overall_confidence}

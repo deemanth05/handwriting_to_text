@@ -75,6 +75,63 @@ export function getDocumentImageUrl(documentId: string): string {
   return `${API_BASE}/documents/${documentId}/image`;
 }
 
+export interface RuntimeProbeReport {
+  timestamp: number;
+  runtimes: {
+    ollama: {
+      runtime: string;
+      status: "ONLINE" | "OFFLINE" | "ERROR";
+      latency_ms?: number;
+      models?: string[];
+      vision_models?: string[];
+      has_vision?: boolean;
+    };
+    lmstudio: {
+      runtime: string;
+      status: "ONLINE" | "OFFLINE" | "ERROR";
+      latency_ms?: number;
+      models?: string[];
+      has_vision?: boolean;
+    };
+    freellm: {
+      runtime: string;
+      status: "ONLINE" | "OFFLINE" | "ERROR";
+      latency_ms?: number;
+      models_count?: number;
+      has_vision?: boolean;
+    };
+    surya_local: {
+      runtime: string;
+      status: string;
+      engine?: string;
+      languages?: string[];
+    };
+    rapidocr_local: {
+      runtime: string;
+      status: string;
+      engine?: string;
+    };
+  };
+  circuit_breakers?: Record<
+    string,
+    {
+      state: string;
+      can_execute: boolean;
+      failure_count: number;
+      remaining_cooldown_seconds: number;
+      last_error?: string | null;
+    }
+  >;
+}
+
+export async function checkRuntimesHealth(): Promise<RuntimeProbeReport> {
+  const res = await fetch(`${API_BASE}/health/runtimes`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch runtime health");
+  }
+  return res.json();
+}
+
 export async function checkFreeLLMHealth(): Promise<any> {
   const res = await fetch(`${API_BASE}/health/freellmapi`);
   return res.json();

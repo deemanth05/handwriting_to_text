@@ -1,9 +1,9 @@
 """Health & Service Readiness Check Routes."""
 
-import httpx
 from fastapi import APIRouter
 
 from backend.app.config import settings
+from backend.app.services.models.runtime_probe import runtime_probe
 
 router = APIRouter(prefix="/health", tags=["Health"])
 
@@ -19,35 +19,16 @@ async def health_check():
     }
 
 
+@router.get("/runtimes")
+async def runtimes_health_check():
+    """Verify connectivity and capability of all local and upstream model runtimes."""
+    report = await runtime_probe.probe_all()
+    from backend.app.services.ensemble import ensemble_dispatcher
+    report["circuit_breakers"] = ensemble_dispatcher.get_circuit_breaker_telemetry()
+    return report
+
+
 @router.get("/freellmapi")
 async def freellmapi_health_check():
     """Verify connectivity with the local FreeLLMAPI proxy router."""
-    models_url = f"{settings.FREELLM_BASE_URL.rstrip('/')}/models"
-    headers = {
-        "Authorization": f"Bearer {settings.FREELLM_API_KEY}",
-        "User-Agent": "PaperExtractionEngine/1.0",
-    }
-    try:
-        async with httpx.AsyncClient(timeout=1.0) as client:
-            resp = await client.get(models_url, headers=headers)
-            if resp.status_code == 200:
-                data = resp.json()
-                models = [m.get("id") for m in data.get("data", [])]
-                return {
-                    "router_status": "ONLINE",
-                    "base_url": settings.FREELLM_BASE_URL,
-                    "available_models_count": len(models),
-                    "sample_models": models[:5],
-                }
-            return {
-                "router_status": "ERROR",
-                "http_status": resp.status_code,
-                "detail": resp.text,
-            }
-    except Exception as e:
-        return {
-            "router_status": "OFFLINE",
-            "base_url": settings.FREELLM_BASE_URL,
-            "error": str(e),
-            "hint": "Ensure the FreeLLMAPI router is running on port 3001.",
-        }
+    return await runtime_probe.probe_freellmapi()
