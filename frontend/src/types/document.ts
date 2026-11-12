@@ -58,6 +58,26 @@ export interface DocumentExtractionResponse {
   processing_time_ms: number;
   models_participated: string[];
   error_summary?: string | null;
+  template_matched?: boolean;
+  template_vendor?: string | null;
+}
+
+export interface VendorTemplateSummary {
+  id: string;
+  vendor_key: string;
+  vendor_name: string;
+  gstin?: string | null;
+  phash: string;
+  document_type: string;
+  sample_count: number;
+  created_at: string | null;
+  updated_at: string | null;
+}
+
+export interface VendorTemplateDetail extends VendorTemplateSummary {
+  table_zone: Record<string, any>;
+  header_zone?: Record<string, any> | null;
+  summary_zone?: Record<string, any> | null;
 }
 
 export interface DocumentListItem {

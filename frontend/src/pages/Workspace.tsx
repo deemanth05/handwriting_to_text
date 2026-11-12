@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { AlertCircle, AlertTriangle, CheckCircle2, Download, ExternalLink, FileCode, FileSpreadsheet, Save, Sparkles } from "lucide-react";
-import { DocumentExtractionResponse, DocumentType, LedgerTransactionItem, LineItem } from "../types/document";
+import { AlertCircle, AlertTriangle, CheckCircle2, Download, ExternalLink, FileCode, FileSpreadsheet, Layers, Save, Sparkles, Trash2, X } from "lucide-react";
+import { DocumentExtractionResponse, DocumentType, LedgerTransactionItem, LineItem, VendorTemplateSummary } from "../types/document";
 import { ImageCanvas } from "../components/ImageCanvas";
 import { FieldInspector } from "../components/FieldInspector";
 import { LineItemsTable } from "../components/LineItemsTable";
 import { LedgerTable } from "../components/LedgerTable";
 import { DemoGallery } from "../components/DemoGallery";
-import { extractDocument, verifyDocument, getDocumentImageUrl, downloadDocumentExport } from "../services/api";
+import { extractDocument, verifyDocument, getDocumentImageUrl, downloadDocumentExport, listTemplates, deleteTemplate } from "../services/api";
 
 interface WorkspaceProps {
   currentDoc: DocumentExtractionResponse | null;
@@ -209,6 +209,31 @@ startxref
   };
 
   const [isExporting, setIsExporting] = useState<string | null>(null);
+  const [isTemplateModalOpen, setIsTemplateModalOpen] = useState(false);
+  const [templatesList, setTemplatesList] = useState<VendorTemplateSummary[]>([]);
+  const [isLoadingTemplates, setIsLoadingTemplates] = useState(false);
+
+  const fetchTemplates = async () => {
+    setIsLoadingTemplates(true);
+    try {
+      const data = await listTemplates();
+      setTemplatesList(data);
+    } catch (e: any) {
+      showNotification("error", e.message || "Failed to load templates");
+    } finally {
+      setIsLoadingTemplates(false);
+    }
+  };
+
+  const handleDeleteTemplate = async (templateId: string) => {
+    try {
+      await deleteTemplate(templateId);
+      showNotification("success", "Template removed from memory cache");
+      setTemplatesList((prev) => prev.filter((t) => t.id !== templateId));
+    } catch (e: any) {
+      showNotification("error", e.message || "Failed to delete template");
+    }
+  };
 
   const handleExport = async (format: "tally" | "excel" | "gst") => {
     if (!currentDoc) return;
@@ -309,8 +334,26 @@ startxref
             </div>
           )}
 
+          {/* Fast-Path Vendor Template Cache Indicator */}
+          {currentDoc.template_matched && (
+            <div className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-amber-950/40 border border-amber-500/50 text-amber-200 text-xs shadow-lg">
+              <div className="flex items-center space-x-2 font-medium">
+                <span className="text-amber-400 font-bold flex items-center space-x-1">
+                  <span>⚡</span>
+                  <span>Fast Path Memory Cache:</span>
+                </span>
+                <span className="text-amber-100">
+                  Recognized repeat supplier <strong>{currentDoc.template_vendor || "Vendor Template"}</strong>. Bypassed heuristic zoner & VLM inference.
+                </span>
+              </div>
+              <span className="text-[11px] text-amber-300 font-mono font-bold bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40">
+                ⚡ {currentDoc.processing_time_ms.toFixed(0)}ms (Sub-second)
+              </span>
+            </div>
+          )}
+
           {/* Local High-Speed Engine Resilient Status Badge */}
-          {currentDoc.models_participated.some((m) => m === "rapidocr_local" || m === "surya_local") && (
+          {!currentDoc.template_matched && currentDoc.models_participated.some((m) => m === "rapidocr_local" || m === "surya_local") && (
             <div className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-200 text-xs">
               <div className="flex items-center space-x-2 font-medium">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
@@ -364,7 +407,12 @@ startxref
                         {currentDoc.page_count} Pages
                       </span>
                     )}
-                    {currentDoc.models_participated.some((m) => m === "rapidocr_local" || m === "surya_local") && (
+                    {currentDoc.template_matched && (
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                        ⚡ Fast Path (Vendor Template: {currentDoc.template_vendor || "Cached"}) - {currentDoc.processing_time_ms.toFixed(0)}ms
+                      </span>
+                    )}
+                    {!currentDoc.template_matched && currentDoc.models_participated.some((m) => m === "rapidocr_local" || m === "surya_local") && (
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                         ✓ {currentDoc.models_participated.filter((m) => m === "rapidocr_local" || m === "surya_local").map((m) => m === "surya_local" ? "Surya OCR" : "RapidOCR").join(" + ")} (Local)
                       </span>
@@ -418,6 +466,20 @@ startxref
                     )}
                   </div>
 
+                  {/* Template Memory Cache Management */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsTemplateModalOpen(true);
+                      fetchTemplates();
+                    }}
+                    title="Inspect & Manage Vendor Template Memory Cache"
+                    className="flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-amber-300 hover:text-amber-100 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 transition-all shadow-sm"
+                  >
+                    <Layers className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Vendor Templates</span>
+                  </button>
+
                   {/* Save Ground Truth Action */}
                   <button
                     type="button"
@@ -461,6 +523,97 @@ startxref
           <p className="text-xs text-slate-400 max-w-md">
             Click one of the 1-click test cards above or upload a messy handwritten receipt to inspect the multi-model consensus extraction in real-time.
           </p>
+        </div>
+      )}
+
+      {/* Vendor Template Memory Cache Management Modal */}
+      {isTemplateModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="bg-dark-900 border border-slate-800 rounded-2xl max-w-2xl w-full shadow-2xl flex flex-col overflow-hidden max-h-[85vh]">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-dark-950/50">
+              <div className="flex items-center space-x-2.5">
+                <div className="p-1.5 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                  <Layers className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-white">Vendor Template Memory Cache</h3>
+                  <p className="text-[11px] text-slate-400">
+                    Recognized repeat suppliers bypass VLM inference for sub-second extraction
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsTemplateModalOpen(false)}
+                className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="p-6 overflow-y-auto space-y-3 flex-1">
+              {isLoadingTemplates ? (
+                <div className="flex items-center justify-center py-12 text-xs text-slate-400">
+                  Loading cached vendor templates...
+                </div>
+              ) : templatesList.length === 0 ? (
+                <div className="text-center py-12 space-y-2">
+                  <p className="text-xs text-slate-400">No cached vendor templates in database yet.</p>
+                  <p className="text-[11px] text-slate-500">
+                    Templates are automatically learned when documents are verified or cold-path processed.
+                  </p>
+                </div>
+              ) : (
+                templatesList.map((tmpl) => (
+                  <div
+                    key={tmpl.id}
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition-colors"
+                  >
+                    <div className="space-y-1">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-xs font-bold text-white">{tmpl.vendor_name}</span>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30">
+                          {tmpl.document_type}
+                        </span>
+                        <span className="text-[10px] text-slate-400 font-mono">
+                          ⚡ {tmpl.sample_count} {tmpl.sample_count === 1 ? "doc" : "docs"}
+                        </span>
+                      </div>
+                      <div className="flex items-center space-x-3 text-[11px] text-slate-400">
+                        {tmpl.gstin && (
+                          <span>
+                            GSTIN: <span className="font-mono text-slate-300">{tmpl.gstin}</span>
+                          </span>
+                        )}
+                        <span>
+                          pHash: <span className="font-mono text-slate-400">{tmpl.phash.slice(0, 8)}...</span>
+                        </span>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteTemplate(tmpl.id)}
+                      title="Delete template from memory"
+                      className="p-2 text-rose-400 hover:text-rose-300 hover:bg-rose-950/40 rounded-lg border border-transparent hover:border-rose-500/30 transition-colors"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ))
+              )}
+            </div>
+
+            <div className="px-6 py-3 border-t border-slate-800 bg-dark-950/50 flex items-center justify-between text-[11px] text-slate-400">
+              <span>{templatesList.length} cached vendor {templatesList.length === 1 ? "layout" : "layouts"}</span>
+              <button
+                type="button"
+                onClick={() => setIsTemplateModalOpen(false)}
+                className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-medium text-xs transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

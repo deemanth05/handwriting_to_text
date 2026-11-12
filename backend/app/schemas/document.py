@@ -102,6 +102,8 @@ class DocumentExtractionResponse(BaseModel):
     processing_time_ms: float = 0.0
     models_participated: list[str] = Field(default_factory=list)
     error_summary: str | None = None
+    template_matched: bool = False
+    template_vendor: str | None = None
 
     @model_validator(mode="after")
     def compute_review_status(self) -> "DocumentExtractionResponse":

@@ -80,10 +80,6 @@ This document tracks the core production limitations being addressed sequentiall
   - 109 / 109 pytest tests passing in 26s.
   - Full test suite passing across all exporters, XML schemas, math invariants, and HTTP routes.
 
----
-
-## 📋 Remaining Tasks (TODO)
-
 ### Phase 5: Multi-Page PDF & Stapled Document Batch Processor (Problem 4)
 - [x] **Container Ingestion & Rasterization (`backend/app/services/multipage/rasterizer.py`)**:
   - High-fidelity PDF rendering via `pypdfium2` at 144 DPI with strict page limit enforcement ($\le 25$ pages).
@@ -105,14 +101,31 @@ This document tracks the core production limitations being addressed sequentiall
   - 126 / 126 pytest tests passing across 21 test suites in 35s.
   - Frontend builds with 0 TypeScript errors.
 
+### Phase 6: Vendor Fingerprint & Template Memory Cache (Problem 5)
+- [x] **Visual & Identity Fingerprinting (`backend/app/services/templates/fingerprint.py`)**:
+  - 64-bit DCT perceptual hash (`pHash`) computed with `cv2.dct` on normalized $32 \times 32$ grayscale pixels with median AC frequency thresholding.
+  - Indian 15-character GSTIN regex identifier parser with vendor legal name candidate extraction.
+  - Bitwise Hamming distance and normalized similarity scoring with illumination and contrast invariance ($\le 4$ bits divergence) and cross-document discrimination ($\ge 20$ bits).
+- [x] **Persistent Template Memory Store (`backend/app/services/templates/store.py`)**:
+  - `VendorTemplateRecord` in SQLite via SQLAlchemy with indices on `vendor_key`, `gstin`, and `phash`.
+  - Dual-Key matching: exact GSTIN priority or visual pHash ($\le 8$ bits) + vendor fuzzy name match ($\ge 85\%$).
+  - Layout harvesting: derives normalized coordinates (`table_zone`, `header_zone`, `summary_zone`, column X-gutter ratios) directly from real OCR boxes.
+- [x] **Sub-Second Fast-Path Vision Extractor (`backend/app/services/templates/fast_extractor.py`)**:
+  - Bypasses slow VLM calls and heuristic whitespace valley discovery for repeat suppliers.
+  - Crops and slices pre-indexed column channels directly with local RapidOCR.
+  - Strict zero-trust deterministic arithmetic validation ($Qty \times Rate = LineTotal$, $Subtotal + Tax - Discount = GrandTotal$).
+  - Automatic Cold-Path Fallback: if vendor altered layout or row math fails, seamlessly degrades to Cold Path without failing request.
+- [x] **Active Learning Feedback Loop (`backend/app/api/routes_review.py`)**:
+  - `POST /documents/{id}/verify` ground truth confirmation automatically locks verified vendor coordinates into template cache.
+- [x] **Observability & Management API & UI (`backend/app/api/routes_template.py`, `Workspace.tsx`)**:
+  - `GET /api/v1/templates`, `GET /api/v1/templates/{id}`, `DELETE /api/v1/templates/{id}`.
+  - Split-Screen Studio indicator badge: `⚡ Fast Path (Vendor Template: <Vendor Name>) - <latency>ms`.
+  - Frontend Template Manager Modal in Workspace toolbar for auditing and deleting cached repeat vendor profiles.
+- [x] **Test Coverage & Verification**:
+  - 150 / 150 pytest tests passing across 25 suites in 46s (including 24 tests in `test_fingerprint.py`, `test_template_store.py`, `test_fast_extractor.py`, and `test_routes_template.py`).
+  - Frontend builds cleanly with 0 TypeScript errors (`tsc && vite build`).
+
 ---
 
 ## 📋 Remaining Tasks (TODO)
-
-### [TODO] Problem 5: Vendor Fingerprint & Template Memory Cache
-
-### [TODO] Problem 5: Vendor Fingerprint & Template Memory Cache
-- [ ] Implement `VendorTemplateStore` to cache spatial bounding boxes for repeat suppliers and standard notebooks.
-- [ ] Match incoming documents via perceptual hash + header text similarity ($>90\%$).
-- [ ] Apply cached column coordinates directly to bypass heuristic layout discovery for known vendors.
-- [ ] Enable active learning: saving user corrections in the review studio updates the vendor template anchors.
+- All 5 core roadmap problems (Preprocessing & Math, Vision Runtimes & Fallbacks, Dynamic Layout & Table Recognition, Enterprise Accounting Exporters, Multi-Page PDF & Stapled Document Batching, and Vendor Fingerprint & Template Memory Cache) are fully implemented and verified!

@@ -185,40 +185,23 @@ class DocumentMacroZoner:
 
     def _score_table_header(self, row: list[dict[str, Any]], doc_type: DocumentType) -> int:
         """Score a row on how strongly it matches table column headers."""
+        # Summary trigger rows can NEVER be table headers
+        if self._is_summary_trigger_row(row, doc_type):
+            return 0
+
         row_str = " ".join(b["text"].lower() for b in row)
 
-        if doc_type in [DocumentType.CASH_BOOK, DocumentType.KHATA_LEDGER]:
-            has_date = any(k in row_str for k in ["date", "dinank", "dt", "tarikh"])
-            has_desc = any(k in row_str for k in ["detail", "particular", "desc", "narration", "item", "head"])
-            has_debit = any(k in row_str for k in ["debit", "dr", "paid", "out", "payment", "jama"])
-            has_credit = any(k in row_str for k in ["credit", "cr", "received", "in", "receipt", "naam"])
-            has_bal = any(k in row_str for k in ["balance", "bal", "baki"])
-            has_amt = any(k in row_str for k in ["amount", "rakkam", "total", "rs"])
-
-            score = 0
-            if has_date:
-                score += 2
-            if has_desc:
-                score += 3
-            if has_debit or has_credit:
-                score += 3
-            if has_bal:
-                score += 2
-            if has_amt:
-                score += 2
-            return score
-
-        # Standard Invoice / Bill scoring
+        # Standard invoice keywords
         has_index = any(
             re.search(r"\b(?:s\.?n\.?o?|sr\.?|sl\.?|item\s*no|#)\b", b["text"], re.IGNORECASE)
             for b in row
         )
         has_desc = any(
-            any(k in b["text"].lower() for k in ["description", "particular", "item", "product", "goods", "vigaran"])
+            any(k in b["text"].lower() for k in ["description", "particular", "item", "product", "goods", "vigaran", "vivaran"])
             for b in row
         )
         has_qty = any(
-            re.search(r"\b(?:qty|quantity|qnty|nos|units?)\b", b["text"], re.IGNORECASE)
+            re.search(r"\b(?:qty|quantity|qnty|nos|units?|nang)\b", b["text"], re.IGNORECASE)
             for b in row
         )
         has_rate = any(
@@ -231,24 +214,50 @@ class DocumentMacroZoner:
         )
         has_hsn = any("hsn" in b["text"].lower() or "sac" in b["text"].lower() for b in row)
 
+        invoice_score = 0
+        if has_index:
+            invoice_score += 2
+        if has_desc:
+            invoice_score += 3
+        if has_qty:
+            invoice_score += 3
+        if has_rate:
+            invoice_score += 3
+        if has_total:
+            invoice_score += 2
+        if has_hsn:
+            invoice_score += 1
+
+        if doc_type in [DocumentType.CASH_BOOK, DocumentType.KHATA_LEDGER]:
+            has_date = any(k in row_str for k in ["date", "dinank", "dt", "tarikh"])
+            has_narration = any(k in row_str for k in ["detail", "particular", "desc", "narration", "head"])
+            has_debit = any(k in row_str for k in ["debit", "dr", "paid", "out", "payment", "jama"])
+            has_credit = any(k in row_str for k in ["credit", "cr", "received", "in", "receipt", "naam"])
+            has_bal = any(k in row_str for k in ["balance", "bal", "baki"])
+            has_amt = any(k in row_str for k in ["amount", "rakkam", "total", "rs"])
+
+            ledger_score = 0
+            if has_date:
+                ledger_score += 2
+            if has_narration:
+                ledger_score += 3
+            if has_debit or has_credit:
+                ledger_score += 3
+            if has_bal:
+                ledger_score += 2
+            if has_amt:
+                ledger_score += 2
+
+            # Khata Ledgers can have itemized bills or cash book ledgers
+            if doc_type == DocumentType.KHATA_LEDGER:
+                return max(ledger_score, invoice_score)
+            return ledger_score
+
         # Do not mistake summary rows (like "sub total", "grand total") for table headers
         if "sub total" in row_str or "grand total" in row_str or "cgst" in row_str:
             return 0
 
-        score = 0
-        if has_index:
-            score += 2
-        if has_desc:
-            score += 3
-        if has_qty:
-            score += 3
-        if has_rate:
-            score += 3
-        if has_total:
-            score += 2
-        if has_hsn:
-            score += 1
-        return score
+        return invoice_score
 
     def _is_summary_trigger_row(self, row: list[dict[str, Any]], doc_type: DocumentType) -> bool:
         """Check if a row marks the start of the summary/totals section."""
@@ -272,10 +281,15 @@ class DocumentMacroZoner:
             return True
 
         if doc_type in [DocumentType.CASH_BOOK, DocumentType.KHATA_LEDGER]:
-            ledger_triggers = ["closing balance", "total:", "by balance", "balance c/f", "balance c/d"]
+            ledger_triggers = [
+                "closing balance", "closing", "total:", "by balance", "balance c/f", "balance c/d",
+                "baki", "jama", "paid", "subtotal", "sub-total", "sub total",
+            ]
             if any(trig in row_str for trig in ledger_triggers):
                 return True
             if re.search(r"^\s*total(?:\s*[:.]|\s*\(rs\)?|\s*rs\.?|\s*₹|\s+\d|\s*$)", row_str):
+                return True
+            if re.search(r"^\s*(?:baki|jama|closing|paid)\s*[\(:].*?(?:rs\.?|₹|[\d.]+)", row_str):
                 return True
 
         return False

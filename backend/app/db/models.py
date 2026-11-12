@@ -108,3 +108,23 @@ class GroundTruthRecord(Base):
     verified_at = Column(DateTime(timezone=True), default=utc_now, nullable=False)
 
     document = relationship("DocumentRecord", back_populates="ground_truth")
+
+
+class VendorTemplateRecord(Base):
+    """Cached spatial layout template for repeat vendors."""
+
+    __tablename__ = "vendor_templates"
+
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    vendor_key = Column(String(128), nullable=False, index=True)
+    vendor_name = Column(String(255), nullable=False)
+    gstin = Column(String(32), nullable=True, index=True)
+    phash = Column(String(32), nullable=False, index=True)
+    document_type = Column(String(32), nullable=False, default="INVOICE")
+    header_zone_json = Column(Text, nullable=True)
+    table_zone_json = Column(Text, nullable=False)
+    summary_zone_json = Column(Text, nullable=True)
+    sample_count = Column(Integer, nullable=False, default=1)
+    created_at = Column(DateTime(timezone=True), default=utc_now, nullable=False)
+    updated_at = Column(DateTime(timezone=True), default=utc_now, onupdate=utc_now, nullable=False)
+

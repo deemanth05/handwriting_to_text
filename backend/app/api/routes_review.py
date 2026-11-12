@@ -11,6 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app.db.models import DocumentRecord, GroundTruthRecord
 from backend.app.db.session import get_db
+from backend.app.services.templates import vendor_template_store
 
 router = APIRouter(prefix="/documents", tags=["HITL Review & Verification"])
 
@@ -81,10 +82,21 @@ async def verify_document(
     doc.status = "VERIFIED"
     await db.commit()
 
+    # Active Learning: Human confirmation updates vendor template memory cache
+    learned_template = await vendor_template_store.learn_from_verification(
+        session=db,
+        document_id=document_id,
+        verified_fields=payload.verified_fields,
+        verified_line_items=payload.verified_line_items,
+        verified_ledger_items=payload.verified_ledger_items,
+    )
+
     return {
         "document_id": document_id,
         "status": "VERIFIED",
         "verified_at": now.isoformat(),
         "verified_by": payload.verified_by,
-        "message": "Human verification recorded as ground truth.",
+        "template_updated": learned_template is not None,
+        "template_id": learned_template.id if learned_template else None,
+        "message": "Human verification recorded as ground truth and updated vendor template.",
     }

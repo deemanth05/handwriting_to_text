@@ -4,6 +4,8 @@ import {
   DocumentExtractionResponse,
   DocumentListItem,
   DocumentType,
+  VendorTemplateDetail,
+  VendorTemplateSummary,
 } from "../types/document";
 
 const API_BASE = "/api/v1";
@@ -187,4 +189,29 @@ export async function downloadDocumentExport(
   a.click();
   window.URL.revokeObjectURL(url);
   document.body.removeChild(a);
+}
+
+export async function listTemplates(): Promise<VendorTemplateSummary[]> {
+  const res = await fetch(`${API_BASE}/templates`);
+  if (!res.ok) {
+    throw new Error("Failed to list vendor templates");
+  }
+  return res.json();
+}
+
+export async function getTemplate(templateId: string): Promise<VendorTemplateDetail> {
+  const res = await fetch(`${API_BASE}/templates/${templateId}`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch template ${templateId}`);
+  }
+  return res.json();
+}
+
+export async function deleteTemplate(templateId: string): Promise<void> {
+  const res = await fetch(`${API_BASE}/templates/${templateId}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to delete template ${templateId}`);
+  }
 }
