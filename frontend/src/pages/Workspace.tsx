@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { AlertCircle, AlertTriangle, CheckCircle2, ExternalLink, Save, Sparkles } from "lucide-react";
+import { AlertCircle, AlertTriangle, CheckCircle2, Download, ExternalLink, FileCode, FileSpreadsheet, Save, Sparkles } from "lucide-react";
 import { DocumentExtractionResponse, DocumentType, LedgerTransactionItem, LineItem } from "../types/document";
 import { ImageCanvas } from "../components/ImageCanvas";
 import { FieldInspector } from "../components/FieldInspector";
 import { LineItemsTable } from "../components/LineItemsTable";
 import { LedgerTable } from "../components/LedgerTable";
 import { DemoGallery } from "../components/DemoGallery";
-import { extractDocument, verifyDocument, getDocumentImageUrl } from "../services/api";
+import { extractDocument, verifyDocument, getDocumentImageUrl, downloadDocumentExport } from "../services/api";
 
 interface WorkspaceProps {
   currentDoc: DocumentExtractionResponse | null;
@@ -170,6 +170,27 @@ export const Workspace: React.FC<WorkspaceProps> = ({
     }
   };
 
+  const [isExporting, setIsExporting] = useState<string | null>(null);
+
+  const handleExport = async (format: "tally" | "excel" | "gst") => {
+    if (!currentDoc) return;
+    try {
+      setIsExporting(format);
+      await downloadDocumentExport(currentDoc.document_id, format);
+      const label =
+        format === "tally"
+          ? "Tally Prime XML"
+          : format === "excel"
+          ? "Reconciled Excel (.xlsx)"
+          : "GST E-Invoice JSON";
+      showNotification("success", `Successfully exported ${label}.`);
+    } catch (e: any) {
+      showNotification("error", e.message || `Failed to export ${format}`);
+    } finally {
+      setIsExporting(null);
+    }
+  };
+
   return (
     <div className="flex flex-col space-y-4 p-6 max-w-[1700px] mx-auto w-full">
       {/* Toast Notification */}
@@ -299,15 +320,55 @@ export const Workspace: React.FC<WorkspaceProps> = ({
                   </div>
                 </div>
 
-                {/* Save Ground Truth Action */}
-                <button
-                  type="button"
-                  onClick={handleSaveGroundTruth}
-                  className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-dark-950 font-bold text-xs shadow-lg shadow-emerald-500/20 transition-all"
-                >
-                  <Save className="w-4 h-4" />
-                  <span>Verify & Save Ground Truth</span>
-                </button>
+                <div className="flex items-center space-x-2.5 flex-wrap gap-y-2">
+                  {/* 1-Click Accounting & Compliance Exports */}
+                  <div className="flex items-center rounded-xl bg-slate-900 border border-slate-700/80 p-0.5 shadow-sm">
+                    <button
+                      type="button"
+                      disabled={Boolean(isExporting)}
+                      onClick={() => handleExport("tally")}
+                      title="Export to Tally Prime XML (Balanced Double-Entry)"
+                      className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors disabled:opacity-50"
+                    >
+                      <Download className="w-3.5 h-3.5 text-amber-400" />
+                      <span>{isExporting === "tally" ? "Exporting..." : "Tally XML"}</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      disabled={Boolean(isExporting)}
+                      onClick={() => handleExport("excel")}
+                      title="Export to Multi-sheet Reconciled Excel (.xlsx) with Math Audit"
+                      className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors disabled:opacity-50 border-l border-slate-800"
+                    >
+                      <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>{isExporting === "excel" ? "Exporting..." : "Excel (.xlsx)"}</span>
+                    </button>
+
+                    {currentDoc.document_type === "INVOICE" && (
+                      <button
+                        type="button"
+                        disabled={Boolean(isExporting)}
+                        onClick={() => handleExport("gst")}
+                        title="Export to Indian GST E-Invoice (v1.1) JSON"
+                        className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors disabled:opacity-50 border-l border-slate-800"
+                      >
+                        <FileCode className="w-3.5 h-3.5 text-cyan-400" />
+                        <span>{isExporting === "gst" ? "Exporting..." : "GST JSON"}</span>
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Save Ground Truth Action */}
+                  <button
+                    type="button"
+                    onClick={handleSaveGroundTruth}
+                    className="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-dark-950 font-bold text-xs shadow-lg shadow-emerald-500/20 transition-all"
+                  >
+                    <Save className="w-4 h-4" />
+                    <span>Verify & Save Ground Truth</span>
+                  </button>
+                </div>
               </div>
 
               {/* Scalar Field Inspector */}

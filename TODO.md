@@ -54,15 +54,35 @@ This document tracks the core production limitations being addressed sequentiall
   - 100 / 100 pytest test suite passing.
   - Verified on real documents: `real_handwritten_invoice.jpg` (extracts exactly 7 true items, 0 summary items), `sample_petty_cash.webp` (12 ledger entries), `sample_invoice.png` (4 items).
 
+### Phase 4: Enterprise Accounting Interop & Multi-Format Exporters (Problem 3)
+- [x] **Tally Prime XML Exporter (`backend/app/services/exporters/tally_exporter.py`)**:
+  - Purchase vouchers (`<VOUCHER VCHTYPE="Purchase">`) with balanced double-entry accounting: Credit party ledger, Debit purchase ledger, Debit Input CGST/SGST/IGST, and Round-Off adjustments ($\sum \text{Debit} + \sum \text{Credit} = 0$).
+  - Inventory items allocation breakdown (`<ALLINVENTORYENTRIES.LIST>`) with rates, billed quantities, and accounting allocations.
+  - Payment and Receipt vouchers (`<VOUCHER VCHTYPE="Payment">`, `<VOUCHER VCHTYPE="Receipt">`) for Cash Books and Khatas.
+  - Robust date normalization to Tally canonical `YYYYMMDD` format and XML escaping.
+- [x] **Multi-Sheet Reconciled Excel Workbook (`backend/app/services/exporters/excel_exporter.py`)**:
+  - Powered by `openpyxl` with corporate visual hierarchy.
+  - Sheet 1 (*Audit Summary*): Document metadata, overall confidence, model participation, and deterministic arithmetic audit logs.
+  - Sheet 2 (*Itemized Register* / *Transactions Register*): Line items / ledger items with cell-level confidence coloring (green for high confidence, yellow/red for review flags).
+  - Sheet 3 (*GST E-Invoice Schedule*): Pre-formatted B2B table for direct import into GST filing utilities.
+- [x] **Indian GST E-Invoice v1.1 JSON Exporter (`backend/app/services/exporters/gst_json_exporter.py`)**:
+  - Standard schema adhering to NIC / GST Suvidha Provider (GSP) specifications (`Version`, `TranDtls`, `DocDtls`, `SellerDtls`, `BuyerDtls`, `ItemList`, `ValDtls`).
+  - Dynamic HSN code resolution and automated assessable value calculations.
+- [x] **FastAPI Export Endpoints (`backend/app/api/routes_export.py`)**:
+  - `GET /api/v1/documents/{document_id}/export/tally` -> `application/xml`
+  - `GET /api/v1/documents/{document_id}/export/excel` -> `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+  - `GET /api/v1/documents/{document_id}/export/gst` -> `application/json`
+  - Authoritative Ground Truth precedence: human verifications stored in `GroundTruthRecord` automatically override baseline AI extractions.
+- [x] **Split-Screen Studio Frontend 1-Click UI (`Workspace.tsx`, `api.ts`)**:
+  - Integrated 1-click export button group in the Review Studio toolbar next to "Verify & Save Ground Truth".
+  - Instant client-side download triggers with proper Content-Disposition filenames.
+- [x] **Test Coverage & Verification**:
+  - 109 / 109 pytest tests passing in 26s.
+  - Full test suite passing across all exporters, XML schemas, math invariants, and HTTP routes.
+
 ---
 
 ## 📋 Remaining Tasks (TODO)
-
-### [TODO] Problem 3: Enterprise Accounting Interop (Tally Prime XML & GST Export)
-- [ ] Build `backend/app/services/exporters/tally_exporter.py` generating Tally Prime XML import vouchers (`<VOUCHER VCHTYPE="Purchase">` and `<VOUCHER VCHTYPE="Payment">`).
-- [ ] Build multi-sheet Excel / CSV export with color-coded confidence cells and arithmetic audit logs.
-- [ ] Add Indian GST E-Invoice JSON schema compliance for CA workflows.
-- [ ] Expose 1-click export endpoints: `/api/v1/documents/{id}/export/tally` and `/api/v1/documents/{id}/export/excel`.
 
 ### [TODO] Problem 4: Multi-Page PDF & Stapled Document Batch Processor
 - [ ] Add PDF rasterization pipeline (`pypdfium2` / `pdf2image`) to process multi-page bills and monthly khatas.

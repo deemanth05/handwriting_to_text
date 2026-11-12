@@ -152,3 +152,36 @@ export async function getDocumentDiff(documentId: string): Promise<DocumentDiffR
   }
   return res.json();
 }
+
+export async function downloadDocumentExport(
+  documentId: string,
+  format: "tally" | "excel" | "gst"
+): Promise<void> {
+  const endpoint = `${API_BASE}/documents/${documentId}/export/${format}`;
+  const res = await fetch(endpoint);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: "Export failed" }));
+    throw new Error(err.detail || `Export failed with status ${res.status}`);
+  }
+
+  const disposition = res.headers.get("Content-Disposition");
+  let filename = `document_${documentId}.${
+    format === "tally" ? "xml" : format === "excel" ? "xlsx" : "json"
+  }`;
+  if (disposition && disposition.includes("filename=")) {
+    const match = disposition.match(/filename="?([^"]+)"?/);
+    if (match && match[1]) {
+      filename = match[1];
+    }
+  }
+
+  const blob = await res.blob();
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  window.URL.revokeObjectURL(url);
+  document.body.removeChild(a);
+}

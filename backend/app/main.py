@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from backend.app.api.routes_benchmark import router as benchmark_router
+from backend.app.api.routes_export import router as export_router
 from backend.app.api.routes_extract import router as extract_router
 from backend.app.api.routes_health import router as health_router
 from backend.app.api.routes_review import router as review_router
@@ -47,6 +48,7 @@ app.add_middleware(
 app.include_router(health_router, prefix="/api/v1")
 app.include_router(extract_router, prefix="/api/v1")
 app.include_router(review_router, prefix="/api/v1")
+app.include_router(export_router, prefix="/api/v1")
 app.include_router(benchmark_router, prefix="/api/v1")
 
 
