@@ -3,6 +3,7 @@
 from collections.abc import AsyncGenerator
 from pathlib import Path
 
+from sqlalchemy import text
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
     async_sessionmaker,
@@ -37,6 +38,11 @@ async def init_db() -> None:
     """Initialize database tables."""
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+        # Safe non-destructive column addition for page_count if table already exists
+        try:
+            await conn.execute(text("ALTER TABLE documents ADD COLUMN page_count INTEGER DEFAULT 1"))
+        except Exception:
+            pass  # Column already exists
 
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:

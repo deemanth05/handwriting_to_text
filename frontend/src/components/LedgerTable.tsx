@@ -5,9 +5,10 @@ import { LedgerTransactionItem } from "../types/document";
 interface LedgerTableProps {
   items: LedgerTransactionItem[];
   onItemsChange: (items: LedgerTransactionItem[]) => void;
+  onPageClick?: (page: number) => void;
 }
 
-export const LedgerTable: React.FC<LedgerTableProps> = ({ items, onItemsChange }) => {
+export const LedgerTable: React.FC<LedgerTableProps> = ({ items, onItemsChange, onPageClick }) => {
   const recomputeBalances = (rawItems: LedgerTransactionItem[]): LedgerTransactionItem[] => {
     if (rawItems.length === 0) return [];
     const updated = rawItems.map((item) => ({ ...item }));
@@ -167,7 +168,7 @@ export const LedgerTable: React.FC<LedgerTableProps> = ({ items, onItemsChange }
         <table className="w-full text-left text-xs border-collapse">
           <thead>
             <tr className="bg-slate-800/80 text-slate-400 border-b border-slate-700 font-medium">
-              <th className="py-2.5 px-3 w-10 text-center">#</th>
+              <th className="py-2.5 px-3 w-16 text-center">#</th>
               <th className="py-2.5 px-3 w-24">Date</th>
               <th className="py-2.5 px-3">Particulars / Details</th>
               <th className="py-2.5 px-3 w-28 text-right">Cash Out (Debit)</th>
@@ -194,8 +195,30 @@ export const LedgerTable: React.FC<LedgerTableProps> = ({ items, onItemsChange }
                     !isValid ? "bg-rose-950/20" : ""
                   }`}
                 >
-                  <td className="py-2 px-3 text-center text-slate-500 font-sans text-[11px]">
-                    {idx + 1}
+                  {/* Row Index & Page Pill */}
+                  <td className="py-2 px-2 text-center text-slate-500 font-sans text-[11px] whitespace-nowrap">
+                    <span className="inline-flex items-center justify-center space-x-1 font-mono">
+                      <span>{idx + 1}</span>
+                      {item.page_number && (
+                        onPageClick ? (
+                          <button
+                            type="button"
+                            onClick={() => onPageClick(item.page_number!)}
+                            title={`Jump to Page ${item.page_number} in viewer`}
+                            className="text-[9px] px-1 py-0.5 rounded bg-dark-950 hover:bg-emerald-500/20 text-emerald-400 hover:text-emerald-300 font-mono border border-slate-700/80 hover:border-emerald-500/50 leading-none cursor-pointer transition-all"
+                          >
+                            p.{item.page_number}
+                          </button>
+                        ) : (
+                          <span
+                            title={`Extracted from Page ${item.page_number}`}
+                            className="text-[9px] px-1 py-0.5 rounded bg-dark-950 text-emerald-400 font-mono border border-slate-700/80 leading-none"
+                          >
+                            p.{item.page_number}
+                          </span>
+                        )
+                      )}
+                    </span>
                   </td>
                   <td className="py-2 px-3">
                     <input

@@ -1,13 +1,23 @@
 import React, { useState, useRef, useEffect } from "react";
-import { ZoomIn, ZoomOut, RotateCw, Maximize2, RefreshCw, Eye, Sparkles } from "lucide-react";
+import { ZoomIn, ZoomOut, RotateCw, Maximize2, RefreshCw, Eye, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ImageCanvasProps {
   imageUrl: string | null;
   filename?: string;
   deskewAngle?: number;
+  pageCount?: number;
+  currentPage?: number;
+  onPageChange?: (page: number) => void;
 }
 
-export const ImageCanvas: React.FC<ImageCanvasProps> = ({ imageUrl, filename, deskewAngle = 0 }) => {
+export const ImageCanvas: React.FC<ImageCanvasProps> = ({
+  imageUrl,
+  filename,
+  deskewAngle = 0,
+  pageCount = 1,
+  currentPage = 1,
+  onPageChange,
+}) => {
   const [scale, setScale] = useState<number>(1);
   const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [rotation, setRotation] = useState<number>(0);
@@ -16,6 +26,37 @@ export const ImageCanvas: React.FC<ImageCanvasProps> = ({ imageUrl, filename, de
   const [highContrast, setHighContrast] = useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Keyboard navigation for multi-page documents (Left/Right arrow keys)
+  useEffect(() => {
+    if (!pageCount || pageCount <= 1 || !onPageChange) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Do not intercept if browser modifier keys are held (e.g. Alt+Left for back)
+      if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+
+      const tag = (document.activeElement?.tagName || "").toLowerCase();
+      if (
+        tag === "input" ||
+        tag === "textarea" ||
+        tag === "select" ||
+        (document.activeElement as HTMLElement)?.isContentEditable
+      ) {
+        return;
+      }
+
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        onPageChange(Math.max(1, currentPage - 1));
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        onPageChange(Math.min(pageCount, currentPage + 1));
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [pageCount, currentPage, onPageChange]);
 
   // Reset view when image changes
   useEffect(() => {
@@ -68,6 +109,35 @@ export const ImageCanvas: React.FC<ImageCanvasProps> = ({ imageUrl, filename, de
             </span>
           )}
         </div>
+
+        {/* Multi-Page Navigation Controls */}
+        {pageCount > 1 && (
+          <div className="flex items-center space-x-1 px-1.5 py-0.5 rounded-lg bg-dark-950 border border-slate-700/80 shadow-inner">
+            <button
+              type="button"
+              onClick={() => onPageChange && onPageChange(Math.max(1, currentPage - 1))}
+              disabled={currentPage <= 1}
+              title="Previous Page (Left Arrow)"
+              className="flex items-center space-x-0.5 px-1.5 py-0.5 rounded text-[11px] text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-800/60 transition-all font-medium"
+            >
+              <ChevronLeft className="w-3.5 h-3.5" />
+              <span>Prev</span>
+            </button>
+            <span className="font-mono text-[11px] text-emerald-400 font-semibold px-1.5 select-none whitespace-nowrap">
+              Page {currentPage} of {pageCount}
+            </span>
+            <button
+              type="button"
+              onClick={() => onPageChange && onPageChange(Math.min(pageCount, currentPage + 1))}
+              disabled={currentPage >= pageCount}
+              title="Next Page (Right Arrow)"
+              className="flex items-center space-x-0.5 px-1.5 py-0.5 rounded text-[11px] text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-800/60 transition-all font-medium"
+            >
+              <span>Next</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
 
         {/* Toolbar Controls */}
         <div className="flex items-center space-x-1.5">
@@ -154,7 +224,7 @@ export const ImageCanvas: React.FC<ImageCanvasProps> = ({ imageUrl, filename, de
 
       {/* Footer Info Pill */}
       <div className="absolute bottom-3 left-3 z-10 text-[11px] text-slate-400 bg-dark-950/80 border border-slate-800 px-3 py-1 rounded-full backdrop-blur">
-        Drag to Pan • Scroll to Zoom
+        Drag to Pan • Scroll to Zoom{pageCount > 1 ? " • ← / → Page Flip" : ""}
       </div>
     </div>
   );

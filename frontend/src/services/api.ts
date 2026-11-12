@@ -71,7 +71,10 @@ export async function verifyDocument(
   return res.json();
 }
 
-export function getDocumentImageUrl(documentId: string): string {
+export function getDocumentImageUrl(documentId: string, page: number = 1): string {
+  if (page > 1) {
+    return `${API_BASE}/documents/${documentId}/image?page=${page}`;
+  }
   return `${API_BASE}/documents/${documentId}/image`;
 }
 

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { UploadCloud, FileSpreadsheet, Stethoscope, BookOpen } from "lucide-react";
+import { UploadCloud, FileSpreadsheet, Stethoscope, BookOpen, Layers } from "lucide-react";
 import { DocumentType } from "../types/document";
 
 interface DemoGalleryProps {
   onUpload: (file: File, docType: DocumentType) => void;
-  onSelectSample: (sampleType: "invoice" | "khata" | "prescription" | "cash_book") => void;
+  onSelectSample: (sampleType: "invoice" | "khata" | "prescription" | "cash_book" | "multipage_invoice") => void;
   isLoading: boolean;
 }
 
@@ -40,7 +40,7 @@ export const DemoGallery: React.FC<DemoGalleryProps> = ({
           </span>
           <span className="text-[10px] text-emerald-400 font-mono">Instant Ensemble Extraction</span>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {/* Demo 1: Stamped Invoice */}
           <button
             type="button"
@@ -61,7 +61,30 @@ export const DemoGallery: React.FC<DemoGalleryProps> = ({
             </div>
           </button>
 
-          {/* Demo 2: Petty Cash Book */}
+          {/* Demo 2: Multi-Page Invoice (2-Page PDF) */}
+          <button
+            type="button"
+            disabled={isLoading}
+            onClick={() => onSelectSample("multipage_invoice")}
+            className="flex items-start space-x-3 p-3 rounded-xl glass-card border border-slate-800 hover:border-blue-500/50 hover:bg-slate-800/60 transition-all text-left group"
+          >
+            <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 group-hover:scale-110 transition-transform">
+              <Layers className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="text-xs font-semibold text-slate-200 group-hover:text-blue-300 flex items-center space-x-1.5">
+                <span>Multi-Page Bill</span>
+                <span className="text-[9px] px-1.5 py-0.2 bg-blue-500/20 text-blue-300 rounded font-mono font-bold">
+                  2-Page
+                </span>
+              </div>
+              <div className="text-[11px] text-slate-400">
+                Stitched C/F & B/F continuation
+              </div>
+            </div>
+          </button>
+
+          {/* Demo 3: Petty Cash Book */}
           <button
             type="button"
             disabled={isLoading}
@@ -76,12 +99,12 @@ export const DemoGallery: React.FC<DemoGalleryProps> = ({
                 Petty Cash Book
               </div>
               <div className="text-[11px] text-slate-400">
-                Feb 2025 • Sequential running balance
+                Feb 2025 • Sequential balance
               </div>
             </div>
           </button>
 
-          {/* Demo 3: Regional Khata */}
+          {/* Demo 4: Regional Khata */}
           <button
             type="button"
             disabled={isLoading}
@@ -93,15 +116,15 @@ export const DemoGallery: React.FC<DemoGalleryProps> = ({
             </div>
             <div>
               <div className="text-xs font-semibold text-slate-200 group-hover:text-amber-300">
-                Rameshwar Khata Ledger
+                Rameshwar Khata
               </div>
               <div className="text-[11px] text-slate-400">
-                Hindi / Devanagari (०-९) • Jama/Baki
+                Hindi / Devanagari • Jama/Baki
               </div>
             </div>
           </button>
 
-          {/* Demo 4: Prescription */}
+          {/* Demo 5: Prescription */}
           <button
             type="button"
             disabled={isLoading}
@@ -113,7 +136,7 @@ export const DemoGallery: React.FC<DemoGalleryProps> = ({
             </div>
             <div>
               <div className="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">
-                Handwritten Prescription
+                Prescription
               </div>
               <div className="text-[11px] text-slate-400">
                 Dr. Sharma • Rx dosage notes
@@ -145,7 +168,7 @@ export const DemoGallery: React.FC<DemoGalleryProps> = ({
             <div>
               <h4 className="text-xs font-semibold text-white">Upload New Document Scan</h4>
               <p className="text-[11px] text-slate-400">
-                Supports JPEG, PNG, WEBP up to 10MB (Auto CLAHE + Deskew)
+                Supports JPEG, PNG, WEBP, Multi-Page PDF & ZIP up to 10MB
               </p>
             </div>
           </div>
@@ -168,7 +191,7 @@ export const DemoGallery: React.FC<DemoGalleryProps> = ({
               <span>{isLoading ? "Processing..." : "Select File"}</span>
               <input
                 type="file"
-                accept="image/jpeg,image/png,image/webp"
+                accept="image/jpeg,image/png,image/webp,application/pdf,application/zip,.pdf,.zip"
                 className="hidden"
                 disabled={isLoading}
                 onChange={handleFileChange}

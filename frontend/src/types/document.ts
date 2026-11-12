@@ -11,6 +11,7 @@ export interface ExtractedField<T = any> {
 
 export interface LineItem {
   row_id: number;
+  page_number?: number;
   description: ExtractedField<string>;
   quantity: ExtractedField<number>;
   unit_price: ExtractedField<number>;
@@ -21,6 +22,7 @@ export interface LineItem {
 
 export interface LedgerTransactionItem {
   row_id: number;
+  page_number?: number;
   entry_date: ExtractedField<string>;
   particulars: ExtractedField<string>;
   voucher_no?: string | null;
@@ -40,6 +42,13 @@ export interface MathValidationResult {
 export interface DocumentExtractionResponse {
   document_id: string;
   document_type: DocumentType;
+  page_count?: number;
+  pages?: Array<{
+    page_number: number;
+    confidence: number;
+    items_count: number;
+    math_valid: boolean;
+  }>;
   overall_confidence: number;
   status: "PROCESSED" | "NEEDS_REVIEW" | "VERIFIED";
   math_validation: MathValidationResult;
@@ -57,6 +66,7 @@ export interface DocumentListItem {
   document_type: DocumentType;
   overall_confidence: number;
   math_valid: boolean;
+  page_count?: number;
   status: string;
   created_at: string | null;
 }

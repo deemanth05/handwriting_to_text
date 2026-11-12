@@ -42,6 +42,7 @@ class LineItem(BaseModel):
     """Standardized extracted line item row."""
 
     row_id: int
+    page_number: int = 1
     description: ExtractedField[str] = Field(default_factory=lambda: ExtractedField[str](value=""))
     quantity: ExtractedField[float] = Field(
         default_factory=lambda: ExtractedField[float](value=1.0)
@@ -60,6 +61,7 @@ class LedgerTransactionItem(BaseModel):
     """Standardized extracted cash book or khata ledger transaction entry."""
 
     row_id: int
+    page_number: int = 1
     entry_date: ExtractedField[str] = Field(default_factory=lambda: ExtractedField[str](value=""))
     particulars: ExtractedField[str] = Field(default_factory=lambda: ExtractedField[str](value=""))
     voucher_no: ExtractedField[str] | None = None
@@ -89,6 +91,8 @@ class DocumentExtractionResponse(BaseModel):
 
     document_id: str
     document_type: DocumentType
+    page_count: int = 1
+    pages: list[dict[str, Any]] = Field(default_factory=list)
     overall_confidence: float = Field(ge=0.0, le=1.0)
     status: str = Field(default="PROCESSED", description="PROCESSED | NEEDS_REVIEW | VERIFIED")
     math_validation: MathValidationResult = Field(default_factory=MathValidationResult)

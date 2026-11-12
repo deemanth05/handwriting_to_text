@@ -5,9 +5,10 @@ import { LineItem } from "../types/document";
 interface LineItemsTableProps {
   items: LineItem[];
   onItemsChange: (items: LineItem[]) => void;
+  onPageClick?: (page: number) => void;
 }
 
-export const LineItemsTable: React.FC<LineItemsTableProps> = ({ items, onItemsChange }) => {
+export const LineItemsTable: React.FC<LineItemsTableProps> = ({ items, onItemsChange, onPageClick }) => {
   const handleCellChange = (
     rowIndex: number,
     field: "description" | "quantity" | "unit_price" | "line_total",
@@ -127,7 +128,7 @@ export const LineItemsTable: React.FC<LineItemsTableProps> = ({ items, onItemsCh
         <table className="w-full text-left text-xs border-collapse">
           <thead>
             <tr className="bg-dark-850/90 border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider font-semibold">
-              <th className="py-2.5 px-3 w-12 text-center">#</th>
+              <th className="py-2.5 px-3 w-16 text-center">#</th>
               <th className="py-2.5 px-3 min-w-[200px]">Description</th>
               <th className="py-2.5 px-3 w-20 text-right">Qty</th>
               <th className="py-2.5 px-3 w-28 text-right">Rate</th>
@@ -150,9 +151,30 @@ export const LineItemsTable: React.FC<LineItemsTableProps> = ({ items, onItemsCh
                     !isMathValid ? "bg-rose-950/15" : ""
                   }`}
                 >
-                  {/* Row Index */}
-                  <td className="py-2.5 px-3 text-center text-slate-400 font-mono text-[11px]">
-                    {idx + 1}
+                  {/* Row Index & Page Pill */}
+                  <td className="py-2.5 px-2 text-center text-slate-400 font-mono text-[11px] whitespace-nowrap">
+                    <span className="inline-flex items-center justify-center space-x-1">
+                      <span>{idx + 1}</span>
+                      {row.page_number && (
+                        onPageClick ? (
+                          <button
+                            type="button"
+                            onClick={() => onPageClick(row.page_number!)}
+                            title={`Jump to Page ${row.page_number} in viewer`}
+                            className="text-[9px] px-1 py-0.5 rounded bg-dark-950 hover:bg-emerald-500/20 text-emerald-400 hover:text-emerald-300 font-mono border border-slate-700/80 hover:border-emerald-500/50 leading-none cursor-pointer transition-all"
+                          >
+                            p.{row.page_number}
+                          </button>
+                        ) : (
+                          <span
+                            title={`Extracted from Page ${row.page_number}`}
+                            className="text-[9px] px-1 py-0.5 rounded bg-dark-950 text-emerald-400 font-mono border border-slate-700/80 leading-none"
+                          >
+                            p.{row.page_number}
+                          </span>
+                        )
+                      )}
+                    </span>
                   </td>
 
                   {/* Description Input */}

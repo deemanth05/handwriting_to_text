@@ -39,6 +39,7 @@ class DocumentRecord(Base):
     document_type = Column(String(32), nullable=False, default="INVOICE")
     overall_confidence = Column(Float, nullable=False, default=0.0)
     math_valid = Column(Boolean, nullable=False, default=True)
+    page_count = Column(Integer, nullable=False, default=1)
     status = Column(
         String(32), nullable=False, default="PROCESSED"
     )  # PROCESSED, NEEDS_REVIEW, VERIFIED

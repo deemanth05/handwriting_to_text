@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AlertCircle, AlertTriangle, CheckCircle2, Download, ExternalLink, FileCode, FileSpreadsheet, Save, Sparkles } from "lucide-react";
 import { DocumentExtractionResponse, DocumentType, LedgerTransactionItem, LineItem } from "../types/document";
 import { ImageCanvas } from "../components/ImageCanvas";
@@ -28,6 +28,22 @@ export const Workspace: React.FC<WorkspaceProps> = ({
   onRefreshList,
 }) => {
   const [notification, setNotification] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  // Reset page to 1 whenever document changes
+  useEffect(() => {
+    setCurrentPage(1);
+    if (currentDoc) {
+      setImageUrl(getDocumentImageUrl(currentDoc.document_id, 1));
+    }
+  }, [currentDoc?.document_id]);
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    if (currentDoc) {
+      setImageUrl(getDocumentImageUrl(currentDoc.document_id, newPage));
+    }
+  };
 
   const showNotification = (type: "success" | "error", text: string) => {
     setNotification({ type, text });
@@ -39,7 +55,8 @@ export const Workspace: React.FC<WorkspaceProps> = ({
     try {
       const res = await extractDocument(file, docType);
       setCurrentDoc(res);
-      setImageUrl(getDocumentImageUrl(res.document_id));
+      setCurrentPage(1);
+      setImageUrl(getDocumentImageUrl(res.document_id, 1));
       if (res.models_participated && res.models_participated.length > 0) {
         showNotification("success", `Document extracted successfully (${res.models_participated.length} models)`);
       } else if (res.error_summary) {
@@ -53,14 +70,17 @@ export const Workspace: React.FC<WorkspaceProps> = ({
     }
   };
 
-  const handleSelectSample = async (sampleType: "invoice" | "khata" | "prescription" | "cash_book") => {
+  const handleSelectSample = async (
+    sampleType: "invoice" | "khata" | "prescription" | "cash_book" | "multipage_invoice"
+  ) => {
     setIsLoading(true);
     try {
-      const sampleNames: Record<string, { filename: string; type: DocumentType }> = {
-        invoice: { filename: "sample_invoice.png", type: "INVOICE" },
-        cash_book: { filename: "sample_petty_cash.webp", type: "CASH_BOOK" },
-        khata: { filename: "sample_khata.png", type: "KHATA_LEDGER" },
-        prescription: { filename: "sample_prescription.png", type: "PRESCRIPTION" },
+      const sampleNames: Record<string, { filename: string; type: DocumentType; mime: string }> = {
+        invoice: { filename: "sample_invoice.png", type: "INVOICE", mime: "image/png" },
+        cash_book: { filename: "sample_petty_cash.webp", type: "CASH_BOOK", mime: "image/webp" },
+        khata: { filename: "sample_khata.png", type: "KHATA_LEDGER", mime: "image/png" },
+        prescription: { filename: "sample_prescription.png", type: "PRESCRIPTION", mime: "image/png" },
+        multipage_invoice: { filename: "sample_multipage_invoice.pdf", type: "INVOICE", mime: "application/pdf" },
       };
 
       const selected = sampleNames[sampleType];
@@ -76,6 +96,24 @@ export const Workspace: React.FC<WorkspaceProps> = ({
       let fileBlob: Blob;
       if (sampleImgResp && sampleImgResp.ok) {
         fileBlob = await sampleImgResp.blob();
+      } else if (selected.mime === "application/pdf") {
+        const minimalPdf = `%PDF-1.4
+1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
+2 0 obj << /Type /Pages /Kids [3 0 R 4 0 R] /Count 2 >> endobj
+3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] >> endobj
+4 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] >> endobj
+xref
+0 5
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000192 00000 n 
+trailer << /Size 5 /Root 1 0 R >>
+startxref
+263
+%%EOF`;
+        fileBlob = new Blob([minimalPdf], { type: "application/pdf" });
       } else {
         // Fallback: draw 1-pixel or test canvas
         const canvas = document.createElement("canvas");
@@ -89,10 +127,10 @@ export const Workspace: React.FC<WorkspaceProps> = ({
           ctx.font = "16px sans-serif";
           ctx.fillText(`Sample ${selected.type}`, 40, 50);
         }
-        fileBlob = await new Promise((r) => canvas.toBlob((b) => r(b!), "image/png"));
+        fileBlob = await new Promise((r) => canvas.toBlob((b) => r(b!), selected.mime));
       }
 
-      const sampleFile = new File([fileBlob], selected.filename, { type: "image/png" });
+      const sampleFile = new File([fileBlob], selected.filename, { type: selected.mime });
       await handleUpload(sampleFile, selected.type);
     } catch (e: any) {
       showNotification("error", e.message || "Failed to load sample document");
@@ -290,7 +328,23 @@ export const Workspace: React.FC<WorkspaceProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-[680px]">
             {/* Left Column: Image Canvas Sidecar (5 cols) */}
             <div className="lg:col-span-5 h-[680px]">
-              <ImageCanvas imageUrl={imageUrl} filename={currentDoc.document_id} />
+              <ImageCanvas
+                imageUrl={
+                  currentDoc && (currentDoc.page_count ?? 1) > 1
+                    ? getDocumentImageUrl(currentDoc.document_id, currentPage)
+                    : imageUrl
+                }
+                filename={
+                  currentDoc
+                    ? (currentDoc.page_count ?? 1) > 1
+                      ? `${currentDoc.document_id} (Page ${currentPage}/${currentDoc.page_count})`
+                      : currentDoc.document_id
+                    : undefined
+                }
+                pageCount={currentDoc?.page_count || 1}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+              />
             </div>
 
             {/* Right Column: Fields & Line Items Studio (7 cols) */}
@@ -305,6 +359,11 @@ export const Workspace: React.FC<WorkspaceProps> = ({
                     <span className="text-[11px] font-mono text-slate-400">
                       ID: {currentDoc.document_id.slice(0, 8)}...
                     </span>
+                    {currentDoc.page_count && currentDoc.page_count > 1 && (
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-mono">
+                        {currentDoc.page_count} Pages
+                      </span>
+                    )}
                     {currentDoc.models_participated.some((m) => m === "rapidocr_local" || m === "surya_local") && (
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                         ✓ {currentDoc.models_participated.filter((m) => m === "rapidocr_local" || m === "surya_local").map((m) => m === "surya_local" ? "Surya OCR" : "RapidOCR").join(" + ")} (Local)
@@ -381,11 +440,13 @@ export const Workspace: React.FC<WorkspaceProps> = ({
                 <LedgerTable
                   items={currentDoc.ledger_items || []}
                   onItemsChange={handleLedgerItemsChange}
+                  onPageClick={handlePageChange}
                 />
               ) : (
                 <LineItemsTable
                   items={currentDoc.line_items || []}
                   onItemsChange={handleLineItemsChange}
+                  onPageClick={handlePageChange}
                 />
               )}
             </div>

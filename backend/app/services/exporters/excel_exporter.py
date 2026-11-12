@@ -180,7 +180,7 @@ class ExcelReconciliationExporter:
         ws2 = wb.create_sheet(title="Itemized Register")
         ws2.views.sheetView[0].showGridLines = True
 
-        headers = ["Row ID", "Item Description", "Quantity", "Unit Price (₹)", "Line Total (₹)", "Math Valid", "Confidence"]
+        headers = ["Row ID", "Item Description", "Quantity", "Unit Price (₹)", "Line Total (₹)", "Math Valid", "Confidence", "Page"]
         ws2.append(headers)
 
         for col_idx in range(1, len(headers) + 1):
@@ -211,6 +211,7 @@ class ExcelReconciliationExporter:
             tot = float(extract_val(it, "line_total", 0.0) or (qty * rate))
             math_ok = it.get("row_math_valid", True)
             conf = extract_conf(it, "description")
+            page_num = it.get("page_number", 1)
 
             row_cells = [
                 idx,
@@ -220,6 +221,7 @@ class ExcelReconciliationExporter:
                 round(tot, 2),
                 "VALID" if math_ok else "DISCREPANCY",
                 f"{conf * 100:.0f}%",
+                f"p.{page_num}",
             ]
             ws2.append(row_cells)
             r_idx = ws2.max_row
@@ -356,7 +358,7 @@ class ExcelReconciliationExporter:
         ws2 = wb.create_sheet(title="Transactions Register")
         ws2.views.sheetView[0].showGridLines = True
 
-        headers = ["Row ID", "Entry Date", "Particulars / Narration", "Voucher No", "Cash Out (Dr)", "Cash In (Cr)", "Running Balance", "Math Valid", "Confidence"]
+        headers = ["Row ID", "Entry Date", "Particulars / Narration", "Voucher No", "Cash Out (Dr)", "Cash In (Cr)", "Running Balance", "Math Valid", "Confidence", "Page"]
         ws2.append(headers)
 
         for col_idx in range(1, len(headers) + 1):
@@ -389,6 +391,7 @@ class ExcelReconciliationExporter:
             bal_val = float(extract_val(it, "running_balance", 0.0) or 0.0)
             math_ok = it.get("balance_math_valid", True)
             conf = extract_conf(it, "particulars")
+            page_num = it.get("page_number", 1)
 
             row_cells = [
                 idx,
@@ -400,6 +403,7 @@ class ExcelReconciliationExporter:
                 round(bal_val, 2),
                 "VALID" if math_ok else "DISCREPANCY",
                 f"{conf * 100:.0f}%",
+                f"p.{page_num}",
             ]
             ws2.append(row_cells)
             r_idx = ws2.max_row

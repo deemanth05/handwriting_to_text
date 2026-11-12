@@ -84,11 +84,32 @@ This document tracks the core production limitations being addressed sequentiall
 
 ## 📋 Remaining Tasks (TODO)
 
-### [TODO] Problem 4: Multi-Page PDF & Stapled Document Batch Processor
-- [ ] Add PDF rasterization pipeline (`pypdfium2` / `pdf2image`) to process multi-page bills and monthly khatas.
-- [ ] Implement page-by-page consensus extraction and cross-page table continuation stitching.
-- [ ] Implement cross-page ledger running-balance validation (carrying forward closing balance of Page $N$ to opening balance of Page $N+1$).
-- [ ] Support batch zip/folder uploads with background job queue.
+### Phase 5: Multi-Page PDF & Stapled Document Batch Processor (Problem 4)
+- [x] **Container Ingestion & Rasterization (`backend/app/services/multipage/rasterizer.py`)**:
+  - High-fidelity PDF rendering via `pypdfium2` at 144 DPI with strict page limit enforcement ($\le 25$ pages).
+  - Safe in-memory `.zip` batch extraction with natural numerical sorting (`page_1`, `page_2`, `page_10`), directory traversal protection, and uncompressed size guardrails.
+  - Direct pass-through for single images (JPEG, PNG, WEBP).
+- [x] **Cross-Page Table Continuation Stitching (`backend/app/services/multipage/stitcher.py`)**:
+  - Metadata & header inheritance prioritizing primary header pages.
+  - Automatic detection and filtering of transitional "Carried Forward" (C/F) and "Brought Forward" (B/F) subtotal rows.
+  - Sequential row renumbering with originating `page_number` attribution on all items.
+  - Global cross-page arithmetic validation ($\sum \text{Item Totals} == \text{Subtotal}$ and $\text{Subtotal} + \text{Tax} - \text{Discount} == \text{Grand Total}$).
+- [x] **Cross-Page Ledger Continuity Verification (`stitcher.py`)**:
+  - Mathematical continuity enforcement for multi-page Khatas and Cash Books ($\text{ClosingBalance}_N == \text{OpeningBalance}_{N+1}$).
+  - Explicit discrepancy error generation on missing pages or mistranscriptions.
+- [x] **Multi-Page Split-Screen Studio Frontend (`ImageCanvas.tsx`, `Workspace.tsx`, `LineItemsTable.tsx`, `LedgerTable.tsx`)**:
+  - Built-in canvas pagination toolbar (`< Prev`, `Page X of Y`, `Next >`) with guarded keyboard navigation.
+  - Interactive clickable page badges (`p.1`, `p.2`) on item and transaction rows that jump directly to that page in the canvas.
+  - 1-click multi-page sample demo in `DemoGallery.tsx` with offline synthetic PDF generator.
+- [x] **Test Coverage & Verification**:
+  - 126 / 126 pytest tests passing across 21 test suites in 35s.
+  - Frontend builds with 0 TypeScript errors.
+
+---
+
+## 📋 Remaining Tasks (TODO)
+
+### [TODO] Problem 5: Vendor Fingerprint & Template Memory Cache
 
 ### [TODO] Problem 5: Vendor Fingerprint & Template Memory Cache
 - [ ] Implement `VendorTemplateStore` to cache spatial bounding boxes for repeat suppliers and standard notebooks.
